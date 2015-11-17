@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'o_nas/O_Nas'
+
  root 'application#hello'
 
   # The priority is based upon order of creation: first created -> highest priority.
