@@ -4,8 +4,8 @@ class CreatePacjents < ActiveRecord::Migration
       t.string :imie
       t.string :nazwisko
       t.string :email
-      t.integer :telefon
-      t.integer :pesel
+      t.integer :telefon, :limit => 8
+      t.integer :pesel, :limit => 8
       t.text :notatki
 
       t.timestamps null: false
