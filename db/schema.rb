@@ -11,17 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151121213912) do
+ActiveRecord::Schema.define(version: 20151122132153) do
+
+  create_table "lekarzs", force: :cascade do |t|
+    t.string   "imie"
+    t.string   "nazwisko"
+    t.integer  "pesel"
+    t.integer  "telefon"
+    t.string   "email"
+    t.string   "specjalizacja"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
 
   create_table "pacjents", force: :cascade do |t|
     t.string   "imie"
     t.string   "nazwisko"
     t.string   "email"
-    t.integer  "telefon",    limit: 8
-    t.integer  "pesel",      limit: 8
+    t.integer  "telefon"
+    t.integer  "pesel"
     t.text     "notatki"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

@@ -3,15 +3,15 @@
 one:
   imie: MyString
   nazwisko: MyString
-  email: MyString
-  telefon: 1
   pesel: 1
-  notatki: MyText
+  telefon: 1
+  email: MyString
+  specjalizacja: MyString
 
 two:
   imie: MyString
   nazwisko: MyString
-  email: MyString
-  telefon: 1
   pesel: 1
-  notatki: MyText
+  telefon: 1
+  email: MyString
+  specjalizacja: MyString
