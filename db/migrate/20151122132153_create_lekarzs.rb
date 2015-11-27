@@ -3,8 +3,8 @@ class CreateLekarzs < ActiveRecord::Migration
     create_table :lekarzs do |t|
       t.string :imie
       t.string :nazwisko
-      t.integer :pesel
-      t.integer :telefon
+      t.integer :pesel, :limit => 8
+      t.integer :telefon, :limit => 8
       t.string :email
       t.string :specjalizacja
 

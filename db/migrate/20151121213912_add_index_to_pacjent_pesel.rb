@@ -1,5 +1,5 @@
 class AddIndexToPacjentPesel < ActiveRecord::Migration
   def change
-  	add_index :pacjent, :pesel, unique: true
+  	add_index :pacjents, :pesel, unique: true
   end
 end
