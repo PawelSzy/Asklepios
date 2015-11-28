@@ -27,4 +27,10 @@ class SpecjalizacjaTest < ActiveSupport::TestCase
     assert_not @specjalizacja.valid?
 end
 
+  test "specjalizacja powinnien byc unikalny" do
+    @duplicate_specjalizacja = @specjalizacja.dup
+    @specjalizacja.save
+    assert_not @duplicate_specjalizacja.valid?
+  end
+
 end

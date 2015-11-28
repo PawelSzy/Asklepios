@@ -1,3 +1,3 @@
 class Specjalizacja < ActiveRecord::Base
-	validates :nazwa_specjalizacji,  presence: true, length: { maximum: 255 }
+	validates :nazwa_specjalizacji,  presence: true, length: { maximum: 255 }, uniqueness: true
 end
