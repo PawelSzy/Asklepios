@@ -76,7 +76,7 @@ end
     end
   end  
 
-  test "haslo/password powinno byc obecne)" do
+  test "haslo/password powinno byc obecne" do
     @pacjent.password = @pacjent.password_confirmation = " " * 6
     assert_not @pacjent.valid?
   end

@@ -12,6 +12,8 @@ class LekarzTest < ActiveSupport::TestCase
       email: "foo@gmail.com",
       telefon: "485811122233", 
       pesel: "80070902011",
+      password: "foobar777",
+      password_confirmation: "foobar777"
     	)
   end
 
@@ -72,5 +74,16 @@ end
       assert_not @lekarz.valid?, "#{invalid_address.inspect} should be invalid"
     end
   end  
+
+
+  test "haslo/password powinno byc obecne)" do
+    @lekarz.password = @lekarz.password_confirmation = " " * 6
+    assert_not @lekarz.valid?
+  end
+
+  test "haslo/password powinno miec minimalna dlugosc" do
+    @lekarz.password = @lekarz.password_confirmation = "a" * 5
+    assert_not @lekarz.valid?
+  end
 
 end
