@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151122163637) do
+ActiveRecord::Schema.define(version: 20151128120330) do
 
   create_table "lekarzs", force: :cascade do |t|
     t.string   "imie"
@@ -36,5 +36,11 @@ ActiveRecord::Schema.define(version: 20151122163637) do
   end
 
   add_index "pacjents", ["pesel"], name: "index_pacjents_on_pesel", unique: true
+
+  create_table "specjalizacjas", force: :cascade do |t|
+    t.string   "nazwa_specjalizacji"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
 
 end
