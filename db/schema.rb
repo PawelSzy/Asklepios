@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151128130207) do
+ActiveRecord::Schema.define(version: 20151128194417) do
 
   create_table "lekarzs", force: :cascade do |t|
     t.string   "imie"
@@ -28,11 +28,12 @@ ActiveRecord::Schema.define(version: 20151128130207) do
     t.string   "imie"
     t.string   "nazwisko"
     t.string   "email"
-    t.integer  "telefon",    limit: 8
-    t.integer  "pesel",      limit: 8
+    t.integer  "telefon",         limit: 8
+    t.integer  "pesel",           limit: 8
     t.text     "notatki"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.string   "password_digest"
   end
 
   add_index "pacjents", ["pesel"], name: "index_pacjents_on_pesel", unique: true

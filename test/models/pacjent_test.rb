@@ -12,7 +12,9 @@ class PacjentTest < ActiveSupport::TestCase
       email: "foo@gmail.com",
       telefon: "485811122233", 
       pesel: "80070902011",
-      notatki: "tekst notatki"
+      notatki: "tekst notatki",
+      password: "foobar777",
+      password_confirmation: "foobar777"
     	)
   end
 
@@ -74,6 +76,14 @@ end
     end
   end  
 
+  test "haslo/password powinno byc obecne)" do
+    @pacjent.password = @pacjent.password_confirmation = " " * 6
+    assert_not @pacjent.valid?
+  end
 
+  test "haslo/password powinno miec minimalna dlugosc" do
+    @pacjent.password = @pacjent.password_confirmation = "a" * 5
+    assert_not @pacjent.valid?
+  end
 
 end
