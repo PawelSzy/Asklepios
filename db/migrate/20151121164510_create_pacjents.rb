@@ -3,9 +3,9 @@ class CreatePacjents < ActiveRecord::Migration
     create_table :pacjents do |t|
       t.string :imie
       t.string :nazwisko
-      t.string :email
+      t.string :email, :unique => true
       t.integer :telefon, :limit => 8
-      t.integer :pesel, :limit => 8
+      t.integer :pesel, :limit => 8, :unique => true
       t.text :notatki
 
       t.timestamps null: false

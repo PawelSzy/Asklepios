@@ -1,0 +1,2 @@
+class LekarzController < ApplicationController
+end

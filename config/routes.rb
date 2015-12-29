@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   #get 'o_nas/O_Nas'
   get '/o_nas' => 'o_nas#O_Nas'
+  resources :pacjent
 
  root 'strony#home'
 

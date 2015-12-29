@@ -1,0 +1,27 @@
+<% provide(:title, @pacjent.imie) %>
+
+<div class="container">
+<h1>
+<%= @pacjent.imie %>, <%= @pacjent.nazwisko %>
+</h1>
+
+<h3>Email: <%= @pacjent.email %></h3>
+
+
+<h3>
+	PESEL: <%= @pacjent.pesel %>
+</h3>
+
+<h3>
+	telefon: <%= @pacjent.telefon %>
+</h3>
+
+
+<div class="jumbotron">
+	<h3>Notatki:</h3>
+	<p>
+	<%= @pacjent.notatki %>
+	</p>
+</div>
+
+</div>
