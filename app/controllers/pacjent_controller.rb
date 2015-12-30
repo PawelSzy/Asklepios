@@ -4,5 +4,6 @@ class PacjentController < ApplicationController
 	end
 
 	def new
+		@pacjent = Pacjent.new
 	end
 end
