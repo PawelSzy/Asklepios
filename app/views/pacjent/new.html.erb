@@ -5,26 +5,26 @@
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
      <%= form_for(@pacjent) do |f| %>
-      <%= f.label :imie %>
-      <%= f.text_field :imie %>
+      <%= f.label :imie %><br>
+      <%= f.text_field :imie %><br>
 
-      <%= f.label :nazwisko %>
-      <%= f.text_field :nazwisko %>
+      <%= f.label :nazwisko %><br>
+      <%= f.text_field :nazwisko %><br>
 
-      <%= f.label :haslo %>
-      <%= f.password_field :password %>
+      <%= f.label :haslo %><br>
+      <%= f.password_field :password %><br>
 
-      <%= f.label :potwierdzenie_hasla, "Potwierdzenie" %>
-      <%= f.password_field :password_confirmation %>
+      <%= f.label :potwierdzenie_hasla, "Potwierdzenie" %><br>
+      <%= f.password_field :password_confirmation %><br>
 
-      <%= f.label :email %>
-      <%= f.email_field :email %>
+      <%= f.label :email %><br>
+      <%= f.email_field :email %><br>
 
-      <%= f.label :pesel %>
-      <%= f.text_field :pesel %>
+      <%= f.label :pesel %><br>
+      <%= f.text_field :pesel %><br>
 
-      <%= f.label :notatki %>
-      <%= f.text_field :notatki %>
+      <%= f.label :notatki %><br>
+      <%= f.text_area :notatki %><br>
 
 
       <%= f.submit "Zapisz dane", class: "btn btn-primary" %>
