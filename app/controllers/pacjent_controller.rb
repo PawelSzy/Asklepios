@@ -1,6 +1,6 @@
 class PacjentController < ApplicationController
 	def show
-		@pacjent = Pacjent.first
+		@pacjent = Pacjent.find(params[:id])
 	end
 
 	def new
