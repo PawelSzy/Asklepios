@@ -1,0 +1,23 @@
+<% provide(:title, @lekarz.imie) %>
+
+<div class="container">
+<h1>
+<%= @lekarz.imie %>, <%= @lekarz.nazwisko %>
+</h1>
+
+<h3>Email: <%= @lekarz.email %></h3>
+
+
+<h3>
+	PESEL: <%= @lekarz.pesel %>
+</h3>
+
+<h3>
+	telefon: <%= @lekarz.telefon %>
+</h3>
+
+<h3>
+	Specjalizacja: <%= @lekarz.specjalizacja %>
+</h3>
+
+</div>
