@@ -1,0 +1,2 @@
+module PacjentsHelper
+end
