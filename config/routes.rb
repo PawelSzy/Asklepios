@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   #get 'o_nas/O_Nas'
   get '/o_nas' => 'o_nas#O_Nas'
-  get '/zapisz_sie' => 'pacjent#new'
+  get '/zarejestruj_sie' => 'pacjent#new'
   resources :pacjents
   resources :lekarzs
   resources :pacjent

@@ -5,6 +5,7 @@
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
      <%= form_for(@pacjent) do |f| %>
+     <%= render 'shared/error_messages_pacjent' %>
       <%= f.label :imie %><br>
       <%= f.text_field :imie %><br>
 
