@@ -1,6 +1,6 @@
 class LekarzController < ApplicationController
 	def show
-		@lekarz = Lekarz.first
+		@lekarz = Lekarz.find(params[:id])
 	end
 
 	def new
