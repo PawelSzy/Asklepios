@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'specjalizacjas/new'
+
   get 'pokojs/new'
 
   #get 'o_nas/O_Nas'
@@ -9,6 +11,7 @@ Rails.application.routes.draw do
   resources :pacjents
   resources :lekarzs
   resources :pokojs
+  resources :specjalizacjas  
   # resources :pacjent
   # resources :lekarz
 
