@@ -16,7 +16,7 @@ class SpecjalizacjasController < ApplicationController
 	 def create
 	    @specjalizacja = Specjalizacja.new(specjalizacja_params)
 	    if @specjalizacja.save
-      		flash[:success] = "Dodano do bazy danych nowy pokój"
+      		flash[:success] = "Dodano do bazy danych nową specjalizacje"
       		redirect_to @specjalizacja
 	    else
 	      render 'new'
