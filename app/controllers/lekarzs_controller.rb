@@ -21,7 +21,7 @@ class LekarzsController < ApplicationController
 
     def lekarz_params
       params.require(:lekarz).permit(:imie, :nazwisko, :pesel, :email, :password,
-                                   :password_confirmation, :specjalizacja, :telefon, :notatki)
+                                   :password_confirmation, :specjalizacja, :telefon)
     end
 
 end

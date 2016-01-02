@@ -1,0 +1,37 @@
+<% provide(:title, 'Nowy Lekarz') %>
+<h1>Dodaj nowego Lekarza do bazy danych</h1>
+
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+     <%= form_for(@lekarz) do |f| %>
+ <%= render 'shared/error_messages_lekarz' %>
+      <%= f.label :imie %><br>
+      <%= f.text_field :imie, class: "form-control" %><br>
+
+      <%= f.label :nazwisko %><br>
+      <%= f.text_field :nazwisko, class: "form-control" %><br>
+
+      <%= f.label :haslo %><br>
+      <%= f.password_field :password, class: "form-control" %><br>
+
+      <%= f.label :potwierdzenie_hasla, "Potwierdzenie" %><br>
+      <%= f.password_field :password_confirmation, class: "form-control" %><br>
+
+      <%= f.label :pesel %><br>
+      <%= f.text_field :pesel, class: "form-control" %><br>
+
+      <%= f.label :email %><br>
+      <%= f.email_field :email, class: "form-control" %><br>
+
+      <%= f.label :telefon %><br>
+      <%= f.text_field :telefon, class: "form-control" %><br>
+
+      <%= f.label :specjalizacja %><br>
+      <%= f.text_area :specjalizacja, class: "form-control" %><br>
+
+
+      <%= f.submit "Zapisz dane", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
