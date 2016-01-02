@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'pokojs/new'
+
   #get 'o_nas/O_Nas'
   get '/o_nas' => 'o_nas#O_Nas'
   get '/zarejestruj_sie' => 'pacjents#new'
