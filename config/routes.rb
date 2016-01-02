@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get '/nowy_lekarz' => 'lekarzs#new'
   resources :pacjents
   resources :lekarzs
+  resources :pokojs
   resources :pacjent
   resources :lekarz
 
