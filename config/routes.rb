@@ -7,7 +7,8 @@ Rails.application.routes.draw do
   get '/o_nas' => 'o_nas#O_Nas'
   get '/zarejestruj_sie' => 'pacjents#new'
   get '/nowy_lekarz' => 'lekarzs#new'
-  get '/nowy_pokoj' => 'pokojs#new'  
+  get '/nowy_pokoj' => 'pokojs#new'
+  get '/nowa_specjalizacja' => 'specjalizacjas#new'  
   resources :pacjents
   resources :lekarzs
   resources :pokojs

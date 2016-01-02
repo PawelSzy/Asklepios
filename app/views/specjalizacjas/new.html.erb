@@ -1,2 +1,16 @@
-<h1>Specjalizacjas#new</h1>
-<p>Find me in app/views/specjalizacjas/new.html.erb</p>
+<% provide(:title, 'Utwórz nową specjalizacje') %>
+<h1>Dodaj nową specjalizacje</h1>
+
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+     <%= form_for(@specjalizacja) do |f| %>
+	 <%= render 'shared/error_messages_specjalizacja' %>
+      <%= f.label :nazwa_specjalizacji  %><br>
+      <%= f.text_field :nazwa_specjalizacji, class: "form-control" %><br>
+
+
+      <%= f.submit "Zapisz dane", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

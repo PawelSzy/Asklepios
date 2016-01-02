@@ -25,6 +25,6 @@ class SpecjalizacjasController < ApplicationController
 
 
     def specjalizacja_params
-      params.require(:specjalizacja).permit(:numer_specjalizacjau)
+      params.require(:specjalizacja).permit(:nazwa_specjalizacji)
     end
 end
