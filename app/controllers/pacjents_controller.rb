@@ -8,7 +8,7 @@ class PacjentsController < ApplicationController
 	end
 
 	 def create
-	    @pacjent = Pacjent.new(pacjent_params)    # Not the final implementation!
+	    @pacjent = Pacjent.new(pacjent_params)
 	    if @pacjent.save
       		flash[:success] = "Utworzono nowego Pacjenta"
       		redirect_to @pacjent

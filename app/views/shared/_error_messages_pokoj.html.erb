@@ -1,0 +1,12 @@
+<% if @pokoj.errors.any? %>
+  <div id="bledy">
+    <div class="alert alert-danger">
+      Formularz zawiera <%= @pokoj.errors.count %> "bledow".
+    </div>
+    <ul>
+    <% @pokoj.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>

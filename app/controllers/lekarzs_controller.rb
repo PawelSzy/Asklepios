@@ -9,7 +9,7 @@ class LekarzsController < ApplicationController
 	end
 
 	 def create
-	    @lekarz = Lekarz.new(lekarz_params)    # Not the final implementation!
+	    @lekarz = Lekarz.new(lekarz_params)
 	    if @lekarz.save
       		flash[:success] = "Dodano do bazy danych nowego Lekarza"
       		redirect_to @lekarz
