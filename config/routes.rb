@@ -17,12 +17,21 @@ Rails.application.routes.draw do
   get '/nowy_lekarz' => 'lekarzs#new'
   get '/nowy_pokoj' => 'pokojs#new'
   get '/nowa_specjalizacja' => 'specjalizacjas#new'  
+
   resources :pacjents
   resources :lekarzs
   resources :pokojs
   resources :specjalizacjas  
   # resources :pacjent
   # resources :lekarz
+
+  get    'zaloguj'   => 'pacjent_sessions#new'
+  post   'zaloguj'   => 'pacjent_sessions#create'
+  delete 'wyloguj'  => 'pacjent_sessions#destroy'
+
+  get    'zaloguj_lekarz'   => 'lekarz_sessions#new'
+  post   'zaloguj_lekarz'   => 'lekarz_sessions#create'
+  delete 'wyloguj_lekarz'  => 'lekarz_sessions#destroy'
 
  root 'strony#home'
 
