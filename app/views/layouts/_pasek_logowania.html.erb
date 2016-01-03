@@ -1,5 +1,9 @@
 	<ul class="list-inline">
-		<%= link_to 'Zarejestruj sie', '/zarejestruj_sie' %>
-		<%= link_to 'Zaloguj sie jako Pacjent', '/zaloguj' %>
-		<%= link_to 'Zaloguj sie jako Lekarz', '/zaloguj_lekarz' %>				
+		<% if zalogowany_pacjent? %>
+			Witaj: <%= aktualny_pacjent.imie %> <%= link_to "Wyloguj się", wyloguj_path, method: "delete" %>
+		<% else %>
+			<%= link_to 'Zarejestruj sie', '/zarejestruj_sie' %>
+			<%= link_to 'Zaloguj sie jako Pacjent', '/zaloguj' %>
+			<%= link_to 'Zaloguj sie jako Lekarz', '/zaloguj_lekarz' %>				
+		<% end %>
 	</ul>
