@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  get 'lekarz_sessions/Controler'
+
+  get 'lekarz_sessions/new'
+
+  get 'pacjent_sessions/Controler'
+
+  get 'pacjent_sessions/new'
+
   get 'specjalizacjas/new'
 
   get 'pokojs/new'

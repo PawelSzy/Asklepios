@@ -1,0 +1,2 @@
+module PacjentSessionsHelper
+end
