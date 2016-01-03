@@ -1,0 +1,5 @@
+Eustachy:
+  imie: Robert
+  nazwisko: Adamski
+  pesel: 12345678902
+  password_digest: <%= Pacjent.digest('haslotest') %>

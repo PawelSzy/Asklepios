@@ -15,4 +15,9 @@ module PacjentSessionsHelper
     !aktualny_pacjent.nil?
   end
 
+    def wyloguj_pacjenta
+    session.delete(:pacjent_id)
+    @aktualny_pacjentaktualny_pacjent = nil
+  end
+
 end

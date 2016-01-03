@@ -20,5 +20,7 @@ class PacjentSessionsController < ApplicationController
 
 
   def destroy
+    wyloguj_pacjenta
+    redirect_to root_url
   end
 end
