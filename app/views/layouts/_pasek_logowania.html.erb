@@ -5,6 +5,7 @@
 			Witamy Pana Lekarza: <%= aktualny_lekarz.imie %> <%= link_to "Wyloguj się", wyloguj_lekarz_path, method: "delete" %>
 		<% else %>
 			<%= link_to 'Zarejestruj sie', '/zarejestruj_sie' %>
+			<%= link_to 'Zarejestruj sie jako lekarz', '/nowy_lekarz' %>
 			<%= link_to 'Zaloguj sie jako Pacjent', '/zaloguj' %>
 			<%= link_to 'Zaloguj sie jako Lekarz', '/zaloguj_lekarz' %>				
 		<% end %>

@@ -14,6 +14,7 @@ class NowyLekarzTest < ActionDispatch::IntegrationTest
     end
     assert_template 'lekarzs/new'
   end
+  
   test "wlasciwe tworzenie nowego lekarza" do
     get '/nowy_lekarz'
      assert_difference 'Lekarz.count', 1 do
