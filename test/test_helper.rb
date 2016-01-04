@@ -12,4 +12,8 @@ class ActiveSupport::TestCase
   def czy_zalogowany_pacjent?
     !session[:pacjent_id].nil?
   end
+
+def czy_zalogowany_lekarz?
+	!session[:lekarz_id].nil?
+  end
 end

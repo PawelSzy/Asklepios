@@ -14,20 +14,19 @@ class NowyLekarzTest < ActionDispatch::IntegrationTest
     end
     assert_template 'lekarzs/new'
   end
-  
+
   test "wlasciwe tworzenie nowego lekarza" do
     get '/nowy_lekarz'
      assert_difference 'Lekarz.count', 1 do
-      post_via_redirect lekarzs_path, lekarz: { imie:  "Imie Testowe",
-                                            nazwisko:  "Nazwisko Testowe",
-                                            email: "mail@nlasciwy.com",
-                                            pesel: 98765432101,
+      post_via_redirect lekarzs_path, lekarz: { imie:  "Imie",
+                                            nazwisko:  "Nazwisko",
+                                            email: "mail@wlasciwy.com",
+                                            specjalizacja: "Chirurg",
+                                            pesel: 98765432991,
                                             password:              "haslotest",
                                             password_confirmation: "haslotest" }
   end
     assert_template 'lekarzs/show'
-    # assert czy_zalogowany_lekarz?
-
-
+    assert czy_zalogowany_lekarz?
   end  
 end

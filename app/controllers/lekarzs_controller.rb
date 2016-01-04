@@ -12,6 +12,7 @@ class LekarzsController < ApplicationController
 	    @lekarz = Lekarz.new(lekarz_params)
 	    if @lekarz.save
       		flash[:success] = "Dodano do bazy danych nowego Lekarza"
+      		zaloguj_lekarz @lekarz
       		redirect_to @lekarz
 	    else
 	      render 'new'
