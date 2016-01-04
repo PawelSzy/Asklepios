@@ -13,5 +13,6 @@ class PacjentZapiszTest < ActionDispatch::IntegrationTest
                                             password_confirmation: "foo2" }
     end
     assert_template 'pacjents/new'
+    # assert czy_zalogowany_pacjent?
   end
 end

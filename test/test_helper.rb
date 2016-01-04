@@ -7,4 +7,9 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+
+  # Zwróc True jeżeli użytkownik jest zalogowany
+  def czy_zalogowany_pacjent?
+    !session[:pacjent_id].nil?
+  end
 end
