@@ -1,13 +1,11 @@
 class LekarzsController < ApplicationController
 	def show
 		@lekarz = Lekarz.find(params[:id])
-		@specjalizacje = Specjalizacja.all
 	end
 
 
 	def new
 		@lekarz = Lekarz.new
-	    @specjalizacje = Specjalizacja.all
 	end
 
 	 def create
@@ -25,7 +23,7 @@ class LekarzsController < ApplicationController
 
     def lekarz_params
       params.require(:lekarz).permit(:imie, :nazwisko, :pesel, :email, :password,
-                                   :password_confirmation, :specjalizacja, :telefon)
+                                   :password_confirmation, :specjalizacja, :specjalizacja_id,  :telefon)
     end
 
 end

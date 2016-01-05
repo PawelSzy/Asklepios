@@ -11,19 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160105114636) do
+ActiveRecord::Schema.define(version: 20160105222349) do
 
   create_table "lekarzs", force: :cascade do |t|
     t.string   "imie"
     t.string   "nazwisko"
-    t.integer  "pesel",           limit: 8
-    t.integer  "telefon",         limit: 8
+    t.integer  "telefon",          limit: 8
     t.string   "email"
-    t.string   "specjalizacja"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.integer  "pesel",            limit: 8
+    t.integer  "specjalizacja_id"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.string   "password_digest"
   end
+
+  add_index "lekarzs", ["pesel", "nazwisko"], name: "index_lekarzs_on_pesel_and_nazwisko"
+  add_index "lekarzs", ["specjalizacja_id"], name: "index_lekarzs_on_specjalizacja_id"
 
   create_table "pacjents", force: :cascade do |t|
     t.string   "imie"

@@ -3,15 +3,15 @@
 one:
   imie: MyString
   nazwisko: MyString
-  pesel: 1
   telefon: 1
   email: MyString
-  specjalizacja: MyString
+  pesel: 1
+  specjalizacja_id: 
 
 two:
   imie: MyString
   nazwisko: MyString
-  pesel: 1
   telefon: 1
   email: MyString
-  specjalizacja: MyString
+  pesel: 1
+  specjalizacja_id: 

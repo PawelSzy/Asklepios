@@ -13,8 +13,9 @@ class LekarzTest < ActiveSupport::TestCase
       telefon: "485811122233", 
       pesel: "80070902011",
       password: "foobar777",
-      password_confirmation: "foobar777"
-    	)
+      password_confirmation: "foobar777",
+      specjalizacja_id: 1
+      )
   end
 
   test "should be valid" do
@@ -86,4 +87,9 @@ end
     assert_not @lekarz.valid?
   end
 
+  test "specjalizacja_id powinno być obecne" do
+    @lekarz.specjalizacja_id = nil
+    assert_not @lekarz.valid?
+  end  
 end
+
