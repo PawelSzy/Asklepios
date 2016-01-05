@@ -29,7 +29,7 @@
 
       <%= f.label :Wybierz_specjalizacje %><br>
       <div class="dropdown">
-      <%= select( "specjalizacja_id", Specjalizacja.all.collect {|s| [ s.nazwa_specjalizacji, s.id ] }, class: "dropdown-menu" ) %>
+      <%= select("post", "specjalizacja_id", Specjalizacja.all.collect {|s| [ s.nazwa_specjalizacji, s.id ] }, class: "dropdown-menu" ) %>
       </div>
       <br>
 
