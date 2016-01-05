@@ -6,7 +6,8 @@ class CreateLekarzs < ActiveRecord::Migration
       t.integer :pesel, :limit => 8
       t.integer :telefon, :limit => 8
       t.string :email
-      t.string :specjalizacja
+      #t.string :specjalizacja
+      t.references :specjalizacja, index: true, foreign_key: true
 
       t.timestamps null: false
     end

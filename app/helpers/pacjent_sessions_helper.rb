@@ -20,9 +20,6 @@ module PacjentSessionsHelper
     @aktualny_pacjentaktualny_pacjent = nil
   end
 
-  # Zwróc True jeżeli użytkownik jest zalogowany
-  def czy_zalogowany_pacjent?
-    !session[:pacjent_id].nil?
-  end
+
 
 end

@@ -27,8 +27,12 @@
       <%= f.label :telefon %><br>
       <%= f.text_field :telefon, class: "form-control" %><br>
 
-      <%= f.label :specjalizacja %><br>
-      <%= f.text_area :specjalizacja, class: "form-control" %><br>
+      <%= f.label :Wybierz_specjalizacje: %><br>
+      <div class="dropdown">
+      <%= select("post", "specjalizacja", Specjalizacja.all.collect {|s| [ s.nazwa_specjalizacji, s.id ] }, class: "dropdown-menu" ) %>
+      </div>
+      <br>
+
 
 
       <%= f.submit "Zapisz dane", class: "btn btn-primary" %>
