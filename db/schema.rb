@@ -11,7 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160105222349) do
+ActiveRecord::Schema.define(version: 20160106184851) do
+
+  create_table "badanie_lekarskies", force: :cascade do |t|
+    t.integer  "pokoj_id"
+    t.integer  "lekarz_id"
+    t.integer  "pacjent_id"
+    t.integer  "specjalizacja_id"
+    t.date     "data"
+    t.integer  "godzina"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "badanie_lekarskies", ["lekarz_id"], name: "index_badanie_lekarskies_on_lekarz_id"
+  add_index "badanie_lekarskies", ["pacjent_id"], name: "index_badanie_lekarskies_on_pacjent_id"
+  add_index "badanie_lekarskies", ["pokoj_id"], name: "index_badanie_lekarskies_on_pokoj_id"
+  add_index "badanie_lekarskies", ["specjalizacja_id"], name: "index_badanie_lekarskies_on_specjalizacja_id"
 
   create_table "lekarzs", force: :cascade do |t|
     t.string   "imie"
