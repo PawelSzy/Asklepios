@@ -1,6 +1,8 @@
 class LekarzsController < ApplicationController
 	def show
 		@lekarz = Lekarz.find(params[:id])
+		specjalizacja_id = @lekarz.specjalizacja_id
+		@specjalizacja = Specjalizacja.find(specjalizacja_id)
 	end
 
 

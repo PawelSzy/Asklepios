@@ -5,3 +5,9 @@ one:
 
 two:
   nazwa_specjalizacji: MyString
+
+three:
+  nazwa_specjalizacji: Chirurg
+  id: 1
+
+

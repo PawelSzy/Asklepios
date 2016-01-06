@@ -21,7 +21,7 @@ class NowyLekarzTest < ActionDispatch::IntegrationTest
       post_via_redirect lekarzs_path, lekarz: { imie:  "Imie",
                                             nazwisko:  "Nazwisko",
                                             email: "mail@wlasciwy.com",
-                                            specjalizacja: "Chirurg",
+                                            specjalizacja_id: '1',
                                             pesel: 98765432991,
                                             password:              "haslotest",
                                             password_confirmation: "haslotest" }
