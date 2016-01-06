@@ -6,7 +6,7 @@ one:
   telefon: 1
   email: MyString
   pesel: 1
-  specjalizacja_id: 
+  specjalizacja_id: 1
 
 two:
   imie: MyString
@@ -14,4 +14,4 @@ two:
   telefon: 1
   email: MyString
   pesel: 1
-  specjalizacja_id: 
+  specjalizacja_id: 1
