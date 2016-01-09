@@ -21,7 +21,8 @@ Rails.application.routes.draw do
   resources :pacjents
   resources :lekarzs
   resources :pokojs
-  resources :specjalizacjas  
+  resources :specjalizacjas 
+  resources :badanie_lekarskies   
   # resources :pacjent
   # resources :lekarz
 

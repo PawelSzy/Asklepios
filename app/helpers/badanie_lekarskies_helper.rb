@@ -1,0 +1,2 @@
+module BadanieLekarskiesHelper
+end
