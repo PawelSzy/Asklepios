@@ -2,8 +2,24 @@
 
 <div class="container">
 <h1>
-<%= @badanie.specjalizacja_id %>, <%= @badanie.data %>
+	Wizyta lekarska
 </h1>
+
+<h3>
+	Nazwisko Lekarza: <%= @badanie.lekarz.imie %> <%= @badanie.lekarz.nazwisko %>  
+<h3>
+
+<h3>
+	Nazwisko Pacjenta: <%= @badanie.pacjent.imie %> <%= @badanie.pacjent.nazwisko %>  
+<h3>	
+
+<h3>
+	Specjalizacja: <%= @badanie.specjalizacja.nazwa_specjalizacji %>, 
+<h3>
+
+<h3>
+	Data Badania: <%= @badanie.data %>, godz: <%= @badanie.godzina %> 
+</h3>
 
 
 
