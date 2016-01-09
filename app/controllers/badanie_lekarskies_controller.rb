@@ -10,9 +10,11 @@ class BadanieLekarskiesController < ApplicationController
 
  def create
     @badanie = BadanieLekarskie.new(badanie_params)
-    # @badanie.date = nil
+    if zalogowany_lekarz?
+    	@badanie.lekarz_id = aktualny_lekarz.id
+    end
     @badanie.godzina = params[:godzina].to_i
-    @badanie.lekarz_id =1
+ 	@badanie.specjalizacja_id = aktualny_lekarz.specjalizacja_id
     @badanie.godzina = params[:badanie_lekarskie][:godzina].to_i
     year = params[:date][:year]
     month = params[:date][:month]
