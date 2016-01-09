@@ -12,4 +12,5 @@ class Lekarz < ActiveRecord::Base
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }  
   validates :specjalizacja_id, presence: true   
+  has_many :badanie_lekarskies, dependent: :destroy
 end

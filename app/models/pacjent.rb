@@ -10,6 +10,7 @@ class Pacjent < ActiveRecord::Base
                     uniqueness: true  
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }
+  has_many :badanie_lekarskies
 
 
   # Zwraca hash digest przeslanego stringa
