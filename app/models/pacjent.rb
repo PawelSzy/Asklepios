@@ -11,6 +11,7 @@ class Pacjent < ActiveRecord::Base
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }
 
+
   # Zwraca hash digest przeslanego stringa
   def Pacjent.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
