@@ -1,17 +1,12 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  imie: MyString
-  nazwisko: MyString
-  telefon: 1
-  email: MyString
-  pesel: 1
-  specjalizacja_id: 1
 
-two:
-  imie: MyString
-  nazwisko: MyString
+
+Religa:
+  imie: Zbyszek
+  nazwisko: Religa
   telefon: 1
-  email: MyString
-  pesel: 1
-  specjalizacja_id: 1
+  email: mail@wp.pl
+  pesel: 12345678902
+  specjalizacja_id: 1  
+  password_digest: <%= Lekarz.digest('haslotest') %>

@@ -17,13 +17,14 @@ class BadanieLekarskiesController < ApplicationController
     if zalogowany_lekarz?
     	@badanie.lekarz_id = aktualny_lekarz.id
     end
-    @badanie.godzina = params[:godzina].to_i
+    # @badanie.godzina = params[:godzina].to_i
  	@badanie.specjalizacja_id = aktualny_lekarz.specjalizacja_id
     @badanie.godzina = params[:badanie_lekarskie][:godzina].to_i
     year = params[:date][:year]
     month = params[:date][:month]
     day = params[:date][:day]  
-    @badanie.data =  Date.new(2016, 03, 25)
+    @badanie.data =  Date.new(year.to_i, month.to_i, day.to_i)
+
     if @badanie.save
   		flash[:success] = "Utworzono datę nowej wizyty"
   		redirect_to @badanie
