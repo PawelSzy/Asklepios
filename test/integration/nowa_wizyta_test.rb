@@ -32,8 +32,7 @@ class NowaWizytaTest < ActionDispatch::IntegrationTest
 	assert_template 'lekarzs/show'
 	get nowa_wizyta_path
 	assert_template 'badanie_lekarskies/new'
-	post badanie_lekarskies_path, date: { year:2016, month:06, day: 07}, badanie_lekarskie: { godzina: "4" }, badanie: {pokoj_id: 1}
-	post badanie_lekarskies_path, badanie_lekarskie: { pokoj_id: 1, godzina: "4" }
+	post badanie_lekarskies_path, date: { year:2016, month:06, day: 07}, badanie_lekarskie: { godzina: "4", pokoj_id: "1" }
 
 	follow_redirect!
 	assert_template 'badanie_lekarskies/show'

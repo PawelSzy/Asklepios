@@ -1,7 +1,7 @@
 class BadanieLekarskiesController < ApplicationController
 
   def show
-    @badanie = BadanieLekarskie.find(params[:id])
+    @badanie_lekarskie = BadanieLekarskie.find(params[:id])
   end
 
   def new
@@ -9,32 +9,31 @@ class BadanieLekarskiesController < ApplicationController
    		flash[:success] = "Zaloguj się"
   		redirect_to '/zaloguj_lekarz'
     end
-	@badanie = BadanieLekarskie.new
+	@badanie_lekarskie = BadanieLekarskie.new
   end
 
  def create
-    @badanie = BadanieLekarskie.new(badanie_params)
+    @badanie_lekarskie = BadanieLekarskie.new(badanie_params)
     if zalogowany_lekarz?
-    	@badanie.lekarz_id = aktualny_lekarz.id
+    	@badanie_lekarskie.lekarz_id = aktualny_lekarz.id
     end
-    # @badanie.godzina = params[:godzina].to_i
- 	@badanie.specjalizacja_id = aktualny_lekarz.specjalizacja_id
-    @badanie.godzina = params[:badanie_lekarskie][:godzina].to_i
+    # @badanie_lekarskie.godzina = params[:godzina].to_i
+ 	@badanie_lekarskie.specjalizacja_id = aktualny_lekarz.specjalizacja_id
+    @badanie_lekarskie.godzina = params[:badanie_lekarskie][:godzina].to_i
     year = params[:date][:year]
     month = params[:date][:month]
     day = params[:date][:day]  
-    @badanie.data =  Date.new(year.to_i, month.to_i, day.to_i)
-
-    if @badanie.save
+    @badanie_lekarskie.data =  Date.new(year.to_i, month.to_i, day.to_i)
+    if @badanie_lekarskie.save
   		flash[:success] = "Utworzono datę nowej wizyty"
-  		redirect_to @badanie
+  		redirect_to @badanie_lekarskie
     else
       render 'new'
     end
  end
 
 def badanie_params
-  params.require(:badanie).permit(:pokoj_id, :lekarz_id, :specjalizacja_id, :year, :month, :day, :godzina, :date)
+  params.require(:badanie_lekarskie).permit(:pokoj_id, :lekarz_id, :specjalizacja_id, :year, :month, :day, :godzina, :date)
 end
 
 end

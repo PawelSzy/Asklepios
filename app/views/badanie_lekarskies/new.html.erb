@@ -4,19 +4,20 @@
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-     <%= form_for(@badanie) do |f| %>
+     <%= form_for(@badanie_lekarskie) do |f| %>
  <%= render 'shared/error_messages_badanie' %>
  
 
       <%= f.label :Wybierz_Pokój %><br>
       <div class="dropdown">
-      <%= select("badanie", "pokoj_id", Pokoj.all.collect {|s| [ s.numer_pokoju, s.id ] }, class: "dropdown-menu" ) %>
+      <%= select("badanie_lekarskie", "pokoj_id", Pokoj.all.collect {|s| [ s.numer_pokoju, s.id ] }, class: "dropdown-menu" ) %>
       </div>      
       <br>
       <%= f.label :Wybierz_dzien_badania %><br>
       <%= select_year(Date.today, :start_year => Date.today.year) %>
       <%= select_month(Date.today) %>
       <%= select_day(Date.today) %>
+      <br>
       <%= f.label :Wybierz_godzine %><br>
       <div class="dropdown">
       <%= f.select :godzina, '1'..'24' %>

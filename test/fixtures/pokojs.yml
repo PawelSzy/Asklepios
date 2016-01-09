@@ -1,7 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  numer_pokoju: MyString
+  id: 1
+  numer_pokoju: 101
 
 two:
-  numer_pokoju: MyString
+  id: 2
+  numer_pokoju: 102

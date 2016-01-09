@@ -5,26 +5,26 @@
 	Wizyta lekarska
 </h1>
 
-<h3>	Nazwisko Lekarza: <%= @badanie.lekarz.imie %> <%= @badanie.lekarz.nazwisko %>  
+<h3>	Nazwisko Lekarza: <%= @badanie_lekarskie.lekarz.imie %> <%= @badanie_lekarskie.lekarz.nazwisko %>  
 <h3>
 
 <h3>
 	Nazwisko Pacjenta:
-<% if @badanie.pacjent.present? %>
-	 <%= @badanie.pacjent.imie %> <%= @badanie.pacjent.nazwisko %>  
+<% if @badanie_lekarskie.pacjent.present? %>
+	 <%= @badanie_lekarskie.pacjent.imie %> <%= @badanie_lekarskie.pacjent.nazwisko %>  
 <% end %>
 <h3>	
 
 <h3>
-	Specjalizacja: <%= @badanie.specjalizacja.nazwa_specjalizacji %>
+	Specjalizacja: <%= @badanie_lekarskie.specjalizacja.nazwa_specjalizacji %>
 <h3>
 
 <h3>
-	Data Badania: <%= @badanie.data %>, godz: <%= @badanie.godzina %>:00 
+	Data Badania: <%= @badanie_lekarskie.data %>, godz: <%= @badanie_lekarskie.godzina %>:00 
 </h3>
 
 <h3>
-	Numer pokoju: <%= @badanie.pokoj.numer_pokoju %> 
+	Numer pokoju: <%= @badanie_lekarskie.pokoj.numer_pokoju %> 
 </h3>
 
 

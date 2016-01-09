@@ -1,10 +1,10 @@
-<% if @badanie.errors.any? %>
+<% if @badanie_lekarskie.errors.any? %>
   <div id="bledy">
     <div class="alert alert-danger">
-      Formularz zawiera <%= @badanie.errors.count %> "bledow".
+      Formularz zawiera <%= @badanie_lekarskie.errors.count %> "bledow".
     </div>
     <ul>
-    <% @badanie.errors.full_messages.each do |msg| %>
+    <% @badanie_lekarskie.errors.full_messages.each do |msg| %>
       <li><%= msg %></li>
     <% end %>
     </ul>
