@@ -11,8 +11,8 @@ def setup
       lekarz_id: 1,
       specjalizacja_id: 1,
       data: "2016-06-12", 
-      godzina: 1,
-      pacjent_id: 1
+      pacjent_id: 1,
+      godzina: 4
     	)
   end
 

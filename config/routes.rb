@@ -16,7 +16,8 @@ Rails.application.routes.draw do
   get '/zarejestruj_sie' => 'pacjents#new'
   get '/nowy_lekarz' => 'lekarzs#new'
   get '/nowy_pokoj' => 'pokojs#new'
-  get '/nowa_specjalizacja' => 'specjalizacjas#new'  
+  get '/nowa_specjalizacja' => 'specjalizacjas#new'
+  get '/nowa_wizyta' => 'badanie_lekarskies#new'  
 
   resources :pacjents
   resources :lekarzs

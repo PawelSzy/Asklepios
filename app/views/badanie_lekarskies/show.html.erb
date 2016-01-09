@@ -1,16 +1,18 @@
-<% provide(:title, "Wizyta Lekarska") %>
+<% provide(:title, "Wizyta Lekarska,") %>
 
 <div class="container">
 <h1>
 	Wizyta lekarska
 </h1>
 
-<h3>
-	Nazwisko Lekarza: <%= @badanie.lekarz.imie %> <%= @badanie.lekarz.nazwisko %>  
+<h3>	Nazwisko Lekarza: <%= @badanie.lekarz.imie %> <%= @badanie.lekarz.nazwisko %>  
 <h3>
 
 <h3>
-	Nazwisko Pacjenta: <%= @badanie.pacjent.imie %> <%= @badanie.pacjent.nazwisko %>  
+	Nazwisko Pacjenta:
+<% if @badanie.pacjent.present? %>
+	 <%= @badanie.pacjent.imie %> <%= @badanie.pacjent.nazwisko %>  
+<% end %>
 <h3>	
 
 <h3>

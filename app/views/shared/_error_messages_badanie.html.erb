@@ -1,0 +1,12 @@
+<% if @badanie.errors.any? %>
+  <div id="bledy">
+    <div class="alert alert-danger">
+      Formularz zawiera <%= @badanie.errors.count %> "bledow".
+    </div>
+    <ul>
+    <% @badanie.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>

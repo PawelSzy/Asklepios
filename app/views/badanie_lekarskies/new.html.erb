@@ -1,0 +1,34 @@
+<% provide(:title, 'Nowy Wizyta Lekarska') %>
+<h1>Dodaj nową wizyte lekarską</h1>
+
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+     <%= form_for(@badanie) do |f| %>
+ <%= render 'shared/error_messages_badanie' %>
+ 
+      <%= f.label :Wybierz_specjalizacje %><br>
+      <div class="dropdown">
+      <%= select("badanie", "specjalizacja_id", Specjalizacja.all.collect {|s| [ s.nazwa_specjalizacji, s.id ] }, class: "dropdown-menu" ) %>
+      </div>
+      <%= f.label :Wybierz_Pokój %><br>
+      <div class="dropdown">
+      <%= select("badanie", "pokoj_id", Pokoj.all.collect {|s| [ s.numer_pokoju, s.id ] }, class: "dropdown-menu" ) %>
+      </div>      
+      <br>
+      <%= f.label :Wybierz_dzien_badania %><br>
+      <%= select_year(Date.today, :start_year => Date.today.year) %>
+      <%= select_month(Date.today) %>
+      <%= select_day(Date.today) %>
+      <%= f.label :Wybierz_godzine %><br>
+      <div class="dropdown">
+      <%= f.select :godzina, '1'..'24' %>
+      </div>
+      <br>
+
+
+
+      <%= f.submit "Utwórz nową wizytę", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
