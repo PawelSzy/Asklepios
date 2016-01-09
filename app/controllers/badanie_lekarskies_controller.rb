@@ -5,6 +5,10 @@ class BadanieLekarskiesController < ApplicationController
   end
 
   def new
+  	 if not zalogowany_lekarz?
+   		flash[:success] = "Zaloguj się"
+  		redirect_to '/zaloguj_lekarz'
+    end
 	@badanie = BadanieLekarskie.new
   end
 
