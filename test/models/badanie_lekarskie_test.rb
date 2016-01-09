@@ -20,6 +20,29 @@ def setup
     assert @badanie.valid?
   end
 
+ test "pokoj_id powinnien być obecny" do
+    @badanie.pokoj_id = nil
+    assert_not @badanie.valid?
+  end
 
+ test "lekarz_id powinnien być obecny" do
+    @badanie.lekarz_id = nil
+    assert_not @badanie.valid?
+  end
+
+  test "specjalizacja_id powinnien być obecny" do
+    @badanie.specjalizacja_id = nil
+    assert_not @badanie.valid?
+  end 
+
+ test "data powinnna być obecny" do
+    @badanie.data = nil
+    assert_not @badanie.valid?
+  end 
+
+ test "data powinnna być obecna" do
+    @badanie.godzina = nil
+    assert_not @badanie.valid?
+  end 
 
 end
