@@ -3,8 +3,14 @@
 <div class="container">
 <h1>
 	Zarejestruj wizyte u lekarza
+
 		<% @specjalizacje.each do |specjalizacja| %>
-			<div class="well"><%= specjalizacja.nazwa_specjalizacji %></div>
+			
+			<%= form_for(specjalizacja, remote: true) do |f| %>	
+				<div><%= hidden_field_tag :specjalizacja_id, specjalizacja.id %></div>
+				<%= f.submit specjalizacja.nazwa_specjalizacji, class: "  btn btn-default  btn-block " %>
+			<% end %>
+
 		<% end %>
 </h1>
 </div>
