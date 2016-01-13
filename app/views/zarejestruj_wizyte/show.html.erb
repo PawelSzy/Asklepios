@@ -6,9 +6,9 @@
 
 		<% @specjalizacje.each do |specjalizacja| %>
 			
-			<%= form_for(specjalizacja, remote: true) do |f| %>	
+			<%= form_for(specjalizacja, url: {action: "create"},  remote: true) do |f| %>	
 				<div><%= hidden_field_tag :specjalizacja_id, specjalizacja.id %></div>
-				<%= f.submit specjalizacja.nazwa_specjalizacji, class: "  btn btn-default  btn-block " %>
+				<%= f.submit specjalizacja.nazwa_specjalizacji, class: "  btn btn-default  btn-block ", action: "/zarejestruj_wizyte" %>
 			<% end %>
 
 		<% end %>
