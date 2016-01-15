@@ -5,7 +5,7 @@
 	Zarejestruj wizyte u lekarza
 
 
-	<%= form_tag( {:controller => "zarejestruj_wizyte", :action => "create", :method => "post"} , { :remote => true } ) do %>
+	<%= form_tag(controller: "zarejestruj_wizyte", action: "create", method: "post", remote: true ) do %>
   	<div><%= hidden_field_tag :specjalizacja_id, @specjalizacje[1].id %></div>
   		<%= submit_tag("Search", class: " btn btn-default  btn-block" ) %>
 	<% end %>

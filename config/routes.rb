@@ -20,13 +20,14 @@ Rails.application.routes.draw do
   get '/nowa_wizyta' => 'badanie_lekarskies#new'  
   get '/zarejestruj_wizyte' => 'zarejestruj_wizyte#show'
   post '/zarejestruj_wizyte' => 'zarejestruj_wizyte#create'
+  post '/zarejestruj_wizyte/create' => 'zarejestruj_wizyte#create'
 
   resources :pacjents
   resources :lekarzs
   resources :pokojs
   resources :specjalizacjas 
   resources :badanie_lekarskies 
-  resources :zarejestruj_wizyte  
+  # resources :zarejestruj_wizyte  
   # resources :pacjent
   # resources :lekarz
 

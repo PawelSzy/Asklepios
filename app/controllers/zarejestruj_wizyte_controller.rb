@@ -7,10 +7,15 @@ class ZarejestrujWizyteController < ApplicationController
 		# @specjalizacja = Specjalizacja.find(specjalizacja_id)
 	end
 
+	def new
+	end
+
 	def create
-		respond_to do |format|
-			format.html
+   		respond_to do |format|
+      		format.html
       		format.js
     	end		
 	end
+
+	
 end
