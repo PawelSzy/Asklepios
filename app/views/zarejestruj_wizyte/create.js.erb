@@ -1,1 +1,8 @@
 console.log("test");
+$("#test_pisanie").html("<ul>"
+	+'<% @specjalizacja.lekarzs.each do |lekarz| %>'
+	+"<li>"+"<%= lekarz.imie %>"+" "+ "<%= lekarz.nazwisko %>" +"</li>"+"</br>"
+	+'<% end %>'
+	+"</ul>"
+	);
+// $("#test_pisanie").html('<%= @lekarze %>');
