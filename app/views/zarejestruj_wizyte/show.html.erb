@@ -4,19 +4,13 @@
 <h1>
 	Zarejestruj wizyte u lekarza
 
-
+<% @specjalizacje.each do |specjalizacja| %>
 	<%= form_tag( {:controller => "zarejestruj_wizyte", :action => "create", :method => "post"} , { :remote => true } ) do %>
-  	<div><%= hidden_field_tag :specjalizacja_id, @specjalizacje[1].id %></div>
-  		<%= submit_tag("Search", class: " btn btn-default  btn-block" ) %>
+  	<div><%= hidden_field_tag :specjalizacja_id, specjalizacja.id %></div>
+  		<%= submit_tag(specjalizacja.nazwa_specjalizacji, class: " btn btn-default  btn-block" ) %>
 	<% end %>
+<% end %>
 
-		<% @specjalizacje.each do |specjalizacja| %>
-			
-			<%= form_for(specjalizacja, url: {action: "create"},  remote: true) do |f| %>	
-				<div><%= hidden_field_tag :specjalizacja_id, specjalizacja.id %></div>
-				<%= f.submit specjalizacja.nazwa_specjalizacji, class: "  btn btn-default  btn-block ", action: "/zarejestruj_wizyte" %>
-			<% end %>
 
-		<% end %>
 </h1>
 </div>
