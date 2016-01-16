@@ -1,10 +1,25 @@
 console.log("test");
-$("#"+"<%= @specjalizacja.nazwa_specjalizacji %>").css("background-color","red")
+
+// $("#"+"<%= @specjalizacja.nazwa_specjalizacji %>").after("<ul>"
+// 	+'<% @specjalizacja.lekarzs.each do |lekarz| %>'
+// 	+"<li>"+"<%= lekarz.imie %>"+" "+ "<%= lekarz.nazwisko %>" +"</li>"+"</br>"
+// 	+'<% end %>'
+// 	+"</ul>");
 console.log("<%= @specjalizacja.nazwa_specjalizacji %>")
-$("#test_pisanie").html("<ul>"
+
+//element ktory pokazuje lekarzy danej specjalizacji
+buttons_lekarzy ="<ul>"
 	+'<% @specjalizacja.lekarzs.each do |lekarz| %>'
-	+"<li>"+"<%= lekarz.imie %>"+" "+ "<%= lekarz.nazwisko %>" +"</li>"+"</br>"
+	+"<il>"
+    +'<%= submit_tag(lekarz.imie+' '+lekarz.nazwisko, class: " btn btn-primary  btn-block") %>'
+    +"</il>"
 	+'<% end %>'
 	+"</ul>"
-	);
+
+//Wyczysc html zawiarajace spis lekarzy
+$(".przycisk_lekarza").next().html("");
+
+//wyswietl lekarzy danej specjalizacji
+$("#"+"<%= @specjalizacja.nazwa_specjalizacji %>").next().html(buttons_lekarzy);	
+// $("#test_pisanie").html(buttons_lekarzy);
 // $("#test_pisanie").html('<%= @lekarze %>');

@@ -1,3 +1,571 @@
 // Place all the styles related to the ZarejestrujWizyte controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+/* This is the default Tooltipster theme (feel free to modify or duplicate and create multiple themes!): */
+.tooltipster-default {
+	border-radius: 5px; 
+	border: 2px solid #000;
+	background: #4c4c4c;
+	color: #fff;
+}
+
+/* Use this next selector to style things like font-size and line-height: */
+.tooltipster-default .tooltipster-content {
+	font-size: 13px;
+	line-height: 16px;
+	padding: 8px 10px;
+	overflow: hidden;
+}
+
+/* This next selector defines the color of the border on the outside of the arrow. This will automatically match the color and size of the border set on the main tooltip styles. Set display: none; if you would like a border around the tooltip but no border around the arrow */
+.tooltipster-default .tooltipster-arrow .tooltipster-arrow-border {
+	/* border-color: ... !important; */
+}
+
+
+/* If you're using the icon option, use this next selector to style them */
+.tooltipster-icon {
+	cursor: help;
+	margin-left: 4px;
+}
+
+/* This is the base styling required to make all Tooltipsters work */
+.tooltipster-base {
+	padding: 0;
+	font-size: 0;
+	line-height: 0;
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 9999999;
+	pointer-events: none;
+	width: auto;
+	overflow: visible;
+}
+.tooltipster-base .tooltipster-content {
+	overflow: hidden;
+}
+
+
+/* These next classes handle the styles for the little arrow attached to the tooltip. By default, the arrow will inherit the same colors and border as what is set on the main tooltip itself. */
+.tooltipster-arrow {
+	display: block;
+	text-align: center;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: -1;
+}
+.tooltipster-arrow span, .tooltipster-arrow-border {
+	display: block;
+	width: 0; 
+	height: 0;
+	position: absolute;
+}
+.tooltipster-arrow-top span, .tooltipster-arrow-top-right span, .tooltipster-arrow-top-left span {
+	border-left: 8px solid transparent !important;
+	border-right: 8px solid transparent !important;
+	border-top: 8px solid;
+	bottom: -7px;
+}
+.tooltipster-arrow-top .tooltipster-arrow-border, .tooltipster-arrow-top-right .tooltipster-arrow-border, .tooltipster-arrow-top-left .tooltipster-arrow-border {
+	border-left: 9px solid transparent !important;
+	border-right: 9px solid transparent !important;
+	border-top: 9px solid;
+	bottom: -7px;
+}
+
+.tooltipster-arrow-bottom span, .tooltipster-arrow-bottom-right span, .tooltipster-arrow-bottom-left span {
+	border-left: 8px solid transparent !important;
+	border-right: 8px solid transparent !important;
+	border-bottom: 8px solid;
+	top: -7px;
+}
+.tooltipster-arrow-bottom .tooltipster-arrow-border, .tooltipster-arrow-bottom-right .tooltipster-arrow-border, .tooltipster-arrow-bottom-left .tooltipster-arrow-border {
+	border-left: 9px solid transparent !important;
+	border-right: 9px solid transparent !important;
+	border-bottom: 9px solid;
+	top: -7px;
+}
+.tooltipster-arrow-top span, .tooltipster-arrow-top .tooltipster-arrow-border, .tooltipster-arrow-bottom span, .tooltipster-arrow-bottom .tooltipster-arrow-border {
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+}
+.tooltipster-arrow-top-left span, .tooltipster-arrow-bottom-left span {
+	left: 6px;
+}
+.tooltipster-arrow-top-left .tooltipster-arrow-border, .tooltipster-arrow-bottom-left .tooltipster-arrow-border {
+	left: 5px;
+}
+.tooltipster-arrow-top-right span,  .tooltipster-arrow-bottom-right span {
+	right: 6px;
+}
+.tooltipster-arrow-top-right .tooltipster-arrow-border, .tooltipster-arrow-bottom-right .tooltipster-arrow-border {
+	right: 5px;
+}
+.tooltipster-arrow-left span, .tooltipster-arrow-left .tooltipster-arrow-border {
+	border-top: 8px solid transparent !important;
+	border-bottom: 8px solid transparent !important; 
+	border-left: 8px solid;
+	top: 50%;
+	margin-top: -7px;
+	right: -7px;
+}
+.tooltipster-arrow-left .tooltipster-arrow-border {
+	border-top: 9px solid transparent !important;
+	border-bottom: 9px solid transparent !important; 
+	border-left: 9px solid;
+	margin-top: -8px;
+}
+.tooltipster-arrow-right span, .tooltipster-arrow-right .tooltipster-arrow-border {
+	border-top: 8px solid transparent !important;
+	border-bottom: 8px solid transparent !important; 
+	border-right: 8px solid;
+	top: 50%;
+	margin-top: -7px;
+	left: -7px;
+}
+.tooltipster-arrow-right .tooltipster-arrow-border {
+	border-top: 9px solid transparent !important;
+	border-bottom: 9px solid transparent !important; 
+	border-right: 9px solid;
+	margin-top: -8px;
+}
+
+
+/* Some CSS magic for the awesome animations - feel free to make your own custom animations and reference it in your Tooltipster settings! */
+
+.tooltipster-fade {
+	opacity: 0;
+	-webkit-transition-property: opacity;
+	-moz-transition-property: opacity;
+	-o-transition-property: opacity;
+	-ms-transition-property: opacity;
+	transition-property: opacity;
+}
+.tooltipster-fade-show {
+	opacity: 1;
+}
+
+.tooltipster-grow {
+	-webkit-transform: scale(0,0);
+	-moz-transform: scale(0,0);
+	-o-transform: scale(0,0);
+	-ms-transform: scale(0,0);
+	transform: scale(0,0);
+	-webkit-transition-property: -webkit-transform;
+	-moz-transition-property: -moz-transform;
+	-o-transition-property: -o-transform;
+	-ms-transition-property: -ms-transform;
+	transition-property: transform;
+	-webkit-backface-visibility: hidden;
+}
+.tooltipster-grow-show {
+	-webkit-transform: scale(1,1);
+	-moz-transform: scale(1,1);
+	-o-transform: scale(1,1);
+	-ms-transform: scale(1,1);
+	transform: scale(1,1);
+	-webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
+	-webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15); 
+	-moz-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15); 
+	-ms-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15); 
+	-o-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15); 
+	transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15);
+}
+
+.tooltipster-swing {
+	opacity: 0;
+	-webkit-transform: rotateZ(4deg);
+	-moz-transform: rotateZ(4deg);
+	-o-transform: rotateZ(4deg);
+	-ms-transform: rotateZ(4deg);
+	transform: rotateZ(4deg);
+	-webkit-transition-property: -webkit-transform, opacity;
+	-moz-transition-property: -moz-transform;
+	-o-transition-property: -o-transform;
+	-ms-transition-property: -ms-transform;
+	transition-property: transform;
+}
+.tooltipster-swing-show {
+	opacity: 1;
+	-webkit-transform: rotateZ(0deg);
+	-moz-transform: rotateZ(0deg);
+	-o-transform: rotateZ(0deg);
+	-ms-transform: rotateZ(0deg);
+	transform: rotateZ(0deg);
+	-webkit-transition-timing-function: cubic-bezier(0.230, 0.635, 0.495, 1);
+	-webkit-transition-timing-function: cubic-bezier(0.230, 0.635, 0.495, 2.4); 
+	-moz-transition-timing-function: cubic-bezier(0.230, 0.635, 0.495, 2.4); 
+	-ms-transition-timing-function: cubic-bezier(0.230, 0.635, 0.495, 2.4); 
+	-o-transition-timing-function: cubic-bezier(0.230, 0.635, 0.495, 2.4); 
+	transition-timing-function: cubic-bezier(0.230, 0.635, 0.495, 2.4);
+}
+
+.tooltipster-fall {
+	top: 0;
+	-webkit-transition-property: top;
+	-moz-transition-property: top;
+	-o-transition-property: top;
+	-ms-transition-property: top;
+	transition-property: top;
+	-webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
+	-webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15); 
+	-moz-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15); 
+	-ms-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15); 
+	-o-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15); 
+	transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15); 
+}
+.tooltipster-fall-show {
+}
+.tooltipster-fall.tooltipster-dying {
+	-webkit-transition-property: all;
+	-moz-transition-property: all;
+	-o-transition-property: all;
+	-ms-transition-property: all;
+	transition-property: all;
+	top: 0px !important;
+	opacity: 0;
+}
+
+.tooltipster-slide {
+	left: -40px;
+	-webkit-transition-property: left;
+	-moz-transition-property: left;
+	-o-transition-property: left;
+	-ms-transition-property: left;
+	transition-property: left;
+	-webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
+	-webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15); 
+	-moz-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15); 
+	-ms-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15); 
+	-o-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15); 
+	transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15);
+}
+.tooltipster-slide.tooltipster-slide-show {
+}
+.tooltipster-slide.tooltipster-dying {
+	-webkit-transition-property: all;
+	-moz-transition-property: all;
+	-o-transition-property: all;
+	-ms-transition-property: all;
+	transition-property: all;
+	left: 0px !important;
+	opacity: 0;
+}
+
+
+/* CSS transition for when contenting is changing in a tooltip that is still open. The only properties that will NOT transition are: width, height, top, and left */
+.tooltipster-content-changing {
+	opacity: 0.5;
+	-webkit-transform: scale(1.1, 1.1);
+	-moz-transform: scale(1.1, 1.1);
+	-o-transform: scale(1.1, 1.1);
+	-ms-transform: scale(1.1, 1.1);
+	transform: scale(1.1, 1.1);
+}
+
+
+.btn-primary,
+.pj-calendar-tooltip,
+.pj-calendar-day p { -webkit-transition: all 0.2s; -o-transition: all 0.2s; transition: all 0.2s; }
+
+.pj-calendar-tooltip-view { -webkit-transition: all 0.3s; -o-transition: all 0.3s; transition: all 0.3s; }
+
+.panel-footer,
+.pj-calendar-head,
+.pj-calendar-views,
+.pj-calendar-footer,
+.pj-calendar-actions,
+.tooltip-view-table li,
+.pj-calendar-tooltip ul li,
+.pj-calendar-booking-summary li,
+.pj-calendar-body { *zoom: 1; }
+
+.panel-footer:after,
+.pj-calendar-head:after,
+.pj-calendar-views:after,
+.pj-calendar-footer:after,
+.pj-calendar-actions:after,
+.tooltip-view-table li:after,
+.pj-calendar-tooltip ul li:after,
+.pj-calendar-booking-summary li:after,
+.pj-calendar-body:after { content: ''; clear: both; display: table; }
+
+.pj-calendar { border: 1px solid #ccc; position: relative; overflow: hidden;}
+
+.pj-calendar-day-header,
+.pj-calendar-day { width: 14.285714285714286%; float: left; text-align: center;}
+.pj-calendar-head p,
+.pj-calendar-day p { margin: 0; padding: 32% 0; font-size: 15px; }
+
+.pj-calendar-day { background: #f7f7f7; }
+.pj-calendar-day p:hover { background-color: #1b6aac; color: #fff; }
+.pj-calendar-day p { margin: 0 1px 1px 0; cursor: pointer; background: #fff; }
+
+.pj-calendar-body { padding-left: 1px; padding-top: 1px; position: relative;}
+
+.pj-calendar-head { background: #f8f8f8; border-bottom: 1px solid #ccc; border-top: 1px solid #ccc; }
+.pj-calendar-head p { font-weight: bold; padding: 10% 0;}
+
+.pj-calendar-day-selected p { background: #12965d; color: #fff; }
+.pj-calendar-day-selected p:hover { background: #128956;}
+
+.pj-calendar-day-today p { background: #ffdb99; color: #333; }
+.pj-calendar-day-today p:hover { background: #f1ce8d; color: #333;}
+
+.pj-calendar-day-disabled p:hover,
+.pj-calendar-day-disabled p { background: transparent; cursor: default;}
+
+.pj-calendar-day-past p:hover,
+.pj-calendar-day-past p { background: #dde4e6; cursor: not-allowed; color: #333;}
+
+.pj-calendar-day-inactive p:hover,
+.pj-calendar-day-inactive p { background: #d21e1d; cursor: not-allowed; color: #fff;}
+
+.pj-calendar-actions { position: relative; padding: 10px;}
+.pj-calendar-actions .btn { position: relative; z-index: 2; }
+
+.pj-calendar-ym { position: absolute; top: 9px; left: 0; width: 100%; z-index: 1; text-align: center; font-weight: bold; font-size: 21px;}
+.pj-calendar-d { font-size: 21px; font-weight: bold; text-align: center; }
+
+.pj-calendar-views { padding: 10px; background: #f8f8f8; border-bottom: 1px solid #ccc; }
+.pj-calendar-views .btn-primary { font-size: 15px;}
+
+.pj-calendar-head2 .pj-calendar-day-header,
+.pj-calendar-cell { width: 12.5%; float: left; text-align: center;}
+
+.pj-calendar-cell { padding: 10px 5px; min-height: 49px; background: #fff;}
+.pj-calendar-cell p { padding: 3px 0 0; font-size: 15px; margin: 0; }
+
+.pj-calendar-cell label {display: block; margin: 0; }
+.pj-calendar-cell .booked-btn { margin: 3px 0 -3px; display: inline-block; }
+
+.pj-calendar-cell:nth-child(2n+1) { background: #f7f7f7; }
+.pj-calendar-cell label.pjTsWeeklyIconSelected span{ background-position: 0 -24px;}
+
+.custom-checkbox { width: 24px; height: 24px; display: inline-block; position: relative; z-index: 1; top: 3px; background: url(http://demo.phpjabbers.com/1452977784_394/app/web/img/frontend/checkbox.png) no-repeat 0 0; cursor: pointer; }
+.custom-checkbox.selected { background-position: 0 center; }
+.custom-checkbox input[type="checkbox"]{ margin: 0; position: absolute; border: 0 none; display: block; height: 140%; left: -20%; padding: 0; top: -20%; width: 140%; z-index: 2; cursor: pointer; outline: none; opacity: 0; _noFocusLine: expression(this.hideFocus=true); -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)"; filter: alpha(opacity=0); -khtml-opacity: 0; -moz-opacity: 0; }
+
+.booked-btn,
+.delete-btn { width: 24px; height: 24px; display: inline-block; background: url(http://demo.phpjabbers.com/1452977784_394/app/web/img/frontend/checkbox.png) no-repeat 0 bottom; border: 0; cursor: pointer; top: -5px;}
+
+.delete-btn { vertical-align: top; }  
+
+.pj-calendar-tooltip {display: none; background: #fff; -webkit-box-shadow: 0 0 5px 0 rgba(0,0,0,0.5); box-shadow: 0 0 5px 0 rgba(0,0,0,0.5); overflow: auto;}
+.pj-calendar-tooltip ul { list-style: none; padding: 0; margin: 0;}
+.pj-calendar-tooltip li { color: #909090; }
+
+.pj-calendar-tooltip li + li { margin-top: 5px; } 
+.pj-calendar-tooltip li { white-space: nowrap; }
+.pj-calendar-tooltip li span,
+.pj-calendar-tooltip li strong { float: left; width: 32.55%; text-align: center;} 
+
+.pj-calendar-tooltip strong.tooltip-available { font-weight: normal; border: 1px solid #4ec645; }
+.pj-calendar-tooltip span.tooltip-available { color: #fff; background: #4ec645; border: 1px solid #4ec645;}
+
+.pj-calendar-tooltip strong.tooltip-booked { font-weight: normal; border: 1px solid #e64949; }
+.pj-calendar-tooltip span.tooltip-booked { color: #fff; background: #e64949; border: 1px solid #e64949;}
+
+.pj-calendar-tooltip strong.tooltip-past { font-weight: normal; border: 1px solid #ddd; }
+.pj-calendar-tooltip span.tooltip-past { color: #9c9c9c; background: #eee; border: 1px solid #ddd;}
+
+.pj-calendar-tooltip strong:last-child  { border-left: 0; } 
+
+.col-size-1,
+.col-size-2,
+.col-size-3,
+.col-size-4,
+.col-size-5 { float: left; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; padding: 0 5px;}
+
+.col-size-1 { width: 25%; }
+.col-size-2 { width: 30%; }
+.col-size-3 { width: 20%; }
+.col-size-4 { width: 100%; }
+.col-size-5 { width: 40%; }
+
+.pj-calendar-tooltip-view { background: #fff; z-index: 3; opacity: 0;}
+.pj-calendar-tooltip-view { top: 56px; bottom: 0; padding-bottom: 55px; opacity: 1;}
+.pj-calendar-tooltip-view .tooltip-view-table { padding: 0; margin: 0; list-style: none; text-align: left;}
+.pj-calendar-tooltip-view-head > .btn-primary { position: absolute; top: 13px; right: 10px; padding-top: 3px;}
+
+.pj-calendar-tooltip-view-head { border-bottom: 1px solid #ccc; padding: 10px; position: relative; }
+
+.pj-calendar-tooltip-view .pj-calendar-footer { position: absolute; bottom: 0; left: 0; width: 100%; }
+.pj-calendar-tooltip-view .pj-calendar-footer p:hover,
+.pj-calendar-tooltip-view .pj-calendar-footer p { padding: 0; background: transparent; color: #787878; position: absolute; top: 15px; left: 0; width: 100%; text-align: center; z-index: 1;}
+.pj-calendar-tooltip-view .pj-calendar-footer .btn { position: relative; z-index: 3; }
+.pj-calendar-tooltip-view .pj-calendar-footer p.pull-left{text-align: left; padding-left: 10px;}
+
+.tooltip-view-table li { padding: 5px 5px; line-height: 24px;}
+.tooltip-view-table li + li { border-top: 1px solid #ccc; }
+.pj-calendar-view-body .tooltip-view-table .booked-item:hover,
+.pj-calendar-view-body .tooltip-view-table .booked-item { background-color: #fbe0e0; border-color: #fca0af; color: #d72323;}
+.tooltip-view-table .booked-item span { color: #d72323; }
+
+.tooltip-view-table .selected-item { background-color: #e5ffdc; border-color: #4ec645; color: #4ec645;}
+.tooltip-view-table .selected-item span { color: #4ec645; }
+
+.pj-calendar-view-body .tooltip-view-table .past-item:hover,
+.pj-calendar-view-body .tooltip-view-table .past-item { background-color: #eee; border-color: #ddd; cursor: default;}
+.tooltip-view-table .past-item span { color: #9c9c9c; }
+
+.tooltip-view-table .delete-btn { margin-left: 5px; }
+.tooltip-view-table strong,
+.tooltip-view-table span { display: inline-block; vertical-align: top; }
+.tooltip-view-table span.remove-item { color: #4ec645; }
+.tooltip-view-table label { margin: 0 0 0 5px; display: inline-block; }
+.tooltip-view-table label .custom-checkbox { top: 0; }
+.tooltip-view-table strong { text-transform: uppercase; } 
+
+.tooltip-view-table .tooltip-available { color: #4ec645; }
+.tooltip-view-table .tooltip-booked { color: #e64949; }
+.tooltip-view-table .tooltip-past { color: 9c9c9c; }
+
+.tooltip-view-table .pjTsSelectorAddToCart label.pjTsIconAdd{width: 24px; height: 24px; display: inline-block; background: url(http://demo.phpjabbers.com/1452977784_394/app/web/img/frontend/checkbox.png) no-repeat 0 top; border: 0; cursor: pointer; top: -5px; }
+.tooltip-view-table .pjTsSelectorRemoveFromCart label.pjTsIconRemove{width: 24px; height: 24px; display: inline-block; background: url(http://demo.phpjabbers.com/1452977784_394/app/web/img/frontend/checkbox.png) no-repeat 0 -24px; border: 0; cursor: pointer; top: -5px; }
+
+.pj-calendar-view-body { width: 100%;}
+.pj-calendar-view-body .tooltip-view-table li:hover { cursor: pointer; background-color: #e5ffdc; border-color: #4ec645; color: #4ec645; }
+
+.pj-calendar-footer { padding: 10px; border-top: 1px solid #ccc; background: #f8f8f8;} 
+.pj-calendar-footer p { font-size: 15px; padding-top: 6px; color: #787878; margin-bottom: 0;  }
+
+#pjWrapperTSBCalendar_1 .panel-primary { border-radius: 0; border-color: #ccc; -webkit-box-shadow: 0 0 0 0 rgba(0,0,0,0); box-shadow: 0 0 0 0 rgba(0,0,0,0);}
+#pjWrapperTSBCalendar_1 .panel-primary .panel-body,
+#pjWrapperTSBCalendar_1 .panel-primary .panel-footer,
+#pjWrapperTSBCalendar_1 .panel-primary .panel-heading { padding: 10px; }
+#pjWrapperTSBCalendar_1 .tooltip-view-table li:first-child { background: #f8f8f8; color: #333; }
+#pjWrapperTSBCalendar_1 .panel-primary .panel-footer { background: #f8f8f8; border-radius: 0;}
+#pjWrapperTSBCalendar_1 .form-control-static{padding-top: 4px !important;}
+
+#pjWrapperTSBCalendar_1 .panel-body .tooltip-view-table { padding: 0; margin: 0; list-style: none; border: 1px solid #ccc; }
+
+#pjWrapperTSBCalendar_1 .panel-heading { text-transform: uppercase; font-weight: bold; border-radius: 0; background: #f8f8f8; border-color: #ccc; color: #333; font-size: 18px;}
+
+.tooltip-view-table + .pj-calendar-booking-summary { margin-top: 10px; }
+
+.pj-calendar-booking-summary { border: 1px solid #ccc; background: #f8f8f8; }
+.pj-calendar-booking-summary ul { list-style: none; padding: 0; margin: 0; }
+
+.pj-calendar-booking-summary li { padding: 10px; font-size: 16px;}
+.pj-calendar-booking-summary strong { float: right; }
+.pj-calendar-booking-summary span { float: left; color: #848484; text-transform: uppercase; }
+
+.pj-calendar-form { border: 1px solid #ccc; background: #f8f8f8; padding: 10px; }
+.pj-calendar-form .row + .row { padding-top: 10px; }
+.pj-calendar-form .control-label { display: block; padding-top: 5px; font-weight: normal;}
+.pj-calendar-form .control-label span { color: #fca0af;}
+.pj-calendar-form textarea.form-control { height: 90px; resize: none;}
+
+.modal-backdrop.fade {
+	opacity: 0 !important;
+	filter: alpha(opacity=0)  !important;
+}
+.modal-backdrop.fade.in {
+	opacity: 0.5  !important;
+	filter: alpha(opacity=50)  !important;
+}
+
+/* ==========================================================================
+	#Tooltip
+========================================================================== */
+
+
+.tooltipster-base { border: 0; border-radius: 0; }
+.tooltipster-default { background: #fff; -webkit-box-shadow: 0 0 5px 0 rgba(0,0,0,0.5); box-shadow: 0 0 5px 0 rgba(0,0,0,0.5); width: 300px!important; padding: 5px; }
+.tooltipster-default .tooltipster-content { padding: 0; }
+.tooltipster-default p { padding: 0; margin: 0; }
+.tooltipster-default p + p { padding-top: 7px; }
+.tooltipster-default .pj-calendar-tooltip  { display: block;}
+
+@media (max-width: 540px) {
+	.pj-calendar-tooltip-view { padding-bottom: 0; }
+
+	.pj-calendar-tooltip-view .pj-calendar-footer { position: relative; bottom: auto; left: auto; }
+	
+	.panel-footer .btn-primary,
+	.pj-calendar-footer .btn-primary,
+	.panel-footer .btn-primary { float: none!important; display: block; width: 100%; }
+	.panel-footer .btn-primary + .btn-primary { margin-top: 10px;}
+	
+	.pj-calendar-footer .pull-left,
+	.pj-calendar-footer .pull-right { float: none!important; margin-top: 10px; }
+	
+	.pj-calendar-footer p,
+	.pj-calendar-tooltip-view .pj-calendar-footer p:hover, 
+	.pj-calendar-tooltip-view .pj-calendar-footer p { position: relative; left: auto; top: auto; text-align: center!important; }
+	
+	.pj-calendar-footer p.pull-left { padding-left: 0!important; margin-top: 0; padding-top: 0; }
+}
+
+@media (max-width: 420px) {
+	.pj-calendar-head p,
+	.pj-calendar-day p { padding: 22% 0; }
+	
+	.pj-calendar-cell p,
+	.pj-calendar-head p { font-size: 14px; }
+
+	.pj-calendar-cell { padding-left: 0; padding-right: 0; }
+
+	.pj-calendar-tooltip { max-height: 40%; margin: 52% 0 0 -150px; }
+	.pj-calendar-tooltip ul { margin-bottom: 5px; }
+
+	.tooltip-view-table li:first-child strong { font-size: 10px; }
+
+	.pj-calendar-ym { font-size: 18px; position: relative; top: auto; left: auto; }
+	
+	.pj-calendar-actions { position: static; }
+	.pj-calendar-actions .btn-primary { position: absolute; top: 12px; left: 10px; }
+
+	.pj-calendar-actions .btn-primary.pull-right { left: 54px; }
+
+	.col-size-1 { width: 20%; }	
+	.col-size-3 { width: 30%; }
+
+	.col-size-1,
+	.col-size-2,
+	.col-size-3 { padding: 0; }
+
+	.tooltipster-base { display: none!important; }
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3VtXRa8TVwTICgirnJhmVJw.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Open Sans Semibold'), local('OpenSans-Semibold'), url(https://fonts.gstatic.com/s/opensans/v13/MTP_ySUJH_bn48VBG8sNSugdm0LZdjqr5-oayXSOefg.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Open Sans Bold'), local('OpenSans-Bold'), url(https://fonts.gstatic.com/s/opensans/v13/k3k702ZOKiLJc3WVjuplzOgdm0LZdjqr5-oayXSOefg.woff2) format('woff2');
+}
+
+.form-control,
+body #pjWrapperTSBCalendar_1 { font-family: "Open Sans", arial,sans-serif; }
+
+#pjWrapperTSBCalendar_1 .btn-primary { background-color: #378edb; border-color: #2e75b3; }
+
+#pjWrapperTSBCalendar_1 .btn-primary:active,
+#pjWrapperTSBCalendar_1 .btn-primary:focus,
+#pjWrapperTSBCalendar_1 .btn-primary:active:hover,
+#pjWrapperTSBCalendar_1 .btn-primary:active:focus,
+#pjWrapperTSBCalendar_1 .btn-primary:hover { background: #2e75b3; border-color: #266297; }
+
+.pj-calendar-booking-summary strong,
+#pjWrapperTSBCalendar_1 .panel-heading,
+.pj-calendar-d,
+.pj-calendar-head p,
+#pjWrapperTSBCalendar_1 .tsServiceLink,
+.pj-calendar-ym { color: #56ae34; }
