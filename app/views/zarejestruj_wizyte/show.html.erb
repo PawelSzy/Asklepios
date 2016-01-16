@@ -6,9 +6,9 @@
 
 <% @specjalizacje.each do |s| %>
 	<%= form_tag( {:controller => "zarejestruj_wizyte", :action => "create", :method => "post"} , { :remote => true } ) do %>
-  	<div><%= hidden_field_tag :specjalizacja_id, s.id %></div>
+  	<div><%= hidden_field_tag :specjalizacja_id,  s.id  %></div>
   	
-  		<%= submit_tag(s.nazwa_specjalizacji, class: " btn btn-default  btn-block" ) %>
+  		<%= submit_tag(s.nazwa_specjalizacji, class: " btn btn-default  btn-block", id: s.nazwa_specjalizacji ) %>
 	<% end %>
 <% end %>
 

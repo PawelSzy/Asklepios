@@ -1,4 +1,6 @@
 console.log("test");
+$("#"+"<%= @specjalizacja.nazwa_specjalizacji %>").css("background-color","red")
+console.log("<%= @specjalizacja.nazwa_specjalizacji %>")
 $("#test_pisanie").html("<ul>"
 	+'<% @specjalizacja.lekarzs.each do |lekarz| %>'
 	+"<li>"+"<%= lekarz.imie %>"+" "+ "<%= lekarz.nazwisko %>" +"</li>"+"</br>"
