@@ -1,4 +1,33 @@
-<div class="pj-calendar-cell">				--					</div>
-<div class="pj-calendar-cell"><span class="custom-checkbox"></span></div>
-<span class="custom-checkbox"></span>
-<div>test kalendarze</div>
+<% tydzien = Array["Pon.", "Wt.", "Środ.", "Czwart.", "Piąt", "Sob", "Niedz"] %>
+<% godziny = Array(7..17) %>
+
+<div class = "pj-calendar">
+	<div class="pj-calendar-views">
+					<div class="btn-group pull-right" role="group" aria-label="...">
+			</div>
+	</div>
+	<div class="pj-calendar-actions">
+		<a href="#" class="btn btn-primary btn-sm pull-left pjTsSelectorWeeklyNav" data-date="2016/01/09"><span class="glyphicon glyphicon-chevron-left"></span></a>
+
+		<div class="pj-calendar-ym" id="naglowek_kal_daty">16th January - 22nd January</div><!-- /.pj-calendar-ym -->
+
+		<a href="#" class="btn btn-primary btn-sm pull-right pjTsSelectorWeeklyNav" data-date="2016/01/23"><span class="glyphicon glyphicon-chevron-right"></span></a>
+	</div>
+	<!-- Wyswietl dni tygodnia -->
+	<div class="pj-calendar-head pj-calendar-head2">
+		<div class="pj-calendar-day-header"><p>&nbsp;</p></div><!-- /.pj-calendar-day-header -->
+		<% tydzien.each do |dzien| %>
+			<div class="pj-calendar-day-header"><p><%= dzien %></p></div>
+		<% end %>
+
+	<!-- Wyswietl godziny przyjec -->
+	<% godziny.each do |godzina| %>
+		<div class="pj-calendar-cell"><p> <%= godzina %></p></div>
+		<% tydzien.each do |dzien| %>
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000"><span class="custom-checkbox"></span></label>					
+			</div>	
+		<% end %>		
+
+	<% end %>
+</div>
