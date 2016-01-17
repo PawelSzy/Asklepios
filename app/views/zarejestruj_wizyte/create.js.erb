@@ -72,6 +72,7 @@ function jsDataIntoRuby(data) {
 //Obsluga kalendarza
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function kalendarz() {
+	this.miesiaceOdmiana = [ "stycznia", "lutego", "marca","kwietnia", "maja", "czerwica", "lipca", "sierpnia", "wrzesnia", "października", "listopada", "grudnia" ];
 }
 //funkcja odpowiada za pobranie danych ktore ustawiaja pierwszy dzien kalendarza
 function pierwszyDzienKalendarza() {
@@ -82,8 +83,6 @@ pierwszyDzienKalendarza.UstawDzien = function(nowaData) {
 	$("#pierwszyDzienKalendarza").text( nowaData );
 }
 
-
-kalendarz.prototype.miesiaceOdmiana = [ "stycznia", "lutego", "marca","kwietnia", "maja", "czerwica", "lipca", "sierpnia", "wrzesnia", "października", "listopada", "grudnia" ];
 
 kalendarz.prototype.pierwszyDzienKalendarza = pierwszyDzienKalendarza
 
