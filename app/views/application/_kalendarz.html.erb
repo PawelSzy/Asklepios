@@ -28,6 +28,8 @@
 <!-- Napis niedziela dzien i miesiac-->
 <% niedzText = ( pierwszyDzienKalendarza+7 ).strftime("%d")+" "+miesiaceOdmiana[ ( pierwszyDzienKalendarza+7 ).strftime("%m").to_i-1 ]  %>
 
+<!-- Ta zmienna zluzy do pobierania danych przez javascript, Jquery -->
+<div id="pierwszyDzienKalendarza" style="display: none;"><%= pierwszyDzienKalendarza %></div>
 
 <!-- Czesc odpowiadajaca za wyswietlanie -->
 <div class = "pj-calendar">
