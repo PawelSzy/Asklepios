@@ -33,24 +33,9 @@ console.log("kalendarza");
 // var  pierwszyDzienKalendarza = $("#pierwszyDzienKalendarza").text() ;
 // console.log(pierwszyDzienKalendarza);
 
-//funkcja odpowiada za pobranie danych ktore ustawiaja pierwszy dzien kalendarza
-
-function kalendarz() {
-}
-
-function pierwszyDzienKalendarza() {
-	return $("#pierwszyDzienKalendarza").text();
-}
-
-pierwszyDzienKalendarza.UstawDzien = function(nowaData) {
-	$("#pierwszyDzienKalendarza").text( nowaData );
-}
-
-kalendarz.prototype.pierwszyDzienKalendarza = pierwszyDzienKalendarza
-
 //Konwertuje data z formatu ruby (2016-01-17) na date w formacie JS
 function rubyDataIntoJS(data) {
-	dataSplit = date.split("-");
+	dataSplit = data.split("-");
 	year = dataSplit[0];
 	month = dataSplit[1]-1; //odejmij jeden bo js zapisuje miesiac o-11
 	day =  dataSplit[2];
@@ -59,6 +44,17 @@ function rubyDataIntoJS(data) {
 
 	return nowaData;
 };
+
+rubyDataIntoJS.prototype.splitData = function(data) {
+	dataSplit = data.split("-");
+	year = dataSplit[0];
+	month = dataSplit[1]-1; //odejmij jeden bo js zapisuje miesiac o-11
+	day =  dataSplit[2];	
+
+	nowaData = {year: year, month: month, day: day};
+
+	return nowaData;
+}
 
 
 function jsDataIntoRuby(data) {
@@ -71,11 +67,60 @@ function jsDataIntoRuby(data) {
 
 }
 
+
+
+//Obsluga kalendarza
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function kalendarz() {
+}
+//funkcja odpowiada za pobranie danych ktore ustawiaja pierwszy dzien kalendarza
+function pierwszyDzienKalendarza() {
+	return $("#pierwszyDzienKalendarza").text();
+}
+
+pierwszyDzienKalendarza.UstawDzien = function(nowaData) {
+	$("#pierwszyDzienKalendarza").text( nowaData );
+}
+
+
+kalendarz.prototype.miesiaceOdmiana = [ "stycznia", "lutego", "marca","kwietnia", "maja", "czerwica", "lipca", "sierpnia", "wrzesnia", "października", "listopada", "grudnia" ];
+
+kalendarz.prototype.pierwszyDzienKalendarza = pierwszyDzienKalendarza
+
+//ustawia duzy napis u gory kalendarza pomiedzy strzalkami przechodzenia na nowy tydzien
+kalendarz.prototype.ustawNaglowekDaty = function(text) {
+	$("#naglowek_kal_daty").text(text);
+}
+
+//IN: 2016-01-05 - funkcja pobiera date w formie YYYY-MM-DD
+//Out 5 stycznia - funckaj zwraca date w formacie cyfrowym
+kalendarz.prototype.wyswietlTekstoweDaty = function(data) {
+	nowaData = rubyDataIntoJS.prototype.splitData(data);
+	miesiac = this.miesiaceOdmiana[ nowaData['month'] ];
+	dzien = nowaData['day'];
+
+	dataText = dzien + " " + miesiac;
+
+	return dataText;
+}
+
+kalendarz.prototype.wyswietlDaty = function(data1, data2) {
+	//konwertuj daty na text
+	dataText1 = this.wyswietlTekstoweDaty(data1);
+	dataText2 = this.wyswietlTekstoweDaty(data2);
+
+	//polacz w jeden string
+	text = dataText1 +" - " +dataText2;
+
+	//wyswietl na kalendarzu
+	this.ustawNaglowekDaty(text);
+}
+
 //Przesuwa date kalendarza o ustalona liczbe dni
 kalendarz.prototype.przesunDate = function(przesunDni) {
 	date = this.pierwszyDzienKalendarza(); // $("#PoprzedniTydzien").attr("data-date");
 
-	console.log("this.pierwszyDzienKalendarza");
+	console.log("pierwszyDzienKalendarza");
 	console.log(this.pierwszyDzienKalendarza());
 
 	nowaData =rubyDataIntoJS(date);
@@ -105,6 +150,8 @@ kalendarz.prototype.przesunDate = function(przesunDni) {
 
 	//ustaw pierwszy dzien ktory bedzie wyswietlany w kalendarzu
 	this.pierwszyDzienKalendarza.UstawDzien(nastepnyPon);
+
+	this.wyswietlDaty(nastepnyPon, nastepnaNiedz);
 	//////////////////////////////////////////////////////////	
 }
 
@@ -116,6 +163,11 @@ kalendarz.prototype.nastepnyTydzien = function() {
 kalendarz.prototype.poprzedniTydzien = function() {
 	this.przesunDate(-7);
 }
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 kalendarzStrony = new kalendarz();
 
