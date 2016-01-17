@@ -31,4 +31,64 @@ $("#"+"<%= @specjalizacja.nazwa_specjalizacji %>").next().html(buttons_lekarzy);
 
 console.log("kalendarza");
 var  pierwszyDzienKalendarza = $("#pierwszyDzienKalendarza").text() ;
-console.log(pierwszyDzienKalendarza);
+// console.log(pierwszyDzienKalendarza);
+
+//Konwertuje data z formatu ruby (2016-01-17) na date w formacie JS
+function rubyDataIntoJS(data) {
+	dataSplit = date.split("-");
+	year = dataSplit[0];
+	month = dataSplit[1]-1; //odejmij jeden bo js zapisuje miesiac o-11
+	day =  dataSplit[2];
+
+	nowaData = new Date(year, month, day);
+
+	return nowaData;
+};
+
+
+function jsDataIntoRuby(data) {
+
+	day = data.getDate();	//Get the day as a number (1-31)
+	month = data.getMonth()+1;	//Get the month (0-11), dodaj 1 aby otrzymac miesiac
+	year = data.getFullYear();	//Get the four digit year (yyyy)
+	nowaData = year + "-" + month + "-" + day;
+	return nowaData;
+
+}
+
+var nastepnyTydzien = function(przesunDni) {
+	pierwszyDzienKalendarza = $("#pierwszyDzienKalendarza").text() ;
+	date = $("#PoprzedniTydzien").attr("data-date");
+
+	console.log("pierwszyDzienKalendarza");
+	console.log(pierwszyDzienKalendarza);
+
+	nowaData =rubyDataIntoJS(date);
+
+	//dodaj dni
+	nowaData.setDate(nowaData.getDate() + przesunDni)
+	console.log("nowaData");	
+	console.log(nowaData);
+
+
+	//ustaw wartości na strzałkach wskazujacych nowy i poprzedni tydzien
+	//////////////////////////////////////////////////////////
+	nastepnyPon = nowaData;
+	nastepnyPon = jsDataIntoRuby(nastepnyPon);
+	console.log("przesuniety o tydzien nastepnyPon");
+	console.log(nastepnyPon);
+
+
+	nastepnaNiedz = new Date(nowaData.valueOf() );
+	nastepnaNiedz.setDate(nastepnaNiedz.getDate() + 6);
+	nastepnaNiedz = jsDataIntoRuby(nastepnaNiedz);
+	console.log("przesunięta nastepnaNiedz");
+	console.log(nastepnaNiedz);
+
+	$("#PoprzedniTydzien").attr("data-date", nastepnyPon);
+	$("#NastepnyTydzien").attr("data-date", nastepnaNiedz);
+	//////////////////////////////////////////////////////////	
+}
+
+nastepnyTydzien(7);
+// console.log( $("#PoprzedniTydzien").attr("data-date") );
