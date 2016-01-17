@@ -1,5 +1,6 @@
 <% tydzien = Array["Pon.", "Wt.", "Środ.", "Czwart.", "Piąt", "Sob", "Niedz"] %>
 <% godziny = Array(7..17) %>
+<% miesiace = Array[ "styczeń", "luty", "marzec","kwiecień", "maj", "czerwiec", "lipiec", "sierpień", "wrzesien", "październik", "listopad", "grudzień" ] %>
 	<!-- Wyswietl aktualny dzien tygodnia -->
 	<% t = DateTime.now %>
 	<%= t %></br>
@@ -25,13 +26,16 @@
 		<% end %>
 
 	<!-- Wyswietl godziny przyjec -->
+	<% numer_dnia = 0 %>
 	<% godziny.each do |godzina| %>
 		<!-- Wyswietl poczatek wiersza - godzina  -->
 		<div class="pj-calendar-cell"><p> <%= godzina %></p></div>
 		<!-- Wyswietl komorki  dni tygodnia w wierszu-->
 		<% tydzien.each do |dzien| %>
 			<div class="pj-calendar-cell">
-				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000">
+				<% numer_dnia +=1 %>
+				<% id_dnia = "dzien"+numer_dnia.to_s %>
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id = <%= id_dnia %> >
 					<span class="custom-checkbox"></span></label>					
 			</div>	
 		<% end %>		
