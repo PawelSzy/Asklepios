@@ -30,8 +30,17 @@ $("#"+"<%= @specjalizacja.nazwa_specjalizacji %>").next().html(buttons_lekarzy);
 //////////////////////////////
 
 console.log("kalendarza");
-var  pierwszyDzienKalendarza = $("#pierwszyDzienKalendarza").text() ;
+// var  pierwszyDzienKalendarza = $("#pierwszyDzienKalendarza").text() ;
 // console.log(pierwszyDzienKalendarza);
+
+//funkcja odpowiada za pobranie danych ktore ustawiaja pierwszy dzien kalendarza
+function pierwszyDzienKalendarza() {
+	return $("#pierwszyDzienKalendarza").text();
+}
+
+pierwszyDzienKalendarza.UstawDzien = function(nowaData) {
+	$("#pierwszyDzienKalendarza").text( nowaData );
+}
 
 //Konwertuje data z formatu ruby (2016-01-17) na date w formacie JS
 function rubyDataIntoJS(data) {
@@ -56,12 +65,12 @@ function jsDataIntoRuby(data) {
 
 }
 
-var nastepnyTydzien = function(przesunDni) {
-	pierwszyDzienKalendarza = $("#pierwszyDzienKalendarza").text() ;
-	date = $("#PoprzedniTydzien").attr("data-date");
+//Przesuwa date kalendarza o ustalona liczbe dni
+var przesunDate = function(przesunDni) {
+	date = pierwszyDzienKalendarza(); // $("#PoprzedniTydzien").attr("data-date");
 
 	console.log("pierwszyDzienKalendarza");
-	console.log(pierwszyDzienKalendarza);
+	console.log(pierwszyDzienKalendarza());
 
 	nowaData =rubyDataIntoJS(date);
 
@@ -87,8 +96,15 @@ var nastepnyTydzien = function(przesunDni) {
 
 	$("#PoprzedniTydzien").attr("data-date", nastepnyPon);
 	$("#NastepnyTydzien").attr("data-date", nastepnaNiedz);
+
+	//ustaw pierwszy dzien ktory bedzie wyswietlany w kalendarzu
+	pierwszyDzienKalendarza.UstawDzien(nastepnyPon);
 	//////////////////////////////////////////////////////////	
 }
 
-nastepnyTydzien(7);
+var nastepnyTydzien = function() {
+	przesunDate(7);
+}
+
+nastepnyTydzien();
 // console.log( $("#PoprzedniTydzien").attr("data-date") );
