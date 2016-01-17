@@ -73,6 +73,8 @@ function jsDataIntoRuby(data) {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function kalendarz() {
 	this.miesiaceOdmiana = [ "stycznia", "lutego", "marca","kwietnia", "maja", "czerwica", "lipca", "sierpnia", "wrzesnia", "października", "listopada", "grudnia" ];
+	this.ustawOnlick();
+
 }
 //funkcja odpowiada za pobranie danych ktore ustawiaja pierwszy dzien kalendarza
 function pierwszyDzienKalendarza() {
@@ -163,12 +165,24 @@ kalendarz.prototype.poprzedniTydzien = function() {
 	this.przesunDate(-7);
 }
 
+kalendarz.prototype.ustawOnlick = function() {
+	console.log("OnClick");
+	tenKalendarz = this;
 
+	//przesun date tydzien do przodu gdy klikam przycisk od id="NastepnyTydzien"
+	$("#NastepnyTydzien").click( function(){
+    	tenKalendarz.nastepnyTydzien();
+	});
+
+	//przesun date tydzien do tylu gdy klikam przycisk od id="PoprzedniTydzien"
+	$("#PoprzedniTydzien").click( function(){
+    	tenKalendarz.poprzedniTydzien();
+	});
+
+}
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 kalendarzStrony = new kalendarz();
 
-kalendarzStrony.nastepnyTydzien();
-// console.log( $("#PoprzedniTydzien").attr("data-date") );
