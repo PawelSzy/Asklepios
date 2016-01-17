@@ -1,9 +1,10 @@
 <% tydzien = Array["Pon.", "Wt.", "Środ.", "Czwart.", "Piąt", "Sob", "Niedz"] %>
 <% godziny = Array(7..17) %>
 	<!-- Wyswietl aktualny dzien tygodnia -->
-	<% t = Time.now %>
+	<% t = DateTime.now %>
 	<%= t %></br>
 	<%= tydzien[t.wday] %>
+	<%= t.wday %>
 <div class = "pj-calendar">
 	<div class="pj-calendar-views">
 					<div class="btn-group pull-right" role="group" aria-label="...">
@@ -30,7 +31,8 @@
 		<!-- Wyswietl komorki  dni tygodnia w wierszu-->
 		<% tydzien.each do |dzien| %>
 			<div class="pj-calendar-cell">
-				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000"><span class="custom-checkbox"></span></label>					
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000">
+					<span class="custom-checkbox"></span></label>					
 			</div>	
 		<% end %>		
 
