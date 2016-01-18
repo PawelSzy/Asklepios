@@ -52,15 +52,16 @@
 		<% end %>
 
 	<!-- Wyswietl godziny przyjec -->
-	<% numer_dnia = 0 %>
+
 	<% godziny.each do |godzina| %>
 		<!-- Wyswietl poczatek wiersza - godzina  -->
 		<div class="pj-calendar-cell"><p> <%= godzina %></p></div>
 		<!-- Wyswietl komorki  dni tygodnia w wierszu-->
+		<% numer_dnia = 0 %>
 		<% tydzien.each do |dzien| %>
 			<div class="pj-calendar-cell">
 				<% numer_dnia +=1 %>
-				<% id_dnia = "dzien"+numer_dnia.to_s %>
+				<% id_dnia = "godz" + godzina.to_s + "dzien"+numer_dnia.to_s %>
 				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id = <%= id_dnia %> >
 					<span class="custom-checkbox"></span></label>					
 			</div>	

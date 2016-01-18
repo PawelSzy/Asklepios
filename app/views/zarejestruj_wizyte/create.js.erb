@@ -73,7 +73,11 @@ function jsDataIntoRuby(data) {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function kalendarz() {
 	this.miesiaceOdmiana = [ "stycznia", "lutego", "marca","kwietnia", "maja", "czerwica", "lipca", "sierpnia", "wrzesnia", "października", "listopada", "grudnia" ];
+	this.godziny =(function(a,b){while(a--)b[a]=a+7;return b})(11,[]);
 	this.ustawOnlick();
+	this.wypelnijKalendarz();
+
+	this.pusta_komorka = "<p>-- </p>";
 
 }
 //funkcja odpowiada za pobranie danych ktore ustawiaja pierwszy dzien kalendarza
@@ -86,7 +90,7 @@ pierwszyDzienKalendarza.UstawDzien = function(nowaData) {
 }
 
 
-kalendarz.prototype.pierwszyDzienKalendarza = pierwszyDzienKalendarza
+kalendarz.prototype.pierwszyDzienKalendarza = pierwszyDzienKalendarza;
 
 //ustawia duzy napis u gory kalendarza pomiedzy strzalkami przechodzenia na nowy tydzien
 kalendarz.prototype.ustawNaglowekDaty = function(text) {
@@ -178,6 +182,30 @@ kalendarz.prototype.ustawOnlick = function() {
 	$("#PoprzedniTydzien").click( function(){
     	tenKalendarz.poprzedniTydzien();
 	});
+
+
+	//Funkcja wypełnia kalendarz zaznaczonymi wizytami, wolnymi wizytami, 
+	// -- oznacza ze to miniony dzien
+	// X - zajeta godzina wizyty
+	// kwadrat - wolne miejsce
+	kalendarz.prototype.wypelnijKalendarz = function() {
+		//wypelnij minione dni znakiem "--"
+		t = new Date;
+		dzienTyg = t.getDay();
+		console.log("wypelnijKalendarz");
+		console.log(dzienTyg);
+		for (index = dzienTyg; index > 0; --index) {
+    				console.log(index);
+    				console.log( this.godziny );
+
+    				this.godziny.forEach(function(godzina) {
+					    console.log(godzina);
+					    id_dnia = "godz" + godzina + "dzien"+index
+					    console.log(id_dnia);
+					    $( "#"+id_dnia ).html( "<p>-- </p>" );
+					});
+		}
+	}
 
 }
 
