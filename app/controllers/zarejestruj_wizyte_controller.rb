@@ -13,6 +13,7 @@ class ZarejestrujWizyteController < ApplicationController
 	def create
 		@specjalizacja = Specjalizacja.find(params[:specjalizacja_id])
 		@lekarze = Lekarz.find_by specjalizacja_id: @specjalizacja.id
+		@wizyty = BadanieLekarskie.where(lekarz_id: "2")
    		respond_to do |format|
       		format.html
       		format.js

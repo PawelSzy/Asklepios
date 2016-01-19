@@ -16,6 +16,9 @@ buttons_lekarzy ="<ul>"
 	+'<% end %>'
 	+"</ul>"
 
+console.log("test wizyty: ")
+console.log("<%= @wizyty.to_json %>")
+
 //Wyczysc html zawiarajace spis lekarzy
 $(".przycisk_lekarza").next().html("");
 
@@ -251,6 +254,7 @@ kalendarz.prototype.ustawOnlick = function() {
 		}		
 	}
 
+	//Wypelnia wyzyty dla aktualnego tygodnia 
 	kalendarz.prototype.wypelnijAktualnyTydzien = function() {
 			for (index = this.iloscDniTygodnia; index > 0; --index) {
 	    	
