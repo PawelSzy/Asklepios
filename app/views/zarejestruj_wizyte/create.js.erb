@@ -74,8 +74,10 @@ function jsDataIntoRuby(data) {
 function kalendarz() {
 	this.miesiaceOdmiana = [ "stycznia", "lutego", "marca","kwietnia", "maja", "czerwica", "lipca", "sierpnia", "wrzesnia", "października", "listopada", "grudnia" ];
 	this.godziny =(function(a,b){while(a--)b[a]=a+7;return b})(11,[]);
+	this.iloscDniTygodnia = 7;	
 	this.ustawOnlick();
 	this.wypelnijKalendarz();
+
 
 	this.pusta_komorka = "<p>-- </p>";
 
@@ -91,6 +93,13 @@ pierwszyDzienKalendarza.UstawDzien = function(nowaData) {
 
 
 kalendarz.prototype.pierwszyDzienKalendarza = pierwszyDzienKalendarza;
+
+kalendarz.prototype.pierwszyDzienKalendarzaFormatJS = function() {
+	date = this.pierwszyDzienKalendarza(); // $("#PoprzedniTydzien").attr("data-date");
+	dataFormatJS =rubyDataIntoJS(date);
+
+	return dataFormatJS;
+}
 
 //ustawia duzy napis u gory kalendarza pomiedzy strzalkami przechodzenia na nowy tydzien
 kalendarz.prototype.ustawNaglowekDaty = function(text) {
@@ -123,32 +132,28 @@ kalendarz.prototype.wyswietlDaty = function(data1, data2) {
 
 //Przesuwa date kalendarza o ustalona liczbe dni
 kalendarz.prototype.przesunDate = function(przesunDni) {
-	date = this.pierwszyDzienKalendarza(); // $("#PoprzedniTydzien").attr("data-date");
 
-	console.log("pierwszyDzienKalendarza");
-	console.log(this.pierwszyDzienKalendarza());
-
-	nowaData =rubyDataIntoJS(date);
+	nowaData = this.pierwszyDzienKalendarzaFormatJS();
 
 	//dodaj dni
 	nowaData.setDate(nowaData.getDate() + przesunDni)
-	console.log("nowaData");	
-	console.log(nowaData);
+	// console.log("nowaData");	
+	// console.log(nowaData);
 
 
 	//ustaw wartości na strzałkach wskazujacych nowy i poprzedni tydzien
 	//////////////////////////////////////////////////////////
 	nastepnyPon = nowaData;
 	nastepnyPon = jsDataIntoRuby(nastepnyPon);
-	console.log("przesuniety o tydzien nastepnyPon");
-	console.log(nastepnyPon);
+	// console.log("przesuniety o tydzien nastepnyPon");
+	// console.log(nastepnyPon);
 
 
 	nastepnaNiedz = new Date(nowaData.valueOf() );
 	nastepnaNiedz.setDate(nastepnaNiedz.getDate() + 6);
 	nastepnaNiedz = jsDataIntoRuby(nastepnaNiedz);
-	console.log("przesunięta nastepnaNiedz");
-	console.log(nastepnaNiedz);
+	// console.log("przesunięta nastepnaNiedz");
+	// console.log(nastepnaNiedz);
 
 	$("#PoprzedniTydzien").attr("data-date", nastepnyPon);
 	$("#NastepnyTydzien").attr("data-date", nastepnaNiedz);
@@ -157,6 +162,7 @@ kalendarz.prototype.przesunDate = function(przesunDni) {
 	this.pierwszyDzienKalendarza.UstawDzien(nastepnyPon);
 
 	this.wyswietlDaty(nastepnyPon, nastepnaNiedz);
+	this.wypelnijKalendarz();
 	//////////////////////////////////////////////////////////	
 }
 
@@ -175,12 +181,22 @@ kalendarz.prototype.ustawOnlick = function() {
 
 	//przesun date tydzien do przodu gdy klikam przycisk od id="NastepnyTydzien"
 	$("#NastepnyTydzien").click( function(){
+		console.log("pierwszyDzienKalendarza przod: ");
+		console.log(pierwszyDzienKalendarza());  	
     	tenKalendarz.nastepnyTydzien();
+		console.log("pierwszyDzienKalendarza2 przed: ");
+		console.log(pierwszyDzienKalendarza());     	
+  	
 	});
 
 	//przesun date tydzien do tylu gdy klikam przycisk od id="PoprzedniTydzien"
 	$("#PoprzedniTydzien").click( function(){
+		console.log("pierwszyDzienKalendarza tyl: ");	
+    	console.log(pierwszyDzienKalendarza()); 		
     	tenKalendarz.poprzedniTydzien();
+		console.log("pierwszyDzienKalendarza tyl2: ");	
+    	console.log(pierwszyDzienKalendarza()); 
+
 	});
 
 
@@ -190,21 +206,66 @@ kalendarz.prototype.ustawOnlick = function() {
 	// kwadrat - wolne miejsce
 	kalendarz.prototype.wypelnijKalendarz = function() {
 		//wypelnij minione dni znakiem "--"
-		t = new Date;
-		dzienTyg = t.getDay();
-		console.log("wypelnijKalendarz");
-		console.log(dzienTyg);
-		for (index = dzienTyg; index > 0; --index) {
-    				console.log(index);
-    				console.log( this.godziny );
+		/////////////////////////////////////
 
+		//sprawdz dzisiejszy dzien tygodnia
+		timeNow = new Date;
+		dzienTyg = timeNow.getDay();
+
+
+		// console.log("wypelnijKalendarz");
+		// console.log(dzienTyg);
+
+
+		dataPon = this.pierwszyDzienKalendarzaFormatJS();
+
+		dataNiedzie = new Date(dataPon.valueOf() );
+		dataNiedzie.setDate(dataPon.getDate() + 6);
+		console.log("dataNiedzie: ");
+		console.log(dataNiedzie);
+
+
+		if ( dataNiedzie < timeNow ) {
+			this.wypelnijMinionyTydzien();
+		}
+		else {
+		//iteruj po elementach kalendarza ktore maja stare daty
+			this.wypelnijAktualnyTydzien();
+		}	
+		/////////////////////////////////////	
+
+	}
+
+	//zaznacz ze tydzien w kalendarzu juz minol i nie mozna nic robic
+	//wszystkie kratki kalendarza sa zaznaczone jako "--"
+	kalendarz.prototype.wypelnijMinionyTydzien = function() {
+		console.log("tydzien poprzedni!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
+		for (index = this.iloscDniTygodnia; index > 0; --index) {
+    	
     				this.godziny.forEach(function(godzina) {
-					    console.log(godzina);
+					    // console.log(godzina);
 					    id_dnia = "godz" + godzina + "dzien"+index
-					    console.log(id_dnia);
+					    // console.log(id_dnia);
 					    $( "#"+id_dnia ).html( "<p>-- </p>" );
 					});
-		}
+		}		
+	}
+
+	kalendarz.prototype.wypelnijAktualnyTydzien = function() {
+			for (index = this.iloscDniTygodnia; index > 0; --index) {
+	    	
+	    				this.godziny.forEach(function(godzina) {
+						    // console.log(godzina);
+						    id_dnia = "godz" + godzina + "dzien"+index
+						    // console.log(id_dnia);
+						    if ( index <= dzienTyg) { 
+						    	$( "#"+id_dnia ).html( "<p>-- </p>" );
+						    }
+						    else {
+						    	$( "#"+id_dnia ).html("<span class='custom-checkbox'></span></label>");
+						    }
+						});
+			}
 	}
 
 }
