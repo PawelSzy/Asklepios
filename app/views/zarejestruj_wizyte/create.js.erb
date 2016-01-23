@@ -6,7 +6,7 @@ console.log("test");
 // 	+'<% end %>'
 // 	+"</ul>");
 console.log("<%= @specjalizacja.nazwa_specjalizacji %>")
-console.log("<%= @lekarze %>")
+console.log("<%= @lekarze.to_json %>")
 //element ktory pokazuje lekarzy danej specjalizacji
 buttons_lekarzy ="<ul>"
 	+'<% @specjalizacja.lekarzs.each do |lekarz| %>'
@@ -16,8 +16,10 @@ buttons_lekarzy ="<ul>"
 	+'<% end %>'
 	+"</ul>"
 
+
+
 console.log("test wizyty: ")
-console.log("<%= @wizyty.to_json %>")
+console.log("<%= @wizyty.to_s %>")
 
 //Wyczysc html zawiarajace spis lekarzy
 $(".przycisk_lekarza").next().html("");
