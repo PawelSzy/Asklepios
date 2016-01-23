@@ -231,6 +231,10 @@ kalendarz.prototype.ustawOnlick = function() {
 		if ( dataNiedzie < timeNow ) {
 			this.wypelnijMinionyTydzien();
 		}
+		else if ( timeNow < dataPon) {
+			this.wypelnijNastepnyTydzien();
+		}
+
 		else {
 		//iteruj po elementach kalendarza ktore maja stare daty
 			this.wypelnijAktualnyTydzien();
@@ -252,6 +256,20 @@ kalendarz.prototype.ustawOnlick = function() {
 					    $( "#"+id_dnia ).html( "<p>-- </p>" );
 					});
 		}		
+	}
+
+	//wypelnia wizyty dla nastepnego tygodnia
+	kalendarz.prototype.wypelnijNastepnyTydzien = function() {
+		console.log("NastepnyTydzien !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		for (index = this.iloscDniTygodnia; index > 0; --index) {
+    	
+    				this.godziny.forEach(function(godzina) {
+					    // console.log(godzina);
+					    id_dnia = "godz" + godzina + "dzien"+index
+					    // console.log(id_dnia);
+					    $( "#"+id_dnia ).html( "<span class='custom-checkbox'></span></label>" );
+					});
+		}			
 	}
 
 	//Wypelnia wyzyty dla aktualnego tygodnia 
