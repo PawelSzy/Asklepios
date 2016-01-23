@@ -12,8 +12,12 @@ class ZarejestrujWizyteController < ApplicationController
 
 	def create
 		@specjalizacja = Specjalizacja.find(params[:specjalizacja_id])
-		@lekarze = Lekarz.find_by specjalizacja_id: @specjalizacja.id
-		@wizyty = BadanieLekarskie.where(lekarz_id: "2")
+		@lekarze = Lekarz.where( "specjalizacja_id", @specjalizacja.id ).select("id")
+		# @wizyty = BadanieLekarskie.where(lekarz_id: "2")
+		# [1, 2, 3, 4].map(&:to_s)
+		@wizyty = BadanieLekarskie.where("lekarz_id IN (?)", @lekarze.map(&:id) )
+
+
    		respond_to do |format|
       		format.html
       		format.js
