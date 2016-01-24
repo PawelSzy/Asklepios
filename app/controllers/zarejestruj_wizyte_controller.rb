@@ -5,10 +5,22 @@ class ZarejestrujWizyteController < ApplicationController
 		# @lekarz = Lekarz.find(params[:id])
 		# specjalizacja_id = @lekarz.specjalizacja_id
 		# @specjalizacja = Specjalizacja.find(specjalizacja_id)
-		@temp  = [1,2,3]
 	end
 
 	def new
+	
+	end		
+
+
+	def listaWizyt
+			@lekarz = params[:lekarz]
+			@data = params[:data]
+			@godzina = params[:godzina]
+
+	   	# 	respond_to do |format|
+     #  		format.html
+     #  		format.json
+    	# end	
 	end
 
 	def create
@@ -23,7 +35,6 @@ class ZarejestrujWizyteController < ApplicationController
 		# [1, 2, 3, 4].map(&:to_s)
 		@wizyty = BadanieLekarskie.where("lekarz_id IN (?)", @lekarze.map(&:id) )
 
-		@temp  = [5,6,6]
 		@wizyty_godzina = @wizyty.map(&:godzina)
 		@wizyty_data = @wizyty.map(&:data)
    		respond_to do |format|

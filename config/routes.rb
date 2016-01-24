@@ -21,6 +21,8 @@ Rails.application.routes.draw do
   get '/zarejestruj_wizyte' => 'zarejestruj_wizyte#show'
   post '/zarejestruj_wizyte' => 'zarejestruj_wizyte#create'
   post '/zarejestruj_wizyte/create' => 'zarejestruj_wizyte#create'
+  get'/zarejestruj_wizyte/lista_wizyt' => 'zarejestruj_wizyte#listaWizyt'
+  post '/zarejestruj_wizyte/lista_wizyt' => 'zarejestruj_wizyte#listaWizyt'
 
   resources :pacjents
   resources :lekarzs
