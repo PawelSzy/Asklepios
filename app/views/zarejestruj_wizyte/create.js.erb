@@ -5,13 +5,16 @@ console.log("test");
 // 	+"<li>"+"<%= lekarz.imie %>"+" "+ "<%= lekarz.nazwisko %>" +"</li>"+"</br>"
 // 	+'<% end %>'
 // 	+"</ul>");
+console.log("specjalizacja: ")
+console.log("<%= @specjalizacja.to_json %>")
 console.log("<%= @specjalizacja.nazwa_specjalizacji %>")
+console.log("<%= @specjalizacja.id %>")
 console.log("<%= @lekarze.to_json %>")
 //element ktory pokazuje lekarzy danej specjalizacji
 buttons_lekarzy ="<ul>"
 	+'<% @specjalizacja.lekarzs.each do |lekarz| %>'
 	+"<il>"
-    +'<%= submit_tag(lekarz.imie+' '+lekarz.nazwisko, class: " btn btn-primary  btn-block") %>'
+    +'<%= submit_tag(lekarz.imie+' '+lekarz.nazwisko, class: " btn btn-primary  btn-block przycisk_lekarza") %>'
     +"</il>"
 	+'<% end %>'
 	+"</ul>"
@@ -19,10 +22,12 @@ buttons_lekarzy ="<ul>"
 
 
 console.log("test wizyty: ")
-console.log("<%= @wizyty.to_s %>")
+console.log("<%= @wizyty.to_s.to_json %>")
+console.log("<%= @wizyty_data.to_s %>")
+console.log("<%= @wizyty_godzina.to_json %>")
 
 //Wyczysc html zawiarajace spis lekarzy
-$(".przycisk_lekarza").next().html("");
+$(".przycisk_specjalizacji").next().html("");
 
 //wyswietl lekarzy danej specjalizacji
 $("#"+"<%= @specjalizacja.nazwa_specjalizacji %>").next().html(buttons_lekarzy);	
@@ -81,6 +86,7 @@ function kalendarz() {
 	this.godziny =(function(a,b){while(a--)b[a]=a+7;return b})(11,[]);
 	this.iloscDniTygodnia = 7;	
 	this.ustawOnlick();
+	this.przyciskiLekarza();
 	this.wypelnijKalendarz();
 
 
@@ -248,7 +254,7 @@ kalendarz.prototype.ustawOnlick = function() {
 	//zaznacz ze tydzien w kalendarzu juz minol i nie mozna nic robic
 	//wszystkie kratki kalendarza sa zaznaczone jako "--"
 	kalendarz.prototype.wypelnijMinionyTydzien = function() {
-		console.log("tydzien poprzedni!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
+		console.log("tydzien poprzedni");
 		for (index = this.iloscDniTygodnia; index > 0; --index) {
     	
     				this.godziny.forEach(function(godzina) {
@@ -262,7 +268,7 @@ kalendarz.prototype.ustawOnlick = function() {
 
 	//wypelnia wizyty dla nastepnego tygodnia
 	kalendarz.prototype.wypelnijNastepnyTydzien = function() {
-		console.log("NastepnyTydzien !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		console.log("NastepnyTydzien");
 		for (index = this.iloscDniTygodnia; index > 0; --index) {
     	
     				this.godziny.forEach(function(godzina) {
@@ -292,10 +298,39 @@ kalendarz.prototype.ustawOnlick = function() {
 			}
 	}
 
+kalendarz.prototype.przyciskiLekarza = function() {
+	$(".przycisk_lekarza").click(function(event) {
+
+	  /* stop form from submitting normally */
+	   event.preventDefault();
+
+	  /* get values from elements on the page: */
+	   // var mdate = $('#mdate').val();
+	   // var phone = $('#phone').val();
+
+	  /* Send the data using post and put the results in a div */
+	  console.log("LEKARZ PRZYCISK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1")
+	    // $.ajax({
+	    //   url: "/BookCreate/?mdate="+mdate+"&phone="+phone,
+	    //   type: "post",
+	    //   data: values,
+	    //   success: function(){
+	    //     alert('Saved Successfully');
+	    //   },
+	    //   error:function(){
+	    //    alert('Error');
+	    //   }
+	    // });
+	});
+}
+
+
+
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 kalendarzStrony = new kalendarz();
+
 
