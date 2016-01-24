@@ -298,35 +298,40 @@ kalendarz.prototype.ustawOnlick = function() {
 			}
 	}
 
-kalendarz.prototype.przyciskiLekarza = function() {
-	$(".przycisk_lekarza").click(function(event) {
 
-	  /* stop form from submitting normally */
-	   event.preventDefault();
-
-	  /* get values from elements on the page: */
-	   // var mdate = $('#mdate').val();
-	   // var phone = $('#phone').val();
-
-	  /* Send the data using post and put the results in a div */
-	  console.log("LEKARZ PRZYCISK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1")
-	    // $.ajax({
-	    //   url: "/BookCreate/?mdate="+mdate+"&phone="+phone,
-	    //   type: "post",
-	    //   data: values,
-	    //   success: function(){
-	    //     alert('Saved Successfully');
-	    //   },
-	    //   error:function(){
-	    //    alert('Error');
-	    //   }
-	    // });
-	});
-}
 
 
 
 }
+
+
+// kalendarz.prototype.przyciskiLekarza = function() {
+// 	$(".przycisk_lekarza").click(function(event) {
+
+// 		  /* stop form from submitting normally */
+// 		   // event.preventDefault();
+
+// 		  /* get values from elements on the page: */
+// 		   // var mdate = $('#mdate').val();
+// 		   // var phone = $('#phone').val();
+
+// 		  /* Send the data using post and put the results in a div */
+// 		  console.log("LEKARZ PRZYCISK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1")
+// 	    $.getJSON({
+// 	      url: "/lista_wizyt",
+// 	      type: "post",
+// 	      data: {lekarz: 'religa', data: '2016-01-28'},
+// 	      success: function(){
+// 	        console.log('Odczyt z JS lista_wizyt');
+// 	      },
+// 	      error:function(){
+// 	       console.log("Error");
+// 	       alert('Error');
+// 	      }
+// 	    });
+// 	});
+// }
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

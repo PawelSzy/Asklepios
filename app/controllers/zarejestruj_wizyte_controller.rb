@@ -16,11 +16,13 @@ class ZarejestrujWizyteController < ApplicationController
 			@lekarz = params[:lekarz]
 			@data = params[:data]
 			@godzina = params[:godzina]
+			@zmienna = [@lekarz, @data, @godzina]
 
-	   	# 	respond_to do |format|
-     #  		format.html
-     #  		format.json
-    	# end	
+	   		respond_to do |format|
+      			format.html
+      			format.json { render :response => {:name => name, :message => message} }
+      			format.js
+    		end	
 	end
 
 	def create
