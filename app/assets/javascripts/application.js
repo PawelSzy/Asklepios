@@ -299,16 +299,16 @@ kalendarz.prototype.przyciskiLekarza = function() {
 		  /* Send the data using post and put the results in a div */
 		  console.log("LEKARZ PRZYCISK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1")
 	    $.ajax({
-	      url: "/lista_wizyt",
+	      url: "zarejestruj_wizyte/lista_wizyt",
 	      type: "post",
 	      dataType: 'script',
 	      data: {lekarz: 'religa'},
 	      success: function(){
 	        console.log('Odczyt z JS lista_wizyt');
 	      },
-	      error:function(){
-	       console.log("Error");
-	       alert('Error');
+	      error: function (xhr, ajaxOptions, thrownError) {
+	        alert(xhr.status);
+	        alert(thrownError);
 	      }
 	    });
 	});
