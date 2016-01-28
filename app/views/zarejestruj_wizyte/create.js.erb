@@ -12,7 +12,6 @@ console.log("<%= @specjalizacja.id %>");
 console.log("<%= @lekarze.to_json %>");
 //element ktory pokazuje lekarzy danej specjalizacji
 
-console.log( "<%= @buttonslekarzy %>");
 buttons_lekarzy ="<div>"
 	+"<ul>"
 	+'<% @specjalizacja.lekarzs.each do |lekarz| %>'

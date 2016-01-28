@@ -20,7 +20,7 @@ class ZarejestrujWizyteController < ApplicationController
 
 	   		respond_to do |format|
       			format.html
-      			format.json { render :response => {:name => name, :message => message} }
+      			# format.json { render :response => {:name => name, :message => message} }
       			format.js
     		end	
 	end
@@ -47,12 +47,12 @@ class ZarejestrujWizyteController < ApplicationController
 		#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
-		# @specjalizacja.each do |lekarz| 
-		# 	# nazwa_buttona = lekarz.imie+' '+lekarz.nazwisko
-		# 	# button = button_to nazwa_buttona , { id: "lekarz"+lekarz.id.to_s, remote: true}, { class: " btn btn-primary  btn-block przycisk_lekarza"} 
-		# 	button = "10"
-		# 	@buttonslekarzy.push(button)
-		# end 
+		@specjalizacja.lekarzs.each do |lekarz| 
+			nazwa_buttona = lekarz.imie.to_s+' '+lekarz.nazwisko.to_s	 		
+			button = "<%= button_to 'Claim', { idea_id: idea.id, remote: true}, {class: 'btn btn-small'} %>" #button_to  nazwa_buttona.to_s, { id: "lekarz"+lekarz.id.to_s, ,remote: true},  { class: " btn btn-primary  btn-block przycisk_lekarza"} 
+			@buttonslekarzy.push(button)
+
+		end 
 
 
 	# +"<div>"
