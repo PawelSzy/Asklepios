@@ -279,10 +279,6 @@ kalendarz.prototype.ustawOnlick = function() {
 			}
 	}
 
-
-
-
-
 }
 
 
