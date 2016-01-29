@@ -16,7 +16,7 @@ buttons_lekarzy ="<div>"
 	+"<ul>"
 	+'<% @specjalizacja.lekarzs.each do |lekarz| %>'
 	+"<il>"
-    +'<%= button_to(lekarz.imie+' '+lekarz.nazwisko, { id: "lekarz"+lekarz.id.to_s, remote: true}, { class: " btn btn-primary  btn-block przycisk_lekarza"} ) %>'
+    +'<%= button_to(lekarz.imie+' '+lekarz.nazwisko, { id: lekarz.id.to_s, remote: true,  }, { class: " btn btn-primary  btn-block przycisk_lekarza", data: { lekarzid: lekarz.id }} ) %>'
     +"</il>"
 	+'<% end %>'
 	+"</ul>" ;

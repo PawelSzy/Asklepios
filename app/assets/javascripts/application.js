@@ -293,14 +293,19 @@ kalendarz.prototype.przyciskiLekarza = function() {
 		   // var phone = $('#phone').val();
 
 		  /* Send the data using post and put the results in a div */
-		  console.log("LEKARZ PRZYCISK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1")
+		  console.log("LEKARZ PRZYCISK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
+		  lekarz_id = $(this).data("lekarzid");
+		  console.log("lekarzid");
+		  console.log(lekarz_id);
 	    $.ajax({
 	      url: "zarejestruj_wizyte/lista_wizyt",
 	      type: "post",
 	      dataType: 'script',
-	      data: {lekarz: 'religa'},
+	      data: {lekarzid: lekarz_id, data: "2016-02-05", godzina: 7},
 	      success: function(){
 	        console.log('Odczyt z JS lista_wizyt');
+
+	      // console.log(lekarz_id);	        
 	      },
 	      error: function (xhr, ajaxOptions, thrownError) {
 	        alert(xhr.status);

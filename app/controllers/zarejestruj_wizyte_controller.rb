@@ -13,10 +13,10 @@ class ZarejestrujWizyteController < ApplicationController
 
 
 	def listaWizyt
-			@lekarz = params[:lekarz]
+			@lekarzID = params[:lekarzid]
 			@data = params[:data]
 			@godzina = params[:godzina]
-			@zmienna = [@lekarz, @data, @godzina]
+			@zmienna = [@lekarzID, @data, @godzina]
 
 	   		respond_to do |format|
       			format.html
@@ -47,24 +47,7 @@ class ZarejestrujWizyteController < ApplicationController
 		#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
-		@specjalizacja.lekarzs.each do |lekarz| 
-			nazwa_buttona = lekarz.imie.to_s+' '+lekarz.nazwisko.to_s	 		
-			button = "<%= button_to 'Claim', { idea_id: idea.id, remote: true}, {class: 'btn btn-small'} %>" #button_to  nazwa_buttona.to_s, { id: "lekarz"+lekarz.id.to_s, ,remote: true},  { class: " btn btn-primary  btn-block przycisk_lekarza"} 
-			@buttonslekarzy.push(button)
-
-		end 
-
-
-	# +"<div>"
-	# +"<ul>"
-	# +'<% @specjalizacja.lekarzs.each do |lekarz| %>'
-	# +"<il>"
- #    +'<%= button_to lekarz.imie+' '+lekarz.nazwisko, { id: "lekarz"+lekarz.id.to_s, remote: true}, { class: " btn btn-primary  btn-block przycisk_lekarza"} %>'
- #    +"</il>"
-	# +'<% end %>'
-	# +"</ul>"
-
-
+	
 # '<%= submit_tag(lekarz.imie+' '+lekarz.nazwisko, class: " btn btn-primary  btn-block przycisk_lekarza") %>'
 
    		respond_to do |format|
