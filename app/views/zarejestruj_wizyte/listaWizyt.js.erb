@@ -1,3 +1,27 @@
 console.log("Test lista wizyt");
-console.log("<%= @zmienna%>");
+
 console.log("<%= @wizyty %>");
+
+// wizyty = Array.new;
+
+
+// '<% @wizyty.each do |wizyta| %>'
+// wizyty.push("<%= wizyta %>");
+// '<% end %>'
+
+wizyty = "<%= escape_javascript @wizyty.to_json %>"
+
+// wizyty ='<% @wizyty.each do |wizyta| %>'
+//     +"<%= wizyta %>"
+// 	+'<% end %>';
+
+// wizyty = $.parseJSON(wizyty);
+
+console.log(wizyty[0]);
+
+// for (var wizyta_number in wizyty) {
+//     console.log(wizyty[wizyta_number]);
+
+// }
+
+
