@@ -301,7 +301,8 @@ kalendarz.prototype.przyciskiLekarza = function() {
 	      url: "zarejestruj_wizyte/lista_wizyt",
 	      type: "post",
 	      dataType: 'script',
-	      data: {lekarzid: lekarz_id, data: "2016-02-05", godzina: 7},
+	      data: {lekarzid: lekarz_id },
+	      // data: {lekarzid: lekarz_id, data: "2016-02-05", godzina: 7},
 	      success: function(){
 	        console.log('Odczyt z JS lista_wizyt');
 	      // console.log(lekarz_id);	        

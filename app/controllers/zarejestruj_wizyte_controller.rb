@@ -14,12 +14,13 @@ class ZarejestrujWizyteController < ApplicationController
 
 	def listaWizyt
 			lekarzID = params[:lekarzid]
-			data = params[:data]
-			godzina = params[:godzina]
-			@zmienna = [lekarzID, data, godzina]
+			# data = params[:data]
+			# godzina = params[:godzina]
+			# @zmienna = [lekarzID, data, godzina]
 
 			@lekarz = Lekarz.find(lekarzID)
 			@wizyty = BadanieLekarskie.where("lekarz_id IN (?)", @lekarz.id )
+			puts @wizyty
 
 	   		respond_to do |format|
       			format.html
