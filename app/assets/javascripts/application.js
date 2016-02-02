@@ -20,7 +20,7 @@
 //Oblsuga kalendarza
 //////////////////////////////
 
-console.log("kalendarza");
+// console.log("kalendarza");
 // var  pierwszyDzienKalendarza = $("#pierwszyDzienKalendarza").text() ;
 // console.log(pierwszyDzienKalendarza);
 
