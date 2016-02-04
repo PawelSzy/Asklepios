@@ -12,10 +12,6 @@
 	<%= tydzienAngielski[timeNow.wday] %>
 	<%= timeNow.wday %>
 
-	<!-- wizyty -->
-	<div>
-		<%= @wizyty %>
-	</div>
 
 <!-- Oblicz pierwszy dzien tygodnie ktory bedzie wyswietlany -->
 <!-- Jesli dzisiaj Niedziela pierwszy dzien tygodnia to nastepny poniedzialek -->
@@ -30,7 +26,7 @@
 <!-- Napis poniedzialek dzien i miesiac-->
 <% ponText = pierwszyDzienKalendarza.strftime("%d")+" "+miesiaceOdmiana[pierwszyDzienKalendarza.strftime("%m").to_i-1]  %>
 <!-- Napis niedziela dzien i miesiac-->
-<% niedzText = ( pierwszyDzienKalendarza+7 ).strftime("%d")+" "+miesiaceOdmiana[ ( pierwszyDzienKalendarza+7 ).strftime("%m").to_i-1 ]  %>
+<% niedzText = ( pierwszyDzienKalendarza+6 ).strftime("%d")+" "+miesiaceOdmiana[ ( pierwszyDzienKalendarza+6 ).strftime("%m").to_i-1 ]  %>
 
 <!-- Ta zmienna zluzy do pobierania danych przez javascript, Jquery -->
 <div id="pierwszyDzienKalendarza" style="display: none;"><%= pierwszyDzienKalendarza %></div>

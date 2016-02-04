@@ -114,7 +114,7 @@ kalendarz.prototype.ustawPierwszDzienTygodniaNaTeraz = function() {
 
 	//wyswietl daty
 	this.wyswietlDaty(nowyPon, nastepnaNiedz);
-	this.wypelnijKalendarz();	
+	// this.wypelnijKalendarz();	
 }
 
 
@@ -179,7 +179,7 @@ kalendarz.prototype.przesunDate = function(przesunDni) {
 	this.UstawDzien(nastepnyPon);
 
 	this.wyswietlDaty(nastepnyPon, nastepnaNiedz);
-	this.wypelnijKalendarz();
+	// this.wypelnijKalendarz();
 	//////////////////////////////////////////////////////////	
 }
 
@@ -325,7 +325,7 @@ kalendarz.prototype.przyciskiLekarza = function() {
 		  console.log(lekarz_id);
 
 	      			  
-		  this.ustawPierwszydzienKalendarzaNaTeraz();
+		  // tenKalendarz.ustawPierwszydzienKalendarzaNaTeraz();
 	    $.ajax({
 	      url: "zarejestruj_wizyte/lista_wizyt",
 	      type: "post",
@@ -334,7 +334,7 @@ kalendarz.prototype.przyciskiLekarza = function() {
 	      data: {lekarzid: lekarz_id },
 	      // data: {lekarzid: lekarz_id, data: "2016-02-05", godzina: 7},
 	      success: function(wizyty){
-			// tenKalendarz.ustawPierwszDzienTygodniaNaTeraz();
+			tenKalendarz.ustawPierwszDzienTygodniaNaTeraz();
 	      	console.log(wizyty);	
 	        console.log('Odczyt z JS lista_wizyt');
 	        
