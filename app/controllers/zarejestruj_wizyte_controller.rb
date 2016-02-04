@@ -20,11 +20,11 @@ class ZarejestrujWizyteController < ApplicationController
 
 			@lekarz = Lekarz.find(lekarzID)
 			@wizyty = BadanieLekarskie.where("lekarz_id IN (?)", @lekarz.id )
-			puts @wizyty
 
 	   		respond_to do |format|
       			format.html
       			# format.json { render :response => {:name => name, :message => message} }
+      			format.json  { render json: @wizyty }
       			format.js
     		end	
 	end

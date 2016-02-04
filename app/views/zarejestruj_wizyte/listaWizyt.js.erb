@@ -1,35 +1,14 @@
-console.log("Test lista wizyt");
+// console.log("Test lista wizyt");
 
-console.log("<%= @wizyty %>");
-
-// wizyty = Array.new;
+// console.log("<%= @wizyty %>");
 
 
-// '<% @wizyty.each do |wizyta| %>'
-// wizyty.push("<%= wizyta %>");
-// '<% end %>'
-
-console.log("<%= escape_javascript @wizyty.to_json %>");
+// console.log("<%= escape_javascript @wizyty.to_json %>");
 var wizyty = "<%=  escape_javascript @wizyty.to_json %>";
 wizyty = JSON.parse(wizyty.replace(/&quot;/g,'"'));
-// var jsonObj = $.parseJSON(wizyty)
 
-// wizyty ='<% @wizyty.each do |wizyta| %>'
-//     +"<%= wizyta %>"
-// 	+'<% end %>';
-
-// wizyty = $.parseJSON(wizyty);
-
-console.log("wizyty:");
-console.log(wizyty);
-
-wizyty.forEach(function(wizyta) {
-	console.log(wizyta);
-});
-
-// for (var wizyta_number in wizyty) {
-//     console.log(wizyty[wizyta_number]);
-
-// }
+// wizyty.forEach(function(wizyta) {
+// 	console.log(wizyta);
+// });
 
 

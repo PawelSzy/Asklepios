@@ -300,12 +300,14 @@ kalendarz.prototype.przyciskiLekarza = function() {
 	    $.ajax({
 	      url: "zarejestruj_wizyte/lista_wizyt",
 	      type: "post",
-	      dataType: 'script',
+	      // dataType: 'script',
+	      dataType: "json",
 	      data: {lekarzid: lekarz_id },
 	      // data: {lekarzid: lekarz_id, data: "2016-02-05", godzina: 7},
-	      success: function(){
+	      success: function(wizyty){
+	      	console.log(wizyty);	
 	        console.log('Odczyt z JS lista_wizyt');
-	      // console.log(lekarz_id);	        
+	        
 	      },
 	      error: function (xhr, ajaxOptions, thrownError) {
 	        alert(xhr.status);
