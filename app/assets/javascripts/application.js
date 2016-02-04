@@ -62,36 +62,61 @@ function jsDataIntoRuby(data) {
 
 //Obsluga kalendarza
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function kalendarz() {
-	this.miesiaceOdmiana = [ "stycznia", "lutego", "marca","kwietnia", "maja", "czerwica", "lipca", "sierpnia", "wrzesnia", "października", "listopada", "grudnia" ];
-	this.godziny =(function(a,b){while(a--)b[a]=a+7;return b})(11,[]);
-	this.iloscDniTygodnia = 7;	
-	this.ustawOnlick();
-	this.przyciskiLekarza();
-	this.wypelnijKalendarz();
-
-
-	this.pusta_komorka = "<p>-- </p>";
-
-}
 //funkcja odpowiada za pobranie danych ktore ustawiaja pierwszy dzien kalendarza
 function pierwszyDzienKalendarza() {
 	return $("#pierwszyDzienKalendarza").text();
 }
 
-pierwszyDzienKalendarza.UstawDzien = function(nowaData) {
-	$("#pierwszyDzienKalendarza").text( nowaData );
+
+function kalendarz() {
+	this.miesiaceOdmiana = [ "stycznia", "lutego", "marca","kwietnia", "maja", "czerwica", "lipca", "sierpnia", "wrzesnia", "października", "listopada", "grudnia" ];
+	this.godziny =(function(a,b){while(a--)b[a]=a+7;return b})(11,[]);
+	this.iloscDniTygodnia = 7;
+	this.dataDzisiejsza = pierwszyDzienKalendarza();
+	this.pierwszyDzienTygodnia = this.dataDzisiejsza ;
+	this.ustawOnlick();
+	this.wypelnijKalendarz();
+	this.przyciskiLekarza();
+
+	this.pusta_komorka = "<p>-- </p>";
+
 }
 
 
-kalendarz.prototype.pierwszyDzienKalendarza = pierwszyDzienKalendarza;
+kalendarz.prototype.UstawDzien = function(nowaData) {
+	this.pierwszyDzienTygodnia = nowaData;
+}
 
-kalendarz.prototype.pierwszyDzienKalendarzaFormatJS = function() {
-	date = this.pierwszyDzienKalendarza(); // $("#PoprzedniTydzien").attr("data-date");
+
+// function ustawPierwszyDzienKalendarze(data) {
+// 	$("#pierwszyDzienKalendarza").text(data);
+// }
+
+// kalendarz.prototype.pierwszyDzienKalendarza = pierwszyDzienTygodnia;
+
+kalendarz.prototype.pierwszyDzienTygodniaFormatJS = function() {
+	date = this.pierwszyDzienTygodnia; // $("#PoprzedniTydzien").attr("data-date");
 	dataFormatJS =rubyDataIntoJS(date);
 
 	return dataFormatJS;
 }
+
+
+kalendarz.prototype.ustawPierwszDzienTygodniaNaTeraz = function() {
+	this.pierwszyDzienTygodnia = this.dataDzisiejsza ;
+
+	//pobierz dane - date poniedzialku tego tygonia i nastenej niedzieli
+	nowyPon = this.pierwszyDzienTygodniaFormatJS();
+	nowyPon = jsDataIntoRuby(nowyPon);
+	nastepnaNiedz = new Date(nowaData.valueOf() );
+	nastepnaNiedz.setDate(nastepnaNiedz.getDate() + 6);
+	nastepnaNiedz = jsDataIntoRuby(nastepnaNiedz);
+
+	//wyswietl daty
+	this.wyswietlDaty(nowyPon, nastepnaNiedz);
+	this.wypelnijKalendarz();	
+}
+
 
 //ustawia duzy napis u gory kalendarza pomiedzy strzalkami przechodzenia na nowy tydzien
 kalendarz.prototype.ustawNaglowekDaty = function(text) {
@@ -125,7 +150,7 @@ kalendarz.prototype.wyswietlDaty = function(data1, data2) {
 //Przesuwa date kalendarza o ustalona liczbe dni
 kalendarz.prototype.przesunDate = function(przesunDni) {
 
-	nowaData = this.pierwszyDzienKalendarzaFormatJS();
+	nowaData = this.pierwszyDzienTygodniaFormatJS();
 
 	//dodaj dni
 	nowaData.setDate(nowaData.getDate() + przesunDni)
@@ -147,11 +172,11 @@ kalendarz.prototype.przesunDate = function(przesunDni) {
 	// console.log("przesunięta nastepnaNiedz");
 	// console.log(nastepnaNiedz);
 
-	$("#PoprzedniTydzien").attr("data-date", nastepnyPon);
-	$("#NastepnyTydzien").attr("data-date", nastepnaNiedz);
+	// $("#PoprzedniTydzien").attr("data-date", nastepnyPon);
+	// $("#NastepnyTydzien").attr("data-date", nastepnaNiedz);
 
 	//ustaw pierwszy dzien ktory bedzie wyswietlany w kalendarzu
-	this.pierwszyDzienKalendarza.UstawDzien(nastepnyPon);
+	this.UstawDzien(nastepnyPon);
 
 	this.wyswietlDaty(nastepnyPon, nastepnaNiedz);
 	this.wypelnijKalendarz();
@@ -173,21 +198,21 @@ kalendarz.prototype.ustawOnlick = function() {
 
 	//przesun date tydzien do przodu gdy klikam przycisk od id="NastepnyTydzien"
 	$("#NastepnyTydzien").click( function(){
-		console.log("pierwszyDzienKalendarza przod: ");
-		console.log(pierwszyDzienKalendarza());  	
+		// console.log("pierwszyDzienKalendarza przod: ");
+		// console.log(pierwszyDzienKalendarza());  	
     	tenKalendarz.nastepnyTydzien();
-		console.log("pierwszyDzienKalendarza2 przed: ");
-		console.log(pierwszyDzienKalendarza());     	
+		// console.log("pierwszyDzienKalendarza2 przed: ");
+		// console.log(pierwszyDzienKalendarza());     	
   	
 	});
 
 	//przesun date tydzien do tylu gdy klikam przycisk od id="PoprzedniTydzien"
 	$("#PoprzedniTydzien").click( function(){
-		console.log("pierwszyDzienKalendarza tyl: ");	
-    	console.log(pierwszyDzienKalendarza()); 		
+		// console.log("pierwszyDzienKalendarza tyl: ");	
+  //   	console.log(pierwszyDzienKalendarza()); 		
     	tenKalendarz.poprzedniTydzien();
-		console.log("pierwszyDzienKalendarza tyl2: ");	
-    	console.log(pierwszyDzienKalendarza()); 
+		// console.log("pierwszyDzienKalendarza tyl2: ");	
+  //   	console.log(pierwszyDzienKalendarza()); 
 
 	});
 
@@ -209,7 +234,7 @@ kalendarz.prototype.ustawOnlick = function() {
 		// console.log(dzienTyg);
 
 
-		dataPon = this.pierwszyDzienKalendarzaFormatJS();
+		dataPon = this.pierwszyDzienTygodniaFormatJS();
 
 		dataNiedzie = new Date(dataPon.valueOf() );
 		dataNiedzie.setDate(dataPon.getDate() + 6);
@@ -283,6 +308,7 @@ kalendarz.prototype.ustawOnlick = function() {
 
 
 kalendarz.prototype.przyciskiLekarza = function() {
+	tenKalendarz = this;
 	$(".przycisk_lekarza").click(function(event) {
 
 		  /* stop form from submitting normally */
@@ -297,6 +323,9 @@ kalendarz.prototype.przyciskiLekarza = function() {
 		  lekarz_id = $(this).data("lekarzid");
 		  console.log("lekarzid");
 		  console.log(lekarz_id);
+
+	      			  
+		  this.ustawPierwszydzienKalendarzaNaTeraz();
 	    $.ajax({
 	      url: "zarejestruj_wizyte/lista_wizyt",
 	      type: "post",
@@ -305,6 +334,7 @@ kalendarz.prototype.przyciskiLekarza = function() {
 	      data: {lekarzid: lekarz_id },
 	      // data: {lekarzid: lekarz_id, data: "2016-02-05", godzina: 7},
 	      success: function(wizyty){
+			// tenKalendarz.ustawPierwszDzienTygodniaNaTeraz();
 	      	console.log(wizyty);	
 	        console.log('Odczyt z JS lista_wizyt');
 	        
