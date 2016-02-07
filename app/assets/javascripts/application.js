@@ -77,9 +77,55 @@ function kalendarz() {
 	this.godziny =(function(a,b){while(a--)b[a]=a+7;return b})(11,[]);
 	this.iloscDniTygodnia = 7;
 
+
+
 	dzisiajData = new Date();
 	this.pierwszyDzienTygodnia = ostatniPoniedzialek(dzisiajData);
+	
 
+	dataNiedzie = new Date(this.pierwszyDzienTygodnia.valueOf() );
+	dataNiedzie.setDate(this.pierwszyDzienTygodnia.getDate() + 6);	
+	this.niedzielaTygodnia = dataNiedzie ;
+
+	this.wypelnijKalendarz();
+
+}
+
+
+// Funkcja wypełnia kalendarz zaznaczonymi wizytami, wolnymi wizytami, 
+// -- oznacza ze to miniony dzien
+// X - zajeta godzina wizyty
+// kwadrat - wolne miejsce
+kalendarz.prototype.wypelnijKalendarz = function() {
+
+	dzisiajData = new Date();
+
+	dataPon = this.pierwszyDzienTygodnia;
+	dataNiedzie = this.niedzielaTygodnia;
+
+	if ( dzisiajData < dataNiedzie && dzisiajData < dataPon ) {
+		this.wypelnijMinionyTydzien();
+	}
+	else if ( dzisiajData < dataPon) {
+		this.wypelnijNastepnyTydzien();
+	}
+
+	else {
+	//iteruj po elementach kalendarza ktore maja stare daty
+		this.wypelnijAktualnyTydzien();
+	}		
+}
+
+kalendarz.prototype.wypelnijMinionyTydzien = function() {
+	console.log("Miniony tydzien");
+}
+
+kalendarz.prototype.wypelnijNastepnyTydzien = function() {
+	console.log("Nastepny tydzien");
+}
+
+kalendarz.prototype.wypelnijAktualnyTydzien = function() {
+	console.log("Aktualny tydzien");
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
