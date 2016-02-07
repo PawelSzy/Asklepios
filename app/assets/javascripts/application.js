@@ -128,4 +128,25 @@ kalendarz.prototype.wypelnijAktualnyTydzien = function() {
 	console.log("Aktualny tydzien");
 }
 
+
+//Przesuwa date kalendarza o ustalona liczbe dni
+kalendarz.prototype.przesunDate = function(przesunDni) {
+
+	dataPon = this.pierwszyDzienTygodnia;
+	dataPon.setDate(dataPon.getDate() + przesunDni);
+
+	dataNiedzie = new Date(this.pierwszyDzienTygodnia.valueOf() );
+	dataNiedzie.setDate(this.pierwszyDzienTygodnia.getDate() + 6);	
+	this.niedzielaTygodnia = dataNiedzie ;
+}
+
+kalendarz.prototype.nastepnyTydzien = function() {
+	this.przesunDate(7);
+}
+
+
+kalendarz.prototype.poprzedniTydzien = function() {
+	this.przesunDate(-7);
+}
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
