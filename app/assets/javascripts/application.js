@@ -77,7 +77,7 @@ function kalendarz() {
 	this.godziny =(function(a,b){while(a--)b[a]=a+7;return b})(11,[]);
 	this.iloscDniTygodnia = 7;
 
-
+	this.znakZajestaGodzina ="<p>-- </p>" ; 
 
 	dzisiajData = new Date();
 	this.pierwszyDzienTygodnia = ostatniPoniedzialek(dzisiajData);
@@ -120,10 +120,10 @@ kalendarz.prototype.wypelnijKalendarz = function() {
 	dataPon = this.pierwszyDzienTygodnia;
 	dataNiedzie = this.niedzielaTygodnia;
 
-	if ( dzisiajData < dataNiedzie && dzisiajData < dataPon ) {
+	if ( dzisiajData > dataNiedzie ) {
 		this.wypelnijMinionyTydzien();
 	}
-	else if ( dzisiajData < dataPon) {
+	else if (  dzisiajData < dataPon) {
 		this.wypelnijNastepnyTydzien();
 	}
 
@@ -133,8 +133,15 @@ kalendarz.prototype.wypelnijKalendarz = function() {
 	}		
 }
 
+//wypelnia wszystkie miejsca zajetym znakiem --
 kalendarz.prototype.wypelnijMinionyTydzien = function() {
 	console.log("Miniony tydzien");
+	for (index = this.iloscDniTygodnia; index > 0; --index) {
+		this.godziny.forEach(function(godzina) {
+		    id_dnia = "godz" + godzina + "dzien"+index;
+		    $( "#"+id_dnia ).html( "<p>-- </p>" );
+		});
+	}	
 }
 
 kalendarz.prototype.wypelnijNastepnyTydzien = function() {
@@ -158,6 +165,7 @@ kalendarz.prototype.przesunDate = function(przesunDni) {
 
 	//ustaw napisy na gorze kalendarza informujace o dniu tygodnia
 	this.ustawNaglowekDaty();
+	this.wypelnijKalendarz();	
 }
 
 kalendarz.prototype.nastepnyTydzien = function() {
