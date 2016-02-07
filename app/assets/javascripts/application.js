@@ -77,7 +77,6 @@ function kalendarz() {
 	this.godziny =(function(a,b){while(a--)b[a]=a+7;return b})(11,[]);
 	this.iloscDniTygodnia = 7;
 
-	this.znakZajestaGodzina ="<p>-- </p>" ; 
 
 	dzisiajData = new Date();
 	this.pierwszyDzienTygodnia = ostatniPoniedzialek(dzisiajData);
@@ -211,6 +210,7 @@ kalendarz.prototype.przyciskiLekarza = function() {
 		  // console.log("lekarzid");
 		  // console.log(lekarz_id);
 
+
 	      			  
 		// wyslij zapytanie ajax i odczytaj wizyty danego lekarza
 	    $.ajax({
@@ -224,6 +224,7 @@ kalendarz.prototype.przyciskiLekarza = function() {
 			// tenKalendarz.ustawPierwszDzienTygodniaNaTeraz();
 	      	console.log(wizyty);	
 	        console.log('Odczyt z JS lista_wizyt');
+	        tenKalendarz.wypelnijWizyty(wizyty);
 	        
 	      },
 	      error: function (xhr, ajaxOptions, thrownError) {
@@ -232,5 +233,10 @@ kalendarz.prototype.przyciskiLekarza = function() {
 	      }
 	    });
 	});
+
+	//funckcja wypelnia kalendarz danymi wizytami
+	kalendarz.prototype.wypelnijWizyty = function(wizyty) {
+		console.log("Funkcja wizyty");
+	}
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
