@@ -67,6 +67,16 @@ function ostatniPoniedzialek(d) {
   return new Date(d.setDate(diff));
 }
 
+function ileDniOdPoniedzialku(data) {
+	dzien = data.getDay();
+	if (dzien === 0) {
+		return 7;
+	}
+	else {
+		return dzien -1;
+	}
+}
+
 //Obsluga kalendarza
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //funkcja odpowiada za pobranie danych ktore ustawiaja pierwszy dzien kalendarza
@@ -241,11 +251,20 @@ kalendarz.prototype.przyciskiLekarza = function() {
 		dataNiedzie = this.niedzielaTygodnia
 
 		wizyty.forEach(function(wizyta) {
-			//wyswietl tylko jesli wizyta ma date znajdujacy sie w wyswietlanym tygodniu na kalendarzu
 			wizytaData = new Date(wizyta.data);
+			//wyswietl tylko jesli wizyta ma date znajdujacy sie w wyswietlanym tygodniu na kalendarzu
 			if  (dataPon  < wizytaData  && wizytaData < dataNiedzie) {
 				console.log("wizyta w tym tygodniu:");
 				console.log(wizyta);
+				console.log("ilosc dni OD Poniedzialku");
+				console.log(ileDniOdPoniedzialku(wizytaData));
+				ileDniOdPon = ileDniOdPoniedzialku(wizytaData);
+				godzinaWizyty = wizyta.godzina;
+
+				id_dnia = "godz" + godzinaWizyty + "dzien"+ileDniOdPon;
+				console.log(id_dnia);
+				$( "#"+id_dnia ).html("<span ></span>");	 
+				//"<span class='custom-checkbox'></span>";			
 			};
 		});
 
