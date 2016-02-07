@@ -90,6 +90,8 @@ function kalendarz() {
 	this.wypelnijKalendarz();
 	this.ustawNaglowekDaty();
 
+	this.ustawPrzyciskiNastepnyPoprzedniTydz();
+
 }
 
 
@@ -165,6 +167,23 @@ kalendarz.prototype.nastepnyTydzien = function() {
 
 kalendarz.prototype.poprzedniTydzien = function() {
 	this.przesunDate(-7);
+}
+
+//polacz przyciski nastepny poprzedni tydzien z funkcjami JS zmieniajacymi tydzien
+kalendarz.prototype.ustawPrzyciskiNastepnyPoprzedniTydz = function() {
+	console.log("ustawPrzyciskiNastepnyPoprzedniTydz");
+	tenKalendarz = this;
+
+	//przesun date tydzien do przodu gdy klikam przycisk od id="NastepnyTydzien"
+	$("#NastepnyTydzien").click( function(){	
+    	tenKalendarz.nastepnyTydzien();
+	});
+
+	//przesun date tydzien do tylu gdy klikam przycisk od id="PoprzedniTydzien"
+	$("#PoprzedniTydzien").click( function(){	
+    	tenKalendarz.poprzedniTydzien();
+	});
+
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
