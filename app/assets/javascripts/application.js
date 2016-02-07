@@ -87,10 +87,11 @@ function kalendarz() {
 	dataNiedzie.setDate(this.pierwszyDzienTygodnia.getDate() + 6);	
 	this.niedzielaTygodnia = dataNiedzie ;
 
+	//uruchom funkcje odpowiadajece za obsluge kalendarza
 	this.wypelnijKalendarz();
 	this.ustawNaglowekDaty();
-
 	this.ustawPrzyciskiNastepnyPoprzedniTydz();
+	this.przyciskiLekarza()	;
 
 }
 
@@ -194,4 +195,42 @@ kalendarz.prototype.ustawPrzyciskiNastepnyPoprzedniTydz = function() {
 
 }
 
+
+//dodaj obsluge przyciskow Lekarzy - pobierz wizyt danego lekarza
+kalendarz.prototype.przyciskiLekarza = function() {
+	tenKalendarz = this;
+	$(".przycisk_lekarza").click(function(event) {
+
+		  /* stop form from submitting normally */
+		   event.preventDefault();
+
+
+		  /* Send the data using post and put the results in a div */
+		  console.log("LEKARZ PRZYCISK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
+		  lekarz_id = $(this).data("lekarzid");
+		  // console.log("lekarzid");
+		  // console.log(lekarz_id);
+
+	      			  
+		// wyslij zapytanie ajax i odczytaj wizyty danego lekarza
+	    $.ajax({
+	      url: "zarejestruj_wizyte/lista_wizyt",
+	      type: "post",
+	      // dataType: 'script',
+	      dataType: "json",
+	      data: {lekarzid: lekarz_id },
+	      // data: {lekarzid: lekarz_id, data: "2016-02-05", godzina: 7},
+	      success: function(wizyty){
+			// tenKalendarz.ustawPierwszDzienTygodniaNaTeraz();
+	      	console.log(wizyty);	
+	        console.log('Odczyt z JS lista_wizyt');
+	        
+	      },
+	      error: function (xhr, ajaxOptions, thrownError) {
+	        alert(xhr.status);
+	        alert(thrownError);
+	      }
+	    });
+	});
+}
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
