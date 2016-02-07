@@ -1,14 +1,5 @@
-// console.log("Test lista wizyt");
 
-// console.log("<%= @wizyty %>");
-
-
-// console.log("<%= escape_javascript @wizyty.to_json %>");
 var wizyty = "<%=  escape_javascript @wizyty.to_json %>";
 wizyty = JSON.parse(wizyty.replace(/&quot;/g,'"'));
-
-// wizyty.forEach(function(wizyta) {
-// 	console.log(wizyta);
-// });
 
 

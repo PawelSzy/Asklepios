@@ -44,16 +44,6 @@ class ZarejestrujWizyteController < ApplicationController
 		@wizyty_godzina = @wizyty.map(&:godzina)
 		@wizyty_data = @wizyty.map(&:data)
 
-		@buttonslekarzy = Array.new
-
-		#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
-		# <%= button_to "Claim", {action: "claim", idea_id: idea.id, remote: true}, {class: 'btn btn-small'} %>
-		#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-
-	
-# '<%= submit_tag(lekarz.imie+' '+lekarz.nazwisko, class: " btn btn-primary  btn-block przycisk_lekarza") %>'
-
    		respond_to do |format|
       		format.html
       		format.js

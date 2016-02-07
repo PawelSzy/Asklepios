@@ -1,0 +1,297 @@
+function pierwszyDzienKalendarza() {
+	return $("#pierwszyDzienKalendarza").text();
+}
+
+
+function kalendarz() {
+	this.miesiaceOdmiana = [ "stycznia", "lutego", "marca","kwietnia", "maja", "czerwica", "lipca", "sierpnia", "wrzesnia", "października", "listopada", "grudnia" ];
+	this.godziny =(function(a,b){while(a--)b[a]=a+7;return b})(11,[]);
+	this.iloscDniTygodnia = 7;
+	this.dataPonTenTydzien = pierwszyDzienKalendarza();
+	this.pierwszyDzienTygodnia = this.dataPonTenTydzien ;
+	this.ustawOnlick();
+	this.wypelnijKalendarz();
+	this.przyciskiLekarza();
+
+	this.pusta_komorka = "<p>-- </p>";
+
+}
+
+
+kalendarz.prototype.UstawDzien = function(nowaData) {
+	this.pierwszyDzienTygodnia = nowaData;
+}
+
+
+// function ustawPierwszyDzienKalendarze(data) {
+// 	$("#pierwszyDzienKalendarza").text(data);
+// }
+
+// kalendarz.prototype.pierwszyDzienKalendarza = pierwszyDzienTygodnia;
+
+kalendarz.prototype.pierwszyDzienTygodniaFormatJS = function() {
+	date = this.pierwszyDzienTygodnia; // $("#PoprzedniTydzien").attr("data-date");
+	dataFormatJS =rubyDataIntoJS(date);
+
+	return dataFormatJS;
+}
+
+
+kalendarz.prototype.ustawPierwszDzienTygodniaNaTeraz = function() {
+	this.pierwszyDzienTygodnia = this.dataPonTenTydzien ;
+
+	//pobierz dane - date poniedzialku tego tygonia i nastenej niedzieli
+	nowyPon = this.pierwszyDzienTygodniaFormatJS();
+	nowyPon = jsDataIntoRuby(nowyPon);
+	nastepnaNiedz = new Date(nowaData.valueOf() );
+	nastepnaNiedz.setDate(nastepnaNiedz.getDate() + 6);
+	nastepnaNiedz = jsDataIntoRuby(nastepnaNiedz);
+
+	//wyswietl daty
+	this.wyswietlDaty(nowyPon, nastepnaNiedz);
+	// this.wypelnijKalendarz();	
+}
+
+
+//ustawia duzy napis u gory kalendarza pomiedzy strzalkami przechodzenia na nowy tydzien
+kalendarz.prototype.ustawNaglowekDaty = function(text) {
+	$("#naglowek_kal_daty").text(text);
+}
+
+//IN: 2016-01-05 - funkcja pobiera date w formie YYYY-MM-DD
+//Out 5 stycznia - funckaj zwraca date w formacie cyfrowym
+kalendarz.prototype.wyswietlTekstoweDaty = function(data) {
+	nowaData = rubyDataIntoJS.prototype.splitData(data);
+	miesiac = this.miesiaceOdmiana[ nowaData['month'] ];
+	dzien = nowaData['day'];
+
+	dataText = dzien + " " + miesiac;
+
+	return dataText;
+}
+
+kalendarz.prototype.wyswietlDaty = function(data1, data2) {
+	//konwertuj daty na text
+	dataText1 = this.wyswietlTekstoweDaty(data1);
+	dataText2 = this.wyswietlTekstoweDaty(data2);
+
+	//polacz w jeden string
+	text = dataText1 +" - " +dataText2;
+
+	//wyswietl na kalendarzu
+	this.ustawNaglowekDaty(text);
+}
+
+//Przesuwa date kalendarza o ustalona liczbe dni
+kalendarz.prototype.przesunDate = function(przesunDni) {
+
+	nowaData = this.pierwszyDzienTygodniaFormatJS();
+
+	//dodaj dni
+	nowaData.setDate(nowaData.getDate() + przesunDni)
+	// console.log("nowaData");	
+	// console.log(nowaData);
+
+
+	//ustaw wartości na strzałkach wskazujacych nowy i poprzedni tydzien
+	//////////////////////////////////////////////////////////
+	nastepnyPon = nowaData;
+	nastepnyPon = jsDataIntoRuby(nastepnyPon);
+	// console.log("przesuniety o tydzien nastepnyPon");
+	// console.log(nastepnyPon);
+
+
+	nastepnaNiedz = new Date(nowaData.valueOf() );
+	nastepnaNiedz.setDate(nastepnaNiedz.getDate() + 6);
+	nastepnaNiedz = jsDataIntoRuby(nastepnaNiedz);
+	// console.log("przesunięta nastepnaNiedz");
+	// console.log(nastepnaNiedz);
+
+	// $("#PoprzedniTydzien").attr("data-date", nastepnyPon);
+	// $("#NastepnyTydzien").attr("data-date", nastepnaNiedz);
+
+	//ustaw pierwszy dzien ktory bedzie wyswietlany w kalendarzu
+	this.UstawDzien(nastepnyPon);
+
+	this.wyswietlDaty(nastepnyPon, nastepnaNiedz);
+	// this.wypelnijKalendarz();
+	//////////////////////////////////////////////////////////	
+}
+
+kalendarz.prototype.nastepnyTydzien = function() {
+	this.przesunDate(7);
+}
+
+
+kalendarz.prototype.poprzedniTydzien = function() {
+	this.przesunDate(-7);
+}
+
+kalendarz.prototype.ustawOnlick = function() {
+	console.log("OnClick");
+	tenKalendarz = this;
+
+	//przesun date tydzien do przodu gdy klikam przycisk od id="NastepnyTydzien"
+	$("#NastepnyTydzien").click( function(){
+		// console.log("pierwszyDzienKalendarza przod: ");
+		// console.log(pierwszyDzienKalendarza());  	
+    	tenKalendarz.nastepnyTydzien();
+		// console.log("pierwszyDzienKalendarza2 przed: ");
+		// console.log(pierwszyDzienKalendarza());     	
+  	
+	});
+
+	//przesun date tydzien do tylu gdy klikam przycisk od id="PoprzedniTydzien"
+	$("#PoprzedniTydzien").click( function(){
+		// console.log("pierwszyDzienKalendarza tyl: ");	
+  //   	console.log(pierwszyDzienKalendarza()); 		
+    	tenKalendarz.poprzedniTydzien();
+		// console.log("pierwszyDzienKalendarza tyl2: ");	
+  //   	console.log(pierwszyDzienKalendarza()); 
+
+	});
+
+
+	//Funkcja wypełnia kalendarz zaznaczonymi wizytami, wolnymi wizytami, 
+	// -- oznacza ze to miniony dzien
+	// X - zajeta godzina wizyty
+	// kwadrat - wolne miejsce
+	kalendarz.prototype.wypelnijKalendarz = function() {
+		//wypelnij minione dni znakiem "--"
+		/////////////////////////////////////
+
+		//sprawdz dzisiejszy dzien tygodnia
+		timeNow = new Date;
+		dzienTyg = timeNow.getDay();
+
+
+		// console.log("wypelnijKalendarz");
+		// console.log(dzienTyg);
+
+
+		dataPon = this.pierwszyDzienTygodniaFormatJS();
+
+		dataNiedzie = new Date(dataPon.valueOf() );
+		dataNiedzie.setDate(dataPon.getDate() + 6);
+		console.log("dataNiedzie: ");
+		console.log(dataNiedzie);
+
+
+		if ( dataNiedzie < timeNow ) {
+			this.wypelnijMinionyTydzien();
+		}
+		else if ( timeNow < dataPon) {
+			this.wypelnijNastepnyTydzien();
+		}
+
+		else {
+		//iteruj po elementach kalendarza ktore maja stare daty
+			this.wypelnijAktualnyTydzien();
+		}	
+		/////////////////////////////////////	
+
+	}
+
+	//funkcja zwraca data konkretnego dnia 
+	//znajac date aktulnego poniedzialku oraz
+	//indexu - ile dni uplynelo od poniedzialku w tym tygodniu
+	// kalendarz.prototype.podajDateDnia = function(dzienIndex) {
+	// 	dataPon = this.pierwszyDzienTygodniaFormatJS();
+	// 	dataDnia = new Date(dataPon.valueOf() +dzienIndex );
+	// 	return dataDnia;
+
+	// }
+
+	//zaznacz ze tydzien w kalendarzu juz minol i nie mozna nic robic
+	//wszystkie kratki kalendarza sa zaznaczone jako "--"
+	kalendarz.prototype.wypelnijMinionyTydzien = function() {
+		console.log("tydzien poprzedni");
+		for (index = this.iloscDniTygodnia; index > 0; --index) {
+    	
+    				this.godziny.forEach(function(godzina) {
+					    // console.log(godzina);
+					    // id_dnia = this.utworzIdDnia(index, godzina);
+					    id_dnia = "godz" + godzina + "dzien"+index;
+					    // data = this.podajDateDnia(index);
+					    // data = this.pierwszyDzienTygodniaFormatJS+dzien;
+					    // console.log(id_dnia);
+					    $( "#"+id_dnia ).html( "<p>-- </p>" );
+					    // $( "#"+id_dnia ).data('date', data);
+					});
+		}		
+	}
+
+	//wypelnia wizyty dla nastepnego tygodnia
+	kalendarz.prototype.wypelnijNastepnyTydzien = function() {
+		console.log("NastepnyTydzien");
+		for (index = this.iloscDniTygodnia; index > 0; --index) {
+    	
+    				this.godziny.forEach(function(godzina) {
+					    // console.log(godzina);
+					    id_dnia = "godz" + godzina + "dzien"+index;
+					    // console.log(id_dnia);
+					    $( "#"+id_dnia ).html( "<span class='custom-checkbox'></span></label>" );
+					});
+		}			
+	}
+
+	//Wypelnia wyzyty dla aktualnego tygodnia 
+	kalendarz.prototype.wypelnijAktualnyTydzien = function() {
+			for (index = this.iloscDniTygodnia; index > 0; --index) {
+	    	
+	    				this.godziny.forEach(function(godzina) {
+						    // console.log(godzina);
+						    id_dnia = "godz" + godzina + "dzien"+index;
+						    // console.log(id_dnia);
+						    if ( index <= dzienTyg) { 
+						    	$( "#"+id_dnia ).html( "<p>-- </p>" );
+						    }
+						    else {
+						    	$( "#"+id_dnia ).html("<span class='custom-checkbox'></span></label>");
+						    }
+						});
+			}
+	}
+
+}
+
+
+kalendarz.prototype.przyciskiLekarza = function() {
+	tenKalendarz = this;
+	$(".przycisk_lekarza").click(function(event) {
+
+		  /* stop form from submitting normally */
+		   event.preventDefault();
+
+		  /* get values from elements on the page: */
+		   // var mdate = $('#mdate').val();
+		   // var phone = $('#phone').val();
+
+		  /* Send the data using post and put the results in a div */
+		  console.log("LEKARZ PRZYCISK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
+		  lekarz_id = $(this).data("lekarzid");
+		  console.log("lekarzid");
+		  console.log(lekarz_id);
+
+	      			  
+		  // tenKalendarz.ustawPierwszydzienKalendarzaNaTeraz();
+	    $.ajax({
+	      url: "zarejestruj_wizyte/lista_wizyt",
+	      type: "post",
+	      // dataType: 'script',
+	      dataType: "json",
+	      data: {lekarzid: lekarz_id },
+	      // data: {lekarzid: lekarz_id, data: "2016-02-05", godzina: 7},
+	      success: function(wizyty){
+			tenKalendarz.ustawPierwszDzienTygodniaNaTeraz();
+	      	console.log(wizyty);	
+	        console.log('Odczyt z JS lista_wizyt');
+	        
+	      },
+	      error: function (xhr, ajaxOptions, thrownError) {
+	        alert(xhr.status);
+	        alert(thrownError);
+	      }
+	    });
+	});
+}
