@@ -88,7 +88,22 @@ function kalendarz() {
 	this.niedzielaTygodnia = dataNiedzie ;
 
 	this.wypelnijKalendarz();
+	this.ustawNaglowekDaty();
 
+}
+
+
+//ustawia duzy napis u gory kalendarza pomiedzy strzalkami przechodzenia na nowy tydzien
+//napis informuje o wyswietlanym tygoniu np: 1 maja - 7 maja
+kalendarz.prototype.ustawNaglowekDaty = function(text) {
+	data1 = this.pierwszyDzienTygodnia.getDate();
+	miesiac1 = this.miesiaceOdmiana[ this.pierwszyDzienTygodnia.getMonth() ];
+	data2 = this.niedzielaTygodnia.getDate();
+	miesiac2 = this.miesiaceOdmiana[ this.niedzielaTygodnia.getMonth() ];
+
+	text = data1 + " " + miesiac1 + " - " + data2 + " " +miesiac2;
+
+	$("#naglowek_kal_daty").text(text);
 }
 
 
@@ -138,6 +153,9 @@ kalendarz.prototype.przesunDate = function(przesunDni) {
 	dataNiedzie = new Date(this.pierwszyDzienTygodnia.valueOf() );
 	dataNiedzie.setDate(this.pierwszyDzienTygodnia.getDate() + 6);	
 	this.niedzielaTygodnia = dataNiedzie ;
+
+	//ustaw napisy na gorze kalendarza informujace o dniu tygodnia
+	this.ustawNaglowekDaty();
 }
 
 kalendarz.prototype.nastepnyTydzien = function() {
