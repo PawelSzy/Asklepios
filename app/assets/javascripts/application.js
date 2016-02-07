@@ -237,6 +237,19 @@ kalendarz.prototype.przyciskiLekarza = function() {
 	//funckcja wypelnia kalendarz danymi wizytami
 	kalendarz.prototype.wypelnijWizyty = function(wizyty) {
 		console.log("Funkcja wizyty");
+		dataPon = this.pierwszyDzienTygodnia;
+		dataNiedzie = this.niedzielaTygodnia
+
+		wizyty.forEach(function(wizyta) {
+			//wyswietl tylko jesli wizyta ma date znajdujacy sie w wyswietlanym tygodniu na kalendarzu
+			wizytaData = new Date(wizyta.data);
+			if  (dataPon  < wizytaData  && wizytaData < dataNiedzie) {
+				console.log("wizyta w tym tygodniu:");
+				console.log(wizyta);
+			};
+		});
+
 	}
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
