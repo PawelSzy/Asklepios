@@ -143,23 +143,34 @@ kalendarz.prototype.wypelnijKalendarz = function() {
 	}		
 }
 
-//wypelnia wszystkie miejsca zajetym znakiem --
-kalendarz.prototype.wypelnijMinionyTydzien = function() {
-	console.log("Miniony tydzien");
+//wunkcja wypelnia caly kalendarz znakiem oznaczajacym brak wizyty
+// -- ze w tym momencie nie ma rejestracji
+kalendarz.prototype.wypelnijKalendarzPustymi = function() {
 	for (index = this.iloscDniTygodnia; index > 0; --index) {
 		this.godziny.forEach(function(godzina) {
 		    id_dnia = "godz" + godzina + "dzien"+index;
-		    $( "#"+id_dnia ).html( "<p>-- </p>" );
+		    $( "#"+id_dnia ).html( "<small>-- </small>" );
 		});
 	}	
 }
 
+//wypelnia wszystkie miejsca zajetym znakiem --
+kalendarz.prototype.wypelnijMinionyTydzien = function() {
+	console.log("Miniony tydzien");
+	this.wypelnijKalendarzPustymi();
+	
+}
+
 kalendarz.prototype.wypelnijNastepnyTydzien = function() {
 	console.log("Nastepny tydzien");
+	this.wypelnijKalendarzPustymi();	
+	    	
 }
 
 kalendarz.prototype.wypelnijAktualnyTydzien = function() {
 	console.log("Aktualny tydzien");
+	this.wypelnijKalendarzPustymi();
+
 }
 
 
@@ -263,7 +274,7 @@ kalendarz.prototype.przyciskiLekarza = function() {
 
 				id_dnia = "godz" + godzinaWizyty + "dzien"+ileDniOdPon;
 				console.log(id_dnia);
-				$( "#"+id_dnia ).html("<span ></span>");	 
+				$( "#"+id_dnia ).html("<span  class='custom-checkbox'></span>");	 
 				//"<span class='custom-checkbox'></span>";			
 			};
 		});
