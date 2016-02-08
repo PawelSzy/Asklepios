@@ -159,19 +159,29 @@ kalendarz.prototype.wypelnijKalendarzPustymi = function() {
 kalendarz.prototype.wypelnijMinionyTydzien = function() {
 	console.log("Miniony tydzien");
 	this.wypelnijKalendarzPustymi();
+
 	
 }
 
 kalendarz.prototype.wypelnijNastepnyTydzien = function() {
 	console.log("Nastepny tydzien");
 	this.wypelnijKalendarzPustymi();	
-	    	
+	lekarz_id = this.lekarz_id;
+	lekarz_id = this.lekarz_id
+	if (lekarz_id !== null)
+	{
+		this.wypelnijWizytyLekarza(lekarz_id);
+	}		    	
 }
 
 kalendarz.prototype.wypelnijAktualnyTydzien = function() {
 	console.log("Aktualny tydzien");
 	this.wypelnijKalendarzPustymi();
-
+	lekarz_id = this.lekarz_id
+	if (lekarz_id !== null)
+	{
+		this.wypelnijWizytyLekarza(lekarz_id);
+	}
 }
 
 
@@ -226,37 +236,19 @@ kalendarz.prototype.przyciskiLekarza = function() {
 		   event.preventDefault();
 
 
-		  /* Send the data using post and put the results in a div */
-		  console.log("LEKARZ PRZYCISK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
+		  /*wypelnij kalendarz wizytami lekarza o podanym id */
 		  lekarz_id = $(this).data("lekarzid");
 		  tenKalendarz.lekarz_id = lekarz_id;
 		  tenKalendarz.wypelnijWizytyLekarza(lekarz_id);
-	      			  
-		// wyslij zapytanie ajax i odczytaj wizyty danego lekarza
-	  //   $.ajax({
-	  //     url: "zarejestruj_wizyte/lista_wizyt",
-	  //     type: "post",
-	  //     // dataType: 'script',
-	  //     dataType: "json",
-	  //     data: {lekarzid: lekarz_id },
-	  //     // data: {lekarzid: lekarz_id, data: "2016-02-05", godzina: 7},
-	  //     success: function(wizyty){
-			// // tenKalendarz.ustawPierwszDzienTygodniaNaTeraz();
-	  //     	console.log(wizyty);	
-	  //       console.log('Odczyt z JS lista_wizyt');
-	  //       tenKalendarz.wypelnijWizyty(wizyty);
-	        
-	  //     },
-	  //     error: function (xhr, ajaxOptions, thrownError) {
-	  //       alert(xhr.status);
-	  //       alert(thrownError);
-	  //     }
-	  //   });
+
 	});
 
 
 kalendarz.prototype.wypelnijWizytyLekarza = function(lekarz_id) {
 	console.log("wypelnijWizytyLekarza!!!!!!!!!!!!!111");
+	if (lekarz_id === null) {
+		return false;
+	};
 	tenKalendarz = this;	
 	// wyslij zapytanie ajax i odczytaj wizyty danego lekarza
     $.ajax({
@@ -284,7 +276,7 @@ kalendarz.prototype.wypelnijWizytyLekarza = function(lekarz_id) {
 	kalendarz.prototype.wypelnijWizyty = function(wizyty) {
 		console.log("Funkcja wizyty");
 		dataPon = this.pierwszyDzienTygodnia;
-		dataNiedzie = this.niedzielaTygodnia
+		dataNiedzie = this.niedzielaTygodnia;
 
 		wizyty.forEach(function(wizyta) {
 			wizytaData = new Date(wizyta.data);
