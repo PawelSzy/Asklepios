@@ -243,6 +243,7 @@ kalendarz.prototype.przyciskiLekarza = function() {
 
 	});
 
+}
 
 kalendarz.prototype.wypelnijWizytyLekarza = function(lekarz_id) {
 	console.log("wypelnijWizytyLekarza!!!!!!!!!!!!!111");
@@ -272,31 +273,39 @@ kalendarz.prototype.wypelnijWizytyLekarza = function(lekarz_id) {
     });	
 }
 
-	//funckcja wypelnia kalendarz danymi wizytami
-	kalendarz.prototype.wypelnijWizyty = function(wizyty) {
-		console.log("Funkcja wizyty");
-		dataPon = this.pierwszyDzienTygodnia;
-		dataNiedzie = this.niedzielaTygodnia;
+//funckcja wypelnia kalendarz danymi wizytami
+kalendarz.prototype.wypelnijWizyty = function(wizyty) {
+	console.log("Funkcja wizyty");
+	dataPon = this.pierwszyDzienTygodnia;
+	dataNiedzie = this.niedzielaTygodnia;
+	tenKalendarz = this;
+	wizyty.forEach(function(wizyta) {
+		wizytaData = new Date(wizyta.data);
+		//wyswietl tylko jesli wizyta ma date znajdujacy sie w wyswietlanym tygodniu na kalendarzu
+		if  (dataPon  < wizytaData  && wizytaData < dataNiedzie) {
+			console.log("wizyta w tym tygodniu:");
+			console.log(wizyta);
+			console.log("ilosc dni OD Poniedzialku");
+			console.log(ileDniOdPoniedzialku(wizytaData));
+			ileDniOdPon = ileDniOdPoniedzialku(wizytaData);
+			godzinaWizyty = wizyta.godzina;
 
-		wizyty.forEach(function(wizyta) {
-			wizytaData = new Date(wizyta.data);
-			//wyswietl tylko jesli wizyta ma date znajdujacy sie w wyswietlanym tygodniu na kalendarzu
-			if  (dataPon  < wizytaData  && wizytaData < dataNiedzie) {
-				console.log("wizyta w tym tygodniu:");
-				console.log(wizyta);
-				console.log("ilosc dni OD Poniedzialku");
-				console.log(ileDniOdPoniedzialku(wizytaData));
-				ileDniOdPon = ileDniOdPoniedzialku(wizytaData);
-				godzinaWizyty = wizyta.godzina;
-
-				id_dnia = "godz" + godzinaWizyty + "dzien"+ileDniOdPon;
-				console.log(id_dnia);
-				$( "#"+id_dnia ).html("<span  class='custom-checkbox'></span>");	 
-				//"<span class='custom-checkbox'></span>";			
-			};
-		});
-
-	}
+			id_dnia = "godz" + godzinaWizyty + "dzien"+ileDniOdPon;
+			console.log(id_dnia);
+			$( "#"+id_dnia ).html("<span  class='custom-checkbox'></span>");	
+			tenKalendarz.wybierzKomorke(id_dnia);
+			//"<span class='custom-checkbox'></span>";			
+		};
+	});
 }
+
+kalendarz.prototype.wybierzKomorke = function(id_komorki_daty) {
+	
+	$("#"+id_komorki_daty).click( function(){	
+    	$("#"+id_komorki_daty).toggleClass('pjTsWeeklyIconSelected pjTsSelectorRemoveFromCart tsSelectorRemoveTimeslot');
+	});	
+}
+
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
