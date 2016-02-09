@@ -299,13 +299,20 @@ kalendarz.prototype.wypelnijWizyty = function(wizyty) {
 	});
 }
 
+//funkcja umozliwia zaznaczenie wizyty przez Pacjenta poprzez wybranie odpowiedniej komorki
 kalendarz.prototype.wybierzKomorke = function(id_komorki_daty) {
 	
 	$("#"+id_komorki_daty).click( function(){	
     	$("#"+id_komorki_daty).toggleClass('pjTsWeeklyIconSelected pjTsSelectorRemoveFromCart tsSelectorRemoveTimeslot');
+
+
+    	if ($("#"+id_komorki_daty).attr('class') == 'pjTsWeeklyIconAvailable pjTsSelectorAddToCart') {
+    		console.log("Odznaczono date wizyte");
+    	} else if  ($("#"+id_komorki_daty).attr('class') == 'pjTsWeeklyIconAvailable pjTsSelectorAddToCart pjTsWeeklyIconSelected pjTsSelectorRemoveFromCart tsSelectorRemoveTimeslot') {
+    		console.log("Zaznaczono date wizyty");
+    	}
 	});	
 }
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
