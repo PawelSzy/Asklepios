@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   get'/zarejestruj_wizyte/lista_wizyt' => 'zarejestruj_wizyte#listaWizyt'
   post '/zarejestruj_wizyte/lista_wizyt' => 'zarejestruj_wizyte#listaWizyt'
   get 'zapiszpacjentanawizyte' => 'zarejestruj_wizyte#zapiszPacjentaNaWizyte'
+  get 'wypiszpacjenta' => 'zarejestruj_wizyte#wypiszPacjent'
 
   resources :pacjents
   resources :lekarzs

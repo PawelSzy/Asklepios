@@ -361,6 +361,29 @@ kalendarz.prototype.zapiszPacjentaNaWizyte = function(wizyta) {
 }
 
 
+//funkcja wypisuje pacjenta z wizyty
+//@start json wizyta 
+kalendarz.prototype.wypiszPacjent = function(wizyta) {
+    $.ajax({
+      url: "zapiszpacjentanawizyte",
+      type: "get",
+      dataType: "json",
+      data: {wizytaid: wizyta.id },
+      // data: {lekarzid: lekarz_id, data: "2016-02-05", godzina: 7},
+      success: function(wypisana_wizyta){
+		// tenKalendarz.ustawPierwszDzienTygodniaNaTeraz();
+      	console.log("wizyta przed wypisanie pacjenta:");			
+      	console.log(wizyta);	
+      	console.log("wizyta po wypisaniu:");
+      	console.log(wypisana_wizyta)  ;     
+      },
+      error: function (xhr, ajaxOptions, thrownError) {
+        alert(xhr.status);
+        alert(thrownError);
+      }
+    });		
+}
+
 //funkcja umozliwia zaznaczenie wizyty przez Pacjenta poprzez wybranie odpowiedniej komorki
 //do funkcji przekazujemy numer komorki 
 kalendarz.prototype.clickPacjentWybieraWizyte = function(id_komorki_daty, wizyta) {
@@ -377,26 +400,14 @@ kalendarz.prototype.clickPacjentWybieraWizyte = function(id_komorki_daty, wizyta
 
     	if ($("#"+id_komorki_daty).attr('class') == 'pjTsWeeklyIconAvailable pjTsSelectorAddToCart') {
     		//pacjent odznaczyl wizyte
-    		console.log("Odznaczono date wizyte");   
+    		console.log("Odznaczono date wizyte");  
+    		tenKalendarz.wypiszPacjent(wizyta); 
 
     	} else if  ($("#"+id_komorki_daty).attr('class') == 'pjTsWeeklyIconAvailable pjTsSelectorAddToCart pjTsWeeklyIconSelected pjTsSelectorRemoveFromCart tsSelectorRemoveTimeslot') {
     		//pacjent zaznaczyl wizyte
     		console.log("Zaznaczono date wizyty");
+    		tenKalendarz.zapiszPacjentaNaWizyte(wizyta);
     	}
-
-    	////////////////////////////////////////////////////////////////
-    	//
-    	// Tu powinno byc wyslij do ruby i zaznacz w bazie danych ze pacjent wybral wizyte
-    	//
-    	///////////////////////////////////////////////////////////////
-    	console.log("Pacjent w sroktu clik");
-    	console.log(pacjent);
-
-    	wizyta.pacjent_id = pacjent.id ;
-
-    	console.log(wizyta);
-
-    	tenKalendarz.zapiszPacjentaNaWizyte(wizyta);
 
 	});	
 }
