@@ -338,13 +338,36 @@ kalendarz.prototype.zalogowanyPacjent = function() {
 }
 
 
+kalendarz.prototype.zapiszPacjentaNaWizyte = function(wizyta) {
+	//Wyslij 
+    $.ajax({
+      url: "zapiszpacjentanawizyte",
+      type: "get",
+      dataType: "json",
+      data: {pacjentid: wizyta.pacjent_id, wizytaid: wizyta.id },
+      // data: {lekarzid: lekarz_id, data: "2016-02-05", godzina: 7},
+      success: function(zapisana_wizyta){
+		// tenKalendarz.ustawPierwszDzienTygodniaNaTeraz();
+      	console.log("wizyta przed zapisaniem pacjenta:");			
+      	console.log(wizyta);	
+      	console.log("zapisana_wizyta:");
+      	console.log(zapisana_wizyta)  ;     
+      },
+      error: function (xhr, ajaxOptions, thrownError) {
+        alert(xhr.status);
+        alert(thrownError);
+      }
+    });	
+}
+
+
 //funkcja umozliwia zaznaczenie wizyty przez Pacjenta poprzez wybranie odpowiedniej komorki
 //do funkcji przekazujemy numer komorki 
 kalendarz.prototype.clickPacjentWybieraWizyte = function(id_komorki_daty, wizyta) {
 
 
 	pacjent = this.zalogowanyPacjent();
-
+	tenKalendarz = this;
 
 	$("#"+id_komorki_daty).click( function(){	
     	$("#"+id_komorki_daty).toggleClass('pjTsWeeklyIconSelected pjTsSelectorRemoveFromCart tsSelectorRemoveTimeslot');
@@ -373,26 +396,7 @@ kalendarz.prototype.clickPacjentWybieraWizyte = function(id_komorki_daty, wizyta
 
     	console.log(wizyta);
 
-    	//Wyslij 
-	    $.ajax({
-	      url: "zapiszpacjentanawizyte",
-	      type: "get",
-	      dataType: "json",
-	      data: {pacjentid: wizyta.pacjent_id, wizytaid: wizyta.id },
-	      // data: {lekarzid: lekarz_id, data: "2016-02-05", godzina: 7},
-	      success: function(zapisana_wizyta){
-			// tenKalendarz.ustawPierwszDzienTygodniaNaTeraz();
-	      	console.log("wizyta przed zapisaniem pacjenta:");			
-	      	console.log(wizyta);	
-	      	console.log("zapisana_wizyta:");
-	      	console.log(zapisana_wizyta)  ;     
-	      },
-	      error: function (xhr, ajaxOptions, thrownError) {
-	        alert(xhr.status);
-	        alert(thrownError);
-	      }
-	    });	
-
+    	tenKalendarz.zapiszPacjentaNaWizyte(wizyta);
 
 	});	
 }
