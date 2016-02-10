@@ -302,14 +302,50 @@ kalendarz.prototype.wypelnijWizyty = function(wizyty) {
 			$("#"+id_dnia).attr('data-godzinaWizyty', godzinaWizyty);
 
 			//ustaw funkcje ktora uruchamia sie po nacisnieciu checkboxa			
-			tenKalendarz.wybierzKomorke(id_dnia);
+			tenKalendarz.clickPacjentWybieraWizyte(id_dnia, wizyta);
 		};
 	});
 }
 
+//funkcja odczytuje aktualnie zalogowanego pacjenta
+//funccja zwraca JSON zawierajacy dane Pacjenta ktory jest zalogowany
+kalendarz.prototype.zalogowanyPacjent = function() {
+	//odczytaj dane aktualnie zalogowanego pacjenta 
+	pacjent = null;
+     $.ajax({
+      url: "podajzalogowanegopacjenta",
+      type: "get",
+      dataType: "json",
+      success: function(zalogowany_pacjent){
+		// tenKalendarz.ustawPierwszDzienTygodniaNaTeraz();
+        console.log('Zalogowany pacjent:');
+      	console.log(zalogowany_pacjent);	
+      	if (zalogowany_pacjent !== null) {
+      		pacjent = zalogowany_pacjent;
+      		console.log(pacjent);
+      		return pacjent;
+      	}
+        
+      },
+      error: function (xhr, ajaxOptions, thrownError) {
+        alert(xhr.status);
+        alert(thrownError);
+        // pacjent = null;
+      }
+    });
+
+    return pacjent;	 
+}
+
+
 //funkcja umozliwia zaznaczenie wizyty przez Pacjenta poprzez wybranie odpowiedniej komorki
-kalendarz.prototype.wybierzKomorke = function(id_komorki_daty) {
-	
+//do funkcji przekazujemy numer komorki 
+kalendarz.prototype.clickPacjentWybieraWizyte = function(id_komorki_daty, wizyta) {
+
+
+	pacjent = this.zalogowanyPacjent();
+
+
 	$("#"+id_komorki_daty).click( function(){	
     	$("#"+id_komorki_daty).toggleClass('pjTsWeeklyIconSelected pjTsSelectorRemoveFromCart tsSelectorRemoveTimeslot');
 
@@ -319,36 +355,6 @@ kalendarz.prototype.wybierzKomorke = function(id_komorki_daty) {
     	if ($("#"+id_komorki_daty).attr('class') == 'pjTsWeeklyIconAvailable pjTsSelectorAddToCart') {
     		//pacjent odznaczyl wizyte
     		console.log("Odznaczono date wizyte");   
-
-
-	     $.ajax({
-	      url: "podajzalogowanegopacjenta",
-	      type: "get",
-	      // dataType: 'script',
-	      dataType: "json",
-	      // data: {lekarzid: lekarz_id },
-	      // data: {lekarzid: lekarz_id, data: "2016-02-05", godzina: 7},
-	      success: function(pacjent_id){
-			// tenKalendarz.ustawPierwszDzienTygodniaNaTeraz();
-	        console.log('Zalogowany pacjent');
-	      	console.log(pacjent_id);	
-
-	        
-	      },
-	      error: function (xhr, ajaxOptions, thrownError) {
-	        alert(xhr.status);
-	        alert(thrownError);
-	      }
-	    });	   		
-
-    		zalogowany_pacjent = "<%= zalogowany_pacjent? %>";
-    		if ( zalogowany_pacjent ) {
-    			console.log("pacjent zalogowany");
-    			console.log(zalogowany_pacjent );
-
-    		} else {
-    			console.log("pacjent niezalogowany");
-    		}
 
     	} else if  ($("#"+id_komorki_daty).attr('class') == 'pjTsWeeklyIconAvailable pjTsSelectorAddToCart pjTsWeeklyIconSelected pjTsSelectorRemoveFromCart tsSelectorRemoveTimeslot') {
     		//pacjent zaznaczyl wizyte
@@ -360,8 +366,33 @@ kalendarz.prototype.wybierzKomorke = function(id_komorki_daty) {
     	// Tu powinno byc wyslij do ruby i zaznacz w bazie danych ze pacjent wybral wizyte
     	//
     	///////////////////////////////////////////////////////////////
-		console.log(data);
-		console.log(godzina);
+    	console.log("Pacjent w sroktu clik");
+    	console.log(pacjent);
+
+    	wizyta.pacjent_id = pacjent.id ;
+
+    	console.log(wizyta);
+
+    	//Wyslij 
+	    $.ajax({
+	      url: "zapiszpacjentanawizyte",
+	      type: "get",
+	      dataType: "json",
+	      data: {pacjentid: wizyta.pacjent_id, wizytaid: wizyta.id },
+	      // data: {lekarzid: lekarz_id, data: "2016-02-05", godzina: 7},
+	      success: function(zapisana_wizyta){
+			// tenKalendarz.ustawPierwszDzienTygodniaNaTeraz();
+	      	console.log("wizyta przed zapisaniem pacjenta:");			
+	      	console.log(wizyta);	
+	      	console.log("zapisana_wizyta:");
+	      	console.log(zapisana_wizyta)  ;     
+	      },
+	      error: function (xhr, ajaxOptions, thrownError) {
+	        alert(xhr.status);
+	        alert(thrownError);
+	      }
+	    });	
+
 
 	});	
 }

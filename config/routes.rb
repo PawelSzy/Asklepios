@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   post '/zarejestruj_wizyte/create' => 'zarejestruj_wizyte#create'
   get'/zarejestruj_wizyte/lista_wizyt' => 'zarejestruj_wizyte#listaWizyt'
   post '/zarejestruj_wizyte/lista_wizyt' => 'zarejestruj_wizyte#listaWizyt'
+  get 'zapiszpacjentanawizyte' => 'zarejestruj_wizyte#zapiszPacjentaNaWizyte'
 
   resources :pacjents
   resources :lekarzs
@@ -37,6 +38,7 @@ Rails.application.routes.draw do
   post   'zaloguj'   => 'pacjent_sessions#create'
   delete 'wyloguj'  => 'pacjent_sessions#destroy'
   get 'podajzalogowanegopacjenta' => 'pacjent_sessions#podajZalogowanegoPacjenta'
+
 
   get    'zaloguj_lekarz'   => 'lekarz_sessions#new'
   post   'zaloguj_lekarz'   => 'lekarz_sessions#create'
