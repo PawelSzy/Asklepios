@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   get    'zaloguj'   => 'pacjent_sessions#new'
   post   'zaloguj'   => 'pacjent_sessions#create'
   delete 'wyloguj'  => 'pacjent_sessions#destroy'
+  get 'podajzalogowanegopacjenta' => 'pacjent_sessions#podajZalogowanegoPacjenta'
 
   get    'zaloguj_lekarz'   => 'lekarz_sessions#new'
   post   'zaloguj_lekarz'   => 'lekarz_sessions#create'

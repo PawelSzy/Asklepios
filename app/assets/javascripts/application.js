@@ -290,11 +290,19 @@ kalendarz.prototype.wypelnijWizyty = function(wizyty) {
 			ileDniOdPon = ileDniOdPoniedzialku(wizytaData);
 			godzinaWizyty = wizyta.godzina;
 
+
 			id_dnia = "godz" + godzinaWizyty + "dzien"+ileDniOdPon;
 			console.log(id_dnia);
-			$( "#"+id_dnia ).html("<span  class='custom-checkbox'></span>");	
+
+			//wyswietl checbock w danej komorce kalendarza
+			$( "#"+id_dnia ).html("<span  class='custom-checkbox'></span>");
+
+			//ustaw godzine i date w danej komorce
+			$("#"+id_dnia).attr('data-date', wizytaData);
+			$("#"+id_dnia).attr('data-godzinaWizyty', godzinaWizyty);
+
+			//ustaw funkcje ktora uruchamia sie po nacisnieciu checkboxa			
 			tenKalendarz.wybierzKomorke(id_dnia);
-			//"<span class='custom-checkbox'></span>";			
 		};
 	});
 }
@@ -305,12 +313,56 @@ kalendarz.prototype.wybierzKomorke = function(id_komorki_daty) {
 	$("#"+id_komorki_daty).click( function(){	
     	$("#"+id_komorki_daty).toggleClass('pjTsWeeklyIconSelected pjTsSelectorRemoveFromCart tsSelectorRemoveTimeslot');
 
+    	data = $("#"+id_dnia).attr('data-date');
+    	godzina = $("#"+id_dnia).attr('data-godzinaWizyty');
 
     	if ($("#"+id_komorki_daty).attr('class') == 'pjTsWeeklyIconAvailable pjTsSelectorAddToCart') {
-    		console.log("Odznaczono date wizyte");
+    		//pacjent odznaczyl wizyte
+    		console.log("Odznaczono date wizyte");   
+
+
+	     $.ajax({
+	      url: "podajzalogowanegopacjenta",
+	      type: "get",
+	      // dataType: 'script',
+	      dataType: "json",
+	      // data: {lekarzid: lekarz_id },
+	      // data: {lekarzid: lekarz_id, data: "2016-02-05", godzina: 7},
+	      success: function(pacjent_id){
+			// tenKalendarz.ustawPierwszDzienTygodniaNaTeraz();
+	        console.log('Zalogowany pacjent');
+	      	console.log(pacjent_id);	
+
+	        
+	      },
+	      error: function (xhr, ajaxOptions, thrownError) {
+	        alert(xhr.status);
+	        alert(thrownError);
+	      }
+	    });	   		
+
+    		zalogowany_pacjent = "<%= zalogowany_pacjent? %>";
+    		if ( zalogowany_pacjent ) {
+    			console.log("pacjent zalogowany");
+    			console.log(zalogowany_pacjent );
+
+    		} else {
+    			console.log("pacjent niezalogowany");
+    		}
+
     	} else if  ($("#"+id_komorki_daty).attr('class') == 'pjTsWeeklyIconAvailable pjTsSelectorAddToCart pjTsWeeklyIconSelected pjTsSelectorRemoveFromCart tsSelectorRemoveTimeslot') {
+    		//pacjent zaznaczyl wizyte
     		console.log("Zaznaczono date wizyty");
     	}
+
+    	////////////////////////////////////////////////////////////////
+    	//
+    	// Tu powinno byc wyslij do ruby i zaznacz w bazie danych ze pacjent wybral wizyte
+    	//
+    	///////////////////////////////////////////////////////////////
+		console.log(data);
+		console.log(godzina);
+
 	});	
 }
 

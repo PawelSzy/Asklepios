@@ -23,4 +23,20 @@ class PacjentSessionsController < ApplicationController
     wyloguj_pacjenta
     redirect_to root_url
   end
+
+  def podajZalogowanegoPacjenta
+    if zalogowany_pacjent? 
+      respond_to do |format|
+      # format.json { render :response => {:name => name, :message => message} }
+        format.json  { render json: @aktualny_pacjent }
+      end 
+    else
+      respond_to do |format|
+      # format.json { render :response => {:name => name, :message => message} }
+        format.json  { render json: [nil].to_json }
+      end 
+    end
+
+  end
+
 end
