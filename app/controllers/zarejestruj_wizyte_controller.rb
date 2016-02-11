@@ -53,27 +53,17 @@ class ZarejestrujWizyteController < ApplicationController
 	def zapiszPacjentaNaWizyte
 		wizytaId = params[:wizytaid]
 		pacjentId = params[:pacjentid]
-
 		@wizyta = BadanieLekarskie.find(wizytaId)
+		puts @wizyta, @wizyta.pacjent_id
 		@wizyta.pacjent_id = pacjentId
+		puts @wizyta, @wizyta.pacjent_id
 		@wizyta.save
-
+		puts @wizyta, @wizyta.pacjent_id
    		respond_to do |format|
   			# format.json { render :response => {:name => name, :message => message} }
   			format.json  { render json: @wizyta }
 		end			
 	end
 
-	def wypiszPacjent
-		wizytaId = params[:wizytaid]
 
-		@wizyta = BadanieLekarskie.find(wizytaId)
-		@wizyta.pacjent_id = nil;
-		@wizyta.save
-
-   		respond_to do |format|
-  			# format.json { render :response => {:name => name, :message => message} }
-  			format.json  { render json: @wizyta }
-		end			
-	end
 end

@@ -77,31 +77,36 @@ function ileDniOdPoniedzialku(data) {
 	}
 }
 
+
+
+
+
+
 //Obsluga kalendarza
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 //funkcja odpowiada za pobranie danych ktore ustawiaja pierwszy dzien kalendarza
-
-
+//@start do funkcji przekazujemy zmienna typKalendarza o typie albo "lekarz" albo "pacjent"
 function kalendarz() {
-	this.miesiaceOdmiana = [ "stycznia", "lutego", "marca","kwietnia", "maja", "czerwica", "lipca", "sierpnia", "wrzesnia", "października", "listopada", "grudnia" ];
-	this.godziny =(function(a,b){while(a--)b[a]=a+7;return b})(11,[]);
-	this.iloscDniTygodnia = 7;
-	this.lekarz_id = null;
+  this.miesiaceOdmiana = [ "stycznia", "lutego", "marca","kwietnia", "maja", "czerwica", "lipca", "sierpnia", "wrzesnia", "października", "listopada", "grudnia" ];
+  this.godziny =(function(a,b){while(a--)b[a]=a+7;return b})(11,[]);
+  this.iloscDniTygodnia = 7;
+  this.lekarz_id = null;
 
+  dzisiajData = new Date();
+  this.pierwszyDzienTygodnia = ostatniPoniedzialek(dzisiajData);
+  
 
-	dzisiajData = new Date();
-	this.pierwszyDzienTygodnia = ostatniPoniedzialek(dzisiajData);
-	
+  dataNiedzie = new Date(this.pierwszyDzienTygodnia.valueOf() );
+  dataNiedzie.setDate(this.pierwszyDzienTygodnia.getDate() + 6);  
+  this.niedzielaTygodnia = dataNiedzie ;
 
-	dataNiedzie = new Date(this.pierwszyDzienTygodnia.valueOf() );
-	dataNiedzie.setDate(this.pierwszyDzienTygodnia.getDate() + 6);	
-	this.niedzielaTygodnia = dataNiedzie ;
-
-	//uruchom funkcje odpowiadajece za obsluge kalendarza
-	this.wypelnijKalendarz();
-	this.ustawNaglowekDaty();
-	this.ustawPrzyciskiNastepnyPoprzedniTydz();
-	this.przyciskiLekarza()	;
+  //uruchom funkcje odpowiadajece za obsluge kalendarza
+  this.wypelnijKalendarz();
+  this.ustawNaglowekDaty();
+  this.ustawPrzyciskiNastepnyPoprzedniTydz();
+  this.przyciskiLekarza() ;
 
 }
 
@@ -109,14 +114,14 @@ function kalendarz() {
 //ustawia duzy napis u gory kalendarza pomiedzy strzalkami przechodzenia na nowy tydzien
 //napis informuje o wyswietlanym tygoniu np: 1 maja - 7 maja
 kalendarz.prototype.ustawNaglowekDaty = function(text) {
-	data1 = this.pierwszyDzienTygodnia.getDate();
-	miesiac1 = this.miesiaceOdmiana[ this.pierwszyDzienTygodnia.getMonth() ];
-	data2 = this.niedzielaTygodnia.getDate();
-	miesiac2 = this.miesiaceOdmiana[ this.niedzielaTygodnia.getMonth() ];
+  data1 = this.pierwszyDzienTygodnia.getDate();
+  miesiac1 = this.miesiaceOdmiana[ this.pierwszyDzienTygodnia.getMonth() ];
+  data2 = this.niedzielaTygodnia.getDate();
+  miesiac2 = this.miesiaceOdmiana[ this.niedzielaTygodnia.getMonth() ];
 
-	text = data1 + " " + miesiac1 + " - " + data2 + " " +miesiac2;
+  text = data1 + " " + miesiac1 + " - " + data2 + " " +miesiac2;
 
-	$("#naglowek_kal_daty").text(text);
+  $("#naglowek_kal_daty").text(text);
 }
 
 
@@ -126,105 +131,196 @@ kalendarz.prototype.ustawNaglowekDaty = function(text) {
 // kwadrat - wolne miejsce
 kalendarz.prototype.wypelnijKalendarz = function() {
 
-	dzisiajData = new Date();
+  dzisiajData = new Date();
 
-	dataPon = this.pierwszyDzienTygodnia;
-	dataNiedzie = this.niedzielaTygodnia;
+  dataPon = this.pierwszyDzienTygodnia;
+  dataNiedzie = this.niedzielaTygodnia;
 
-	if ( dzisiajData > dataNiedzie ) {
-		this.wypelnijMinionyTydzien();
-	}
-	else if (  dzisiajData < dataPon) {
-		this.wypelnijNastepnyTydzien();
-	}
+  if ( dzisiajData > dataNiedzie ) {
+    this.wypelnijMinionyTydzien();
+  }
+  else if (  dzisiajData < dataPon) {
+    this.wypelnijNastepnyTydzien();
+  }
 
-	else {
-	//iteruj po elementach kalendarza ktore maja stare daty
-		this.wypelnijAktualnyTydzien();
-	}		
+  else {
+  //iteruj po elementach kalendarza ktore maja stare daty
+    this.wypelnijAktualnyTydzien();
+  }   
 }
 
 //wunkcja wypelnia caly kalendarz znakiem oznaczajacym brak wizyty
 // -- ze w tym momencie nie ma rejestracji
 kalendarz.prototype.wypelnijKalendarzPustymi = function() {
-	for (index = this.iloscDniTygodnia; index > 0; --index) {
-		this.godziny.forEach(function(godzina) {
-		    id_dnia = "godz" + godzina + "dzien"+index;
-		    $( "#"+id_dnia ).html( "<small>-- </small>" );
-		});
-	}	
+  for (index = this.iloscDniTygodnia; index > 0; --index) {
+    this.godziny.forEach(function(godzina) {
+        id_dnia = "godz" + godzina + "dzien"+index;
+        $( "#"+id_dnia ).html( "<small>-- </small>" );
+    });
+  } 
 }
 
 //wypelnia wszystkie miejsca zajetym znakiem --
 kalendarz.prototype.wypelnijMinionyTydzien = function() {
-	console.log("Miniony tydzien");
-	this.wypelnijKalendarzPustymi();
+  console.log("Miniony tydzien");
+  this.wypelnijKalendarzPustymi();
 
-	
+  
 }
 
 kalendarz.prototype.wypelnijNastepnyTydzien = function() {
-	console.log("Nastepny tydzien");
-	this.wypelnijKalendarzPustymi();	
-	lekarz_id = this.lekarz_id;
-	lekarz_id = this.lekarz_id
-	if (lekarz_id !== null)
-	{
-		this.wypelnijWizytyLekarza(lekarz_id);
-	}		    	
+  console.log("Nastepny tydzien");
+  this.wypelnijKalendarzPustymi();  
+  lekarz_id = this.lekarz_id;
+  lekarz_id = this.lekarz_id
+  if (lekarz_id !== null)
+  {
+    this.wypelnijWizytyLekarza(lekarz_id);
+  }         
 }
 
 kalendarz.prototype.wypelnijAktualnyTydzien = function() {
-	console.log("Aktualny tydzien");
-	this.wypelnijKalendarzPustymi();
-	lekarz_id = this.lekarz_id
-	if (lekarz_id !== null)
-	{
-		this.wypelnijWizytyLekarza(lekarz_id);
-	}
+  console.log("Aktualny tydzien");
+  this.wypelnijKalendarzPustymi();
+  lekarz_id = this.lekarz_id
+  if (lekarz_id !== null)
+  {
+    this.wypelnijWizytyLekarza(lekarz_id);
+  }
 }
 
 
 //Przesuwa date kalendarza o ustalona liczbe dni
 kalendarz.prototype.przesunDate = function(przesunDni) {
 
-	dataPon = this.pierwszyDzienTygodnia;
-	dataPon.setDate(dataPon.getDate() + przesunDni);
+  dataPon = this.pierwszyDzienTygodnia;
+  dataPon.setDate(dataPon.getDate() + przesunDni);
 
-	dataNiedzie = new Date(this.pierwszyDzienTygodnia.valueOf() );
-	dataNiedzie.setDate(this.pierwszyDzienTygodnia.getDate() + 6);	
-	this.niedzielaTygodnia = dataNiedzie ;
+  dataNiedzie = new Date(this.pierwszyDzienTygodnia.valueOf() );
+  dataNiedzie.setDate(this.pierwszyDzienTygodnia.getDate() + 6);  
+  this.niedzielaTygodnia = dataNiedzie ;
 
-	//ustaw napisy na gorze kalendarza informujace o dniu tygodnia
-	this.ustawNaglowekDaty();
-	this.wypelnijKalendarz();	
+  //ustaw napisy na gorze kalendarza informujace o dniu tygodnia
+  this.ustawNaglowekDaty();
+  this.wypelnijKalendarz(); 
 }
 
 kalendarz.prototype.nastepnyTydzien = function() {
-	this.przesunDate(7);
+  this.przesunDate(7);
 }
 
 
 kalendarz.prototype.poprzedniTydzien = function() {
-	this.przesunDate(-7);
+  this.przesunDate(-7);
 }
 
 //polacz przyciski nastepny poprzedni tydzien z funkcjami JS zmieniajacymi tydzien
 kalendarz.prototype.ustawPrzyciskiNastepnyPoprzedniTydz = function() {
-	console.log("ustawPrzyciskiNastepnyPoprzedniTydz");
-	tenKalendarz = this;
+  console.log("ustawPrzyciskiNastepnyPoprzedniTydz");
+  tenKalendarz = this;
 
-	//przesun date tydzien do przodu gdy klikam przycisk od id="NastepnyTydzien"
-	$("#NastepnyTydzien").click( function(){	
-    	tenKalendarz.nastepnyTydzien();
-	});
+  //przesun date tydzien do przodu gdy klikam przycisk od id="NastepnyTydzien"
+  $("#NastepnyTydzien").click( function(){  
+      tenKalendarz.nastepnyTydzien();
+  });
 
-	//przesun date tydzien do tylu gdy klikam przycisk od id="PoprzedniTydzien"
-	$("#PoprzedniTydzien").click( function(){	
-    	tenKalendarz.poprzedniTydzien();
-	});
+  //przesun date tydzien do tylu gdy klikam przycisk od id="PoprzedniTydzien"
+  $("#PoprzedniTydzien").click( function(){ 
+      tenKalendarz.poprzedniTydzien();
+  });
 
 }
+
+
+
+
+
+
+
+
+//Funkcje odpowiedzialne za obsluge Pacjenta
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//funkcja odczytuje aktualnie zalogowanego pacjenta
+//funccja zwraca JSON zawierajacy dane Pacjenta ktory jest zalogowany
+kalendarz.prototype.zalogowanyPacjent = function() {
+  //odczytaj dane aktualnie zalogowanego pacjenta 
+  this.pacjent = null;
+
+     $.ajax({
+      url: "podajzalogowanegopacjenta",
+      async: false,
+      type: "get",
+      dataType: "json",
+      success: function(zalogowany_pacjent){
+    // tenKalendarz.ustawPierwszDzienTygodniaNaTeraz();
+        console.log('Zalogowany pacjent:');
+        console.log(zalogowany_pacjent);  
+        if (zalogowany_pacjent !== null) {
+          // pacjent = zalogowany_pacjent;
+          // console.log(pacjent);
+          pacjent = zalogowany_pacjent;
+          return pacjent
+        }
+        
+      },
+      error: function (xhr, ajaxOptions, thrownError) {
+        alert(xhr.status);
+        alert(thrownError);
+        // pacjent = null;
+      }
+    });
+    return pacjent;  
+}
+
+
+
+kalendarz.prototype.zapiszPacjentaNaWizyte = function(wizyta) {
+  //Wyslij 
+    $.ajax({
+      url: "zapiszpacjentanawizyte",
+      type: "get",
+      dataType: "json",
+      data: {pacjentid: wizyta.pacjent_id, wizytaid: wizyta.id },
+      // data: {lekarzid: lekarz_id, data: "2016-02-05", godzina: 7},
+      success: function(zapisana_wizyta){
+        console.log("wizyta przed zapisaniem pacjenta:");     
+        console.log(wizyta);  
+        console.log("zapisana_wizyta:");
+        console.log(zapisana_wizyta)  ;     
+      },
+      error: function (xhr, ajaxOptions, thrownError) {
+        alert(xhr.status);
+        alert(thrownError);
+      }
+    }); 
+}
+
+
+//funkcja wypisuje pacjenta z wizyty
+//@start json wizyta 
+kalendarz.prototype.wypiszPacjenta = function(wizyta) {
+    $.ajax({
+      url: "zapiszpacjentanawizyte",
+      type: "get",
+      dataType: "json",
+      data: {wizytaid: wizyta.id },
+      // data: {lekarzid: lekarz_id, data: "2016-02-05", godzina: 7},
+      success: function(wypisana_wizyta){
+
+        console.log("wizyta przed wypisanie pacjenta:");      
+        console.log(wizyta);  
+        console.log("wizyta po wypisaniu:");
+        console.log(wypisana_wizyta)  ;     
+      },
+      error: function (xhr, ajaxOptions, thrownError) {
+        alert(xhr.status);
+        alert(thrownError);
+      }
+    });   
+}
+
+
 
 
 //dodaj obsluge przyciskow Lekarzy - pobierz wizyt danego lekarza
@@ -307,90 +403,20 @@ kalendarz.prototype.wypelnijWizyty = function(wizyty) {
 	});
 }
 
-//funkcja odczytuje aktualnie zalogowanego pacjenta
-//funccja zwraca JSON zawierajacy dane Pacjenta ktory jest zalogowany
-kalendarz.prototype.zalogowanyPacjent = function() {
-	//odczytaj dane aktualnie zalogowanego pacjenta 
-	pacjent = null;
-     $.ajax({
-      url: "podajzalogowanegopacjenta",
-      type: "get",
-      dataType: "json",
-      success: function(zalogowany_pacjent){
-		// tenKalendarz.ustawPierwszDzienTygodniaNaTeraz();
-        console.log('Zalogowany pacjent:');
-      	console.log(zalogowany_pacjent);	
-      	if (zalogowany_pacjent !== null) {
-      		pacjent = zalogowany_pacjent;
-      		console.log(pacjent);
-      		return pacjent;
-      	}
-        
-      },
-      error: function (xhr, ajaxOptions, thrownError) {
-        alert(xhr.status);
-        alert(thrownError);
-        // pacjent = null;
-      }
-    });
-
-    return pacjent;	 
-}
 
 
-kalendarz.prototype.zapiszPacjentaNaWizyte = function(wizyta) {
-	//Wyslij 
-    $.ajax({
-      url: "zapiszpacjentanawizyte",
-      type: "get",
-      dataType: "json",
-      data: {pacjentid: wizyta.pacjent_id, wizytaid: wizyta.id },
-      // data: {lekarzid: lekarz_id, data: "2016-02-05", godzina: 7},
-      success: function(zapisana_wizyta){
-		// tenKalendarz.ustawPierwszDzienTygodniaNaTeraz();
-      	console.log("wizyta przed zapisaniem pacjenta:");			
-      	console.log(wizyta);	
-      	console.log("zapisana_wizyta:");
-      	console.log(zapisana_wizyta)  ;     
-      },
-      error: function (xhr, ajaxOptions, thrownError) {
-        alert(xhr.status);
-        alert(thrownError);
-      }
-    });	
-}
 
-
-//funkcja wypisuje pacjenta z wizyty
-//@start json wizyta 
-kalendarz.prototype.wypiszPacjent = function(wizyta) {
-    $.ajax({
-      url: "zapiszpacjentanawizyte",
-      type: "get",
-      dataType: "json",
-      data: {wizytaid: wizyta.id },
-      // data: {lekarzid: lekarz_id, data: "2016-02-05", godzina: 7},
-      success: function(wypisana_wizyta){
-		// tenKalendarz.ustawPierwszDzienTygodniaNaTeraz();
-      	console.log("wizyta przed wypisanie pacjenta:");			
-      	console.log(wizyta);	
-      	console.log("wizyta po wypisaniu:");
-      	console.log(wypisana_wizyta)  ;     
-      },
-      error: function (xhr, ajaxOptions, thrownError) {
-        alert(xhr.status);
-        alert(thrownError);
-      }
-    });		
-}
 
 //funkcja umozliwia zaznaczenie wizyty przez Pacjenta poprzez wybranie odpowiedniej komorki
 //do funkcji przekazujemy numer komorki 
 kalendarz.prototype.clickPacjentWybieraWizyte = function(id_komorki_daty, wizyta) {
-
+ console.log(" clickPacjentWybieraWizyte:");
 
 	pacjent = this.zalogowanyPacjent();
-	tenKalendarz = this;
+  console.log("pacjent clickPacjentWybieraWizyte:");  
+  console.log(pacjent);
+  wizyta.pacjent_id = pacjent.id;
+  tenKalendarz = this;
 
 	$("#"+id_komorki_daty).click( function(){	
     	$("#"+id_komorki_daty).toggleClass('pjTsWeeklyIconSelected pjTsSelectorRemoveFromCart tsSelectorRemoveTimeslot');
@@ -401,11 +427,11 @@ kalendarz.prototype.clickPacjentWybieraWizyte = function(id_komorki_daty, wizyta
     	if ($("#"+id_komorki_daty).attr('class') == 'pjTsWeeklyIconAvailable pjTsSelectorAddToCart') {
     		//pacjent odznaczyl wizyte
     		console.log("Odznaczono date wizyte");  
-    		tenKalendarz.wypiszPacjent(wizyta); 
+    		tenKalendarz.wypiszPacjenta(wizyta); 
 
     	} else if  ($("#"+id_komorki_daty).attr('class') == 'pjTsWeeklyIconAvailable pjTsSelectorAddToCart pjTsWeeklyIconSelected pjTsSelectorRemoveFromCart tsSelectorRemoveTimeslot') {
     		//pacjent zaznaczyl wizyte
-    		console.log("Zaznaczono date wizyty");
+    		console.log("Zaznaczono date wizyty");       
     		tenKalendarz.zapiszPacjentaNaWizyte(wizyta);
     	}
 
