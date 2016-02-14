@@ -148,5 +148,62 @@ kalendarz.prototype.ustawPrzyciskiNastepnyPoprzedniTydz = function() {
 }
 
 
+/////////////////////////////////////////////////////////////////////////////////////////
+//
+//
+// Funkcje odpowiedzialne za sprawdzanie i zmiene symboli zajetosci komorek kalendarza //
+//
+//
+/////////////////////////////////////////////////////////////////////////////////////////
 
+//wyswietle znak wizyty - mozna wybrac tą komorke
+//@start - id danej komorki
+function komorkaZnakDostepnosci(idKomorki) {
+   $( "#"+idKomorki ).html("<span  class='custom-checkbox'></span>");  
+}
+
+//wyswietle znak wizyty - komorka juz zostala wybrana
+//@start - id danej komorki
+function komorkaZnakWybrano(idKomorki) {
+    $( "#"+idKomorki ).html("<span  class='custom-checkbox'></span>");
+    komorkaZmienZaznaczOdznacz(idKomorki);   
+}
+
+//Zmienia znak wizyty - jesli komorka zaznaczona to odznacz, jesli nie zaznaczona to odznacz
+//@start - id danej komorki
+function komorkaZmienZaznaczOdznacz(idKomorki) {
+  $("#"+idKomorki).toggleClass('pjTsWeeklyIconSelected pjTsSelectorRemoveFromCart tsSelectorRemoveTimeslot');
+}
+
+//wyswietle znak wizyty - komorka jest niedostepna nie mozna jej wybrac 
+//@start - id danej komorki
+function komorkaZnakNiedostepna(idKomorki) {
+  $( "#"+idKomorki ).html('<div class="booked-btn"></div>');
+}
+
+//wyswietle znak wizyty - komorka jest niedostepna nie mozna jej wybrac 
+//@start - id danej komorki
+function komorkaZnakNiedostepna(idKomorki) {
+  $( "#"+idKomorki ).html('<div class="booked-btn"></div>');
+}
+
+//Sprawdz czy komorka jest odznaczona 
+//@start - id danej komorki
+//@return bolleand - jessli komorka jest odznaczona zwroc true, jesli nie zwroc false
+function czyKomorkaOdznaczona(idKomorki) {
+  if ( $("#"+idKomorki).attr('class') == 'pjTsWeeklyIconAvailable pjTsSelectorAddToCart') {
+    return true;
+  }
+  return false;
+}
+
+//Sprawdz czy komorka jest odznaczona 
+//@start - id danej komorki
+//@return bolleand - jessli komorka jest zaznaczona zwroc true, jesli nie jest zaznaczona zwroc false
+function czyKomorkaZaznaczona(idKomorki) {
+    if ( $("#"+idKomorki).attr('class') == 'pjTsWeeklyIconAvailable pjTsSelectorAddToCart pjTsWeeklyIconSelected pjTsSelectorRemoveFromCart tsSelectorRemoveTimeslot') {
+    return true;
+  }
+  return false;
+}
 

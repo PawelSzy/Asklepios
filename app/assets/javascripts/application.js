@@ -181,6 +181,9 @@ function czyWizytaNiezarezerowowana(wizyta) {
 
 }
 
+
+
+
 //Obsluga kalendarza
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  Funckje odpowiadzialne za wyswietlanie kalendarza
@@ -259,32 +262,42 @@ kalendarz.prototype.wypelnijWizyty = function(wizyty) {
 			godzinaWizyty = wizyta.godzina;
 
 
-			id_dnia = "godz" + godzinaWizyty + "dzien"+ileDniOdPon;
+			id_komorki = "godz" + godzinaWizyty + "dzien"+ileDniOdPon;
+
+      //ustaw godzine i date w danej komorce
+      $("#"+id_komorki).attr('data-date', wizytaData);
+      $("#"+id_komorki).attr('data-godzinaWizyty', godzinaWizyty);
+
+      //// Ustaw typy komorki - date w ktorej lekarz jest dostepny (istnieje wizyta)
+
 
 			//sprawdz czy wizyta jest wolna (niezarezerwowana i wyswietl znak niezajetosci)
       if ( czyWizytaNiezarezerowowana(wizyta) ) {
-			 $( "#"+id_dnia ).html("<span  class='custom-checkbox'></span>");
+      //wyswietle znak wizyty - data jest dostpena dla pacjenta
+      komorkaZnakDostepnosci(id_komorki);
+
+      //ustaw funkcje ktora uruchamia sie po nacisnieciu checkboxa      
+      tenKalendarz.clickPacjentWybieraWizyte(id_komorki, wizyta);
+
       } 
+      //jesli pacjent wczesniej zarezezerwowa date wizyty to wyswietl znak wybrano wizyte
       else if ( czyToWizytaPacjenta(wizyta, pacjent) ) {
-        $( "#"+id_dnia ).html("<span  class='custom-checkbox'></span>");
-        $("#"+id_dnia).toggleClass('pjTsWeeklyIconSelected pjTsSelectorRemoveFromCart tsSelectorRemoveTimeslot');;       
+        komorkaZnakWybrano(id_komorki);
+
+      //ustaw funkcje ktora uruchamia sie po nacisnieciu checkboxa      
+      tenKalendarz.clickPacjentWybieraWizyte(id_komorki, wizyta);
+      
+      }
+      //data wizyty zostala wybrana przez innego pacjente - wyswietl znak "nie mozna wybrac danej daty"
+      else { 
+        komorkaZnakNiedostepna(id_komorki)
       }
 
-      //czyToWizytaPacjenta
 
 
-
-			//ustaw godzine i date w danej komorce
-			$("#"+id_dnia).attr('data-date', wizytaData);
-			$("#"+id_dnia).attr('data-godzinaWizyty', godzinaWizyty);
-
-			//ustaw funkcje ktora uruchamia sie po nacisnieciu checkboxa			
-			tenKalendarz.clickPacjentWybieraWizyte(id_dnia, wizyta);
 		};
 	});
 }
-
-
 
 
 
@@ -306,12 +319,12 @@ kalendarz.prototype.clickPacjentWybieraWizyte = function(id_komorki_daty, wizyta
 
 
 	$("#"+id_komorki_daty).click( function(){	
-    	$("#"+id_komorki_daty).toggleClass('pjTsWeeklyIconSelected pjTsSelectorRemoveFromCart tsSelectorRemoveTimeslot');
+      komorkaZmienZaznaczOdznacz(id_komorki_daty) 
 
     	data = $("#"+id_dnia).attr('data-date');
     	godzina = $("#"+id_dnia).attr('data-godzinaWizyty');
 
-    	if ($("#"+id_komorki_daty).attr('class') == 'pjTsWeeklyIconAvailable pjTsSelectorAddToCart') {
+    	if ( czyKomorkaOdznaczona(id_komorki_daty) ) {
     		//pacjent odznaczyl wizyte
     		console.log("Odznaczono date wizyte");  
     		wypiszPacjenta(wizyta); 
@@ -319,12 +332,10 @@ kalendarz.prototype.clickPacjentWybieraWizyte = function(id_komorki_daty, wizyta
         console.log("czyToWizytaPacjenta:");
         console.log( czyToWizytaPacjenta(wizyta, pacjent) ); 
 
-    	} else if  ($("#"+id_komorki_daty).attr('class') == 'pjTsWeeklyIconAvailable pjTsSelectorAddToCart pjTsWeeklyIconSelected pjTsSelectorRemoveFromCart tsSelectorRemoveTimeslot') {
+    	} else if ( czyKomorkaZaznaczona(id_komorki_daty) ) {
     		//pacjent zaznaczyl wizyte
     		console.log("Zaznaczono date wizyty");       
     		zapiszPacjentaNaWizyte(wizyta);
-
-      
     	}
 
 	});	
