@@ -267,7 +267,7 @@ kalendarz.prototype.wypelnijWizyty = function(wizyty) {
       } 
       else if ( czyToWizytaPacjenta(wizyta, pacjent) ) {
         $( "#"+id_dnia ).html("<span  class='custom-checkbox'></span>");
-        $("#"+id_dnia).attr('class') == 'pjTsWeeklyIconAvailable pjTsSelectorAddToCart pjTsWeeklyIconSelected pjTsSelectorRemoveFromCart tsSelectorRemoveTimeslot';       
+        $("#"+id_dnia).toggleClass('pjTsWeeklyIconSelected pjTsSelectorRemoveFromCart tsSelectorRemoveTimeslot');;       
       }
 
       //czyToWizytaPacjenta
