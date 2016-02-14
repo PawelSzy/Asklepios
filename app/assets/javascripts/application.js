@@ -77,10 +77,84 @@ function ileDniOdPoniedzialku(data) {
 	}
 }
 
+//funkcja odczytuje aktualnie zalogowanego pacjenta
+//funccja zwraca JSON zawierajacy dane Pacjenta ktory jest zalogowany
+zalogowanyPacjent = function() {
+  //odczytaj dane aktualnie zalogowanego pacjenta 
+  pacjent = null;
+
+     $.ajax({
+      url: "podajzalogowanegopacjenta",
+      async: false,
+      type: "get",
+      dataType: "json",
+      success: function(zalogowany_pacjent){
+    // tenKalendarz.ustawPierwszDzienTygodniaNaTeraz();
+        console.log('Zalogowany pacjent:');
+        console.log(zalogowany_pacjent);  
+        if (zalogowany_pacjent !== null) {
+          // pacjent = zalogowany_pacjent;
+          // console.log(pacjent);
+          pacjent = zalogowany_pacjent;
+          return pacjent
+        }
+        
+      },
+      error: function (xhr, ajaxOptions, thrownError) {
+        alert(xhr.status);
+        alert(thrownError);
+        // pacjent = null;
+      }
+    });
+    return pacjent;  
+}
 
 
 
+zapiszPacjentaNaWizyte = function(wizyta) {
+  //Wyslij 
+    $.ajax({
+      url: "zapiszpacjentanawizyte",
+      type: "get",
+      dataType: "json",
+      data: {pacjentid: wizyta.pacjent_id, wizytaid: wizyta.id },
+      // data: {lekarzid: lekarz_id, data: "2016-02-05", godzina: 7},
+      success: function(zapisana_wizyta){
+        console.log("wizyta przed zapisaniem pacjenta:");     
+        console.log(wizyta);  
+        console.log("zapisana_wizyta:");
+        console.log(zapisana_wizyta)  ;     
+      },
+      error: function (xhr, ajaxOptions, thrownError) {
+        alert(xhr.status);
+        alert(thrownError);
+      }
+    }); 
+}
 
+
+//funkcja wypisuje pacjenta z wizyty
+//@start json wizyta 
+wypiszPacjenta = function(wizyta) {
+    $.ajax({
+      url: "zapiszpacjentanawizyte",
+      type: "get",
+      dataType: "json",
+      data: {wizytaid: wizyta.id },
+      // data: {lekarzid: lekarz_id, data: "2016-02-05", godzina: 7},
+      success: function(wypisana_wizyta){
+
+        console.log("wizyta przed wypisanie pacjenta:");      
+        console.log(wizyta);  
+        console.log("wizyta po wypisaniu:");
+        console.log(wypisana_wizyta)  ;     
+      },
+      error: function (xhr, ajaxOptions, thrownError) {
+        alert(xhr.status);
+        alert(thrownError);
+      }
+    });   
+}
 
 //Obsluga kalendarza
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -241,84 +315,10 @@ kalendarz.prototype.ustawPrzyciskiNastepnyPoprzedniTydz = function() {
 //Funkcje odpowiedzialne za obsluge Pacjenta
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-//funkcja odczytuje aktualnie zalogowanego pacjenta
-//funccja zwraca JSON zawierajacy dane Pacjenta ktory jest zalogowany
-kalendarz.prototype.zalogowanyPacjent = function() {
-  //odczytaj dane aktualnie zalogowanego pacjenta 
-  this.pacjent = null;
-
-     $.ajax({
-      url: "podajzalogowanegopacjenta",
-      async: false,
-      type: "get",
-      dataType: "json",
-      success: function(zalogowany_pacjent){
-    // tenKalendarz.ustawPierwszDzienTygodniaNaTeraz();
-        console.log('Zalogowany pacjent:');
-        console.log(zalogowany_pacjent);  
-        if (zalogowany_pacjent !== null) {
-          // pacjent = zalogowany_pacjent;
-          // console.log(pacjent);
-          pacjent = zalogowany_pacjent;
-          return pacjent
-        }
-        
-      },
-      error: function (xhr, ajaxOptions, thrownError) {
-        alert(xhr.status);
-        alert(thrownError);
-        // pacjent = null;
-      }
-    });
-    return pacjent;  
-}
 
 
 
-kalendarz.prototype.zapiszPacjentaNaWizyte = function(wizyta) {
-  //Wyslij 
-    $.ajax({
-      url: "zapiszpacjentanawizyte",
-      type: "get",
-      dataType: "json",
-      data: {pacjentid: wizyta.pacjent_id, wizytaid: wizyta.id },
-      // data: {lekarzid: lekarz_id, data: "2016-02-05", godzina: 7},
-      success: function(zapisana_wizyta){
-        console.log("wizyta przed zapisaniem pacjenta:");     
-        console.log(wizyta);  
-        console.log("zapisana_wizyta:");
-        console.log(zapisana_wizyta)  ;     
-      },
-      error: function (xhr, ajaxOptions, thrownError) {
-        alert(xhr.status);
-        alert(thrownError);
-      }
-    }); 
-}
 
-
-//funkcja wypisuje pacjenta z wizyty
-//@start json wizyta 
-kalendarz.prototype.wypiszPacjenta = function(wizyta) {
-    $.ajax({
-      url: "zapiszpacjentanawizyte",
-      type: "get",
-      dataType: "json",
-      data: {wizytaid: wizyta.id },
-      // data: {lekarzid: lekarz_id, data: "2016-02-05", godzina: 7},
-      success: function(wypisana_wizyta){
-
-        console.log("wizyta przed wypisanie pacjenta:");      
-        console.log(wizyta);  
-        console.log("wizyta po wypisaniu:");
-        console.log(wypisana_wizyta)  ;     
-      },
-      error: function (xhr, ajaxOptions, thrownError) {
-        alert(xhr.status);
-        alert(thrownError);
-      }
-    });   
-}
 
 
 
@@ -412,7 +412,7 @@ kalendarz.prototype.wypelnijWizyty = function(wizyty) {
 kalendarz.prototype.clickPacjentWybieraWizyte = function(id_komorki_daty, wizyta) {
  console.log(" clickPacjentWybieraWizyte:");
 
-	pacjent = this.zalogowanyPacjent();
+	pacjent = zalogowanyPacjent();
   console.log("pacjent clickPacjentWybieraWizyte:");  
   console.log(pacjent);
   wizyta.pacjent_id = pacjent.id;
@@ -427,12 +427,12 @@ kalendarz.prototype.clickPacjentWybieraWizyte = function(id_komorki_daty, wizyta
     	if ($("#"+id_komorki_daty).attr('class') == 'pjTsWeeklyIconAvailable pjTsSelectorAddToCart') {
     		//pacjent odznaczyl wizyte
     		console.log("Odznaczono date wizyte");  
-    		tenKalendarz.wypiszPacjenta(wizyta); 
+    		wypiszPacjenta(wizyta); 
 
     	} else if  ($("#"+id_komorki_daty).attr('class') == 'pjTsWeeklyIconAvailable pjTsSelectorAddToCart pjTsWeeklyIconSelected pjTsSelectorRemoveFromCart tsSelectorRemoveTimeslot') {
     		//pacjent zaznaczyl wizyte
     		console.log("Zaznaczono date wizyty");       
-    		tenKalendarz.zapiszPacjentaNaWizyte(wizyta);
+    		zapiszPacjentaNaWizyte(wizyta);
     	}
 
 	});	
