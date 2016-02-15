@@ -82,28 +82,16 @@ kalendarz.prototype.wypelnijMinionyTydzien = function() {
   console.log("Miniony tydzien");
   this.wypelnijKalendarzPustymi();
 
-  
 }
 
 kalendarz.prototype.wypelnijNastepnyTydzien = function() {
   console.log("Nastepny tydzien");
-  this.wypelnijKalendarzPustymi();  
-  lekarz_id = this.lekarz_id;
-  lekarz_id = this.lekarz_id
-  if (lekarz_id !== null)
-  {
-    this.wypelnijWizytyLekarza(lekarz_id);
-  }         
+  this.wypelnijKalendarzPustymi();    
 }
 
 kalendarz.prototype.wypelnijAktualnyTydzien = function() {
   console.log("Aktualny tydzien");
   this.wypelnijKalendarzPustymi();
-  lekarz_id = this.lekarz_id
-  if (lekarz_id !== null)
-  {
-    this.wypelnijWizytyLekarza(lekarz_id);
-  }
 }
 
 

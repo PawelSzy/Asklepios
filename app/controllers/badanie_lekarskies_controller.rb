@@ -36,4 +36,12 @@ def badanie_params
   params.require(:badanie_lekarskie).permit(:pokoj_id, :lekarz_id, :specjalizacja_id, :year, :month, :day, :godzina, :date)
 end
 
+def kalendarz_lekarz
+  # respond_to do |format|
+  #   format.html
+  #   format.js
+  # end 
+end
+
+
 end

@@ -191,6 +191,14 @@ function czyWizytaNiezarezerowowana(wizyta) {
 //  require_tree powinno byc wlaczone
 
 
+//Funkcje odpowiedzialne za obsluge Lekarza
+//////////////////////////////////////////////////////
+kalendarz.prototype.ustawKalendarzLekarza = function() {
+  ;
+}
+
+
+
 //Funkcje odpowiedzialne za obsluge Pacjenta
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -215,6 +223,28 @@ kalendarz.prototype.ustawKalendarzPacjenta = function() {
     });
 
   }
+
+
+kalendarz.prototype.wypelnijAktualnyTydzien = function() {
+  console.log("Aktualny tydzien");
+  this.wypelnijKalendarzPustymi();
+  lekarz_id = this.lekarz_id
+  if (lekarz_id !== null)
+  {
+    this.wypelnijWizytyLekarza(lekarz_id);
+  }
+}
+
+kalendarz.prototype.wypelnijNastepnyTydzien = function() {
+  console.log("Nastepny tydzien");
+  this.wypelnijKalendarzPustymi();  
+  lekarz_id = this.lekarz_id;
+  if (lekarz_id !== null)
+  {
+    this.wypelnijWizytyLekarza(lekarz_id);
+  }         
+}
+
 
   kalendarz.prototype.wypelnijWizytyLekarza = function(lekarz_id) {
     console.log("wypelnijWizytyLekarza!!!!!!!!!!!!!111");

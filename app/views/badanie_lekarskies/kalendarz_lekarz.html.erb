@@ -1,0 +1,14 @@
+<% provide(:title, 'Rejestracja badania ') %>
+
+
+
+<h1> Zarejestruj swoje wizyty </h1>
+
+<%= render 'kalendarz' %>
+
+<script type="text/javascript">
+console.log("Wlaczam obsluge kalendarza");
+
+kalendarzLekarza = new kalendarz();
+kalendarzLekarza.ustawKalendarzLekarza();
+</script>

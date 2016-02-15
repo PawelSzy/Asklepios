@@ -17,7 +17,10 @@ Rails.application.routes.draw do
   get '/nowy_lekarz' => 'lekarzs#new'
   get '/nowy_pokoj' => 'pokojs#new'
   get '/nowa_specjalizacja' => 'specjalizacjas#new'
+  
   get '/nowa_wizyta' => 'badanie_lekarskies#new'  
+  get '/badania_lekarskie' => 'badanie_lekarskies#kalendarz_lekarz'
+  
   get '/zarejestruj_wizyte' => 'zarejestruj_wizyte#show'
   post '/zarejestruj_wizyte' => 'zarejestruj_wizyte#create'
   post '/zarejestruj_wizyte/create' => 'zarejestruj_wizyte#create'
