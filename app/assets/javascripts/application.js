@@ -196,149 +196,154 @@ function czyWizytaNiezarezerowowana(wizyta) {
 
 
 
-//dodaj obsluge przyciskow Lekarzy - pobierz wizyt danego lekarza
-kalendarz.prototype.przyciskiLekarza = function() {
-	tenKalendarz = this;
-	$(".przycisk_lekarza").click(function(event) {
+kalendarz.prototype.ustawKalendarzPacjenta = function() {
 
-		  /* stop form from submitting normally */
-		   event.preventDefault();
+  //dodaj obsluge przyciskow Lekarzy - pobierz wizyt danego lekarza
+  kalendarz.prototype.przyciskiLekarza = function() {
+    tenKalendarz = this;
+    $(".przycisk_lekarza").click(function(event) {
+
+        /* stop form from submitting normally */
+         event.preventDefault();
 
 
-		  /*wypelnij kalendarz wizytami lekarza o podanym id */
-		  lekarz_id = $(this).data("lekarzid");
-		  tenKalendarz.lekarz_id = lekarz_id;
-		  tenKalendarz.wypelnijWizytyLekarza(lekarz_id);
+        /*wypelnij kalendarz wizytami lekarza o podanym id */
+        lekarz_id = $(this).data("lekarzid");
+        tenKalendarz.lekarz_id = lekarz_id;
+        tenKalendarz.wypelnijWizytyLekarza(lekarz_id);
 
-	});
+    });
 
-}
+  }
 
-kalendarz.prototype.wypelnijWizytyLekarza = function(lekarz_id) {
-	console.log("wypelnijWizytyLekarza!!!!!!!!!!!!!111");
-	if (lekarz_id === null) {
-		return false;
-	};
-	tenKalendarz = this;	
-	// wyslij zapytanie ajax i odczytaj wizyty danego lekarza
-    $.ajax({
-      url: "zarejestruj_wizyte/lista_wizyt",
-      type: "post",
-      // dataType: 'script',
-      dataType: "json",
-      data: {lekarzid: lekarz_id },
-      // data: {lekarzid: lekarz_id, data: "2016-02-05", godzina: 7},
-      success: function(wizyty){
-		// tenKalendarz.ustawPierwszDzienTygodniaNaTeraz();
-      	console.log(wizyty);	
-        console.log('Odczyt z JS lista_wizyt');
-        tenKalendarz.wypelnijWizyty(wizyty);
+  kalendarz.prototype.wypelnijWizytyLekarza = function(lekarz_id) {
+    console.log("wypelnijWizytyLekarza!!!!!!!!!!!!!111");
+    if (lekarz_id === null) {
+      return false;
+    };
+    tenKalendarz = this;  
+    // wyslij zapytanie ajax i odczytaj wizyty danego lekarza
+      $.ajax({
+        url: "zarejestruj_wizyte/lista_wizyt",
+        type: "post",
+        // dataType: 'script',
+        dataType: "json",
+        data: {lekarzid: lekarz_id },
+        // data: {lekarzid: lekarz_id, data: "2016-02-05", godzina: 7},
+        success: function(wizyty){
+      // tenKalendarz.ustawPierwszDzienTygodniaNaTeraz();
+          console.log(wizyty);  
+          console.log('Odczyt z JS lista_wizyt');
+          tenKalendarz.wypelnijWizyty(wizyty);
+          
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+          alert(xhr.status);
+          alert(thrownError);
+        }
+      }); 
+  }
+
+  //funckcja wypelnia kalendarz danymi wizytami
+  kalendarz.prototype.wypelnijWizyty = function(wizyty) {
+    console.log("Funkcja wizyty");
+    dataPon = this.pierwszyDzienTygodnia;
+    dataNiedzie = this.niedzielaTygodnia;
+    tenKalendarz = this;
+    pacjent = zalogowanyPacjent();
+
+    wizyty.forEach(function(wizyta) {
+      wizytaData = new Date(wizyta.data);
+      //wyswietl tylko jesli wizyta ma date znajdujacy sie w wyswietlanym tygodniu na kalendarzu
+      if  (dataPon  < wizytaData  && wizytaData < dataNiedzie) {
+        console.log("wizyta w tym tygodniu:");
+        console.log(wizyta);
+        console.log("ilosc dni OD Poniedzialku");
+        console.log(ileDniOdPoniedzialku(wizytaData));
+        ileDniOdPon = ileDniOdPoniedzialku(wizytaData);
+        godzinaWizyty = wizyta.godzina;
+
+
+        id_komorki = "godz" + godzinaWizyty + "dzien"+ileDniOdPon;
+
+        //ustaw godzine i date w danej komorce
+        $("#"+id_komorki).attr('data-date', wizytaData);
+        $("#"+id_komorki).attr('data-godzinaWizyty', godzinaWizyty);
+
+        //// Ustaw typy komorki - date w ktorej lekarz jest dostepny (istnieje wizyta)
+
+
+        //sprawdz czy wizyta jest wolna (niezarezerwowana i wyswietl znak niezajetosci)
+        if ( czyWizytaNiezarezerowowana(wizyta) ) {
+        //wyswietle znak wizyty - data jest dostpena dla pacjenta
+        komorkaZnakDostepnosci(id_komorki);
+
+        //ustaw funkcje ktora uruchamia sie po nacisnieciu checkboxa      
+        tenKalendarz.clickPacjentWybieraWizyte(id_komorki, wizyta);
+
+        } 
+        //jesli pacjent wczesniej zarezezerwowa date wizyty to wyswietl znak wybrano wizyte
+        else if ( czyToWizytaPacjenta(wizyta, pacjent) ) {
+          komorkaZnakWybrano(id_komorki);
+
+        //ustaw funkcje ktora uruchamia sie po nacisnieciu checkboxa      
+        tenKalendarz.clickPacjentWybieraWizyte(id_komorki, wizyta);
         
-      },
-      error: function (xhr, ajaxOptions, thrownError) {
-        alert(xhr.status);
-        alert(thrownError);
-      }
-    });	
-}
-
-//funckcja wypelnia kalendarz danymi wizytami
-kalendarz.prototype.wypelnijWizyty = function(wizyty) {
-	console.log("Funkcja wizyty");
-	dataPon = this.pierwszyDzienTygodnia;
-	dataNiedzie = this.niedzielaTygodnia;
-	tenKalendarz = this;
-  pacjent = zalogowanyPacjent();
-
-	wizyty.forEach(function(wizyta) {
-		wizytaData = new Date(wizyta.data);
-		//wyswietl tylko jesli wizyta ma date znajdujacy sie w wyswietlanym tygodniu na kalendarzu
-		if  (dataPon  < wizytaData  && wizytaData < dataNiedzie) {
-			console.log("wizyta w tym tygodniu:");
-			console.log(wizyta);
-			console.log("ilosc dni OD Poniedzialku");
-			console.log(ileDniOdPoniedzialku(wizytaData));
-			ileDniOdPon = ileDniOdPoniedzialku(wizytaData);
-			godzinaWizyty = wizyta.godzina;
-
-
-			id_komorki = "godz" + godzinaWizyty + "dzien"+ileDniOdPon;
-
-      //ustaw godzine i date w danej komorce
-      $("#"+id_komorki).attr('data-date', wizytaData);
-      $("#"+id_komorki).attr('data-godzinaWizyty', godzinaWizyty);
-
-      //// Ustaw typy komorki - date w ktorej lekarz jest dostepny (istnieje wizyta)
-
-
-			//sprawdz czy wizyta jest wolna (niezarezerwowana i wyswietl znak niezajetosci)
-      if ( czyWizytaNiezarezerowowana(wizyta) ) {
-      //wyswietle znak wizyty - data jest dostpena dla pacjenta
-      komorkaZnakDostepnosci(id_komorki);
-
-      //ustaw funkcje ktora uruchamia sie po nacisnieciu checkboxa      
-      tenKalendarz.clickPacjentWybieraWizyte(id_komorki, wizyta);
-
-      } 
-      //jesli pacjent wczesniej zarezezerwowa date wizyty to wyswietl znak wybrano wizyte
-      else if ( czyToWizytaPacjenta(wizyta, pacjent) ) {
-        komorkaZnakWybrano(id_komorki);
-
-      //ustaw funkcje ktora uruchamia sie po nacisnieciu checkboxa      
-      tenKalendarz.clickPacjentWybieraWizyte(id_komorki, wizyta);
-      
-      }
-      //data wizyty zostala wybrana przez innego pacjente - wyswietl znak "nie mozna wybrac danej daty"
-      else { 
-        komorkaZnakNiedostepna(id_komorki)
-      }
+        }
+        //data wizyty zostala wybrana przez innego pacjente - wyswietl znak "nie mozna wybrac danej daty"
+        else { 
+          komorkaZnakNiedostepna(id_komorki);
+        }
 
 
 
-		};
-	});
-}
+      };
+    });
+  }
 
 
+  //funkcja umozliwia zaznaczenie wizyty przez Pacjenta poprzez wybranie odpowiedniej komorki
+  //do funkcji przekazujemy numer komorki 
+  kalendarz.prototype.clickPacjentWybieraWizyte = function(id_komorki_daty, wizyta) {
+   console.log(" clickPacjentWybieraWizyte:");
 
-//funkcja umozliwia zaznaczenie wizyty przez Pacjenta poprzez wybranie odpowiedniej komorki
-//do funkcji przekazujemy numer komorki 
-kalendarz.prototype.clickPacjentWybieraWizyte = function(id_komorki_daty, wizyta) {
- console.log(" clickPacjentWybieraWizyte:");
-
-	pacjent = zalogowanyPacjent();
-  console.log("pacjent clickPacjentWybieraWizyte:");  
-  console.log(pacjent);
-  
+    pacjent = zalogowanyPacjent();
+    console.log("pacjent clickPacjentWybieraWizyte:");  
+    console.log(pacjent);
+    
 
 
-  wizyta.pacjent_id = pacjent.id;
-  tenKalendarz = this;
+    wizyta.pacjent_id = pacjent.id;
+    tenKalendarz = this;
 
 
 
 
-	$("#"+id_komorki_daty).click( function(){	
-      komorkaZmienZaznaczOdznacz(id_komorki_daty) 
+    $("#"+id_komorki_daty).click( function(){ 
+        komorkaZmienZaznaczOdznacz(id_komorki_daty);
 
-    	data = $("#"+id_dnia).attr('data-date');
-    	godzina = $("#"+id_dnia).attr('data-godzinaWizyty');
+        data = $("#"+id_dnia).attr('data-date');
+        godzina = $("#"+id_dnia).attr('data-godzinaWizyty');
 
-    	if ( czyKomorkaOdznaczona(id_komorki_daty) ) {
-    		//pacjent odznaczyl wizyte
-    		console.log("Odznaczono date wizyte");  
-    		wypiszPacjenta(wizyta); 
+        if ( czyKomorkaOdznaczona(id_komorki_daty) ) {
+          //pacjent odznaczyl wizyte
+          console.log("Odznaczono date wizyte");  
+          wypiszPacjenta(wizyta); 
 
-        console.log("czyToWizytaPacjenta:");
-        console.log( czyToWizytaPacjenta(wizyta, pacjent) ); 
+          console.log("czyToWizytaPacjenta:");
+          console.log( czyToWizytaPacjenta(wizyta, pacjent) ); 
 
-    	} else if ( czyKomorkaZaznaczona(id_komorki_daty) ) {
-    		//pacjent zaznaczyl wizyte
-    		console.log("Zaznaczono date wizyty");       
-    		zapiszPacjentaNaWizyte(wizyta);
-    	}
+        } else if ( czyKomorkaZaznaczona(id_komorki_daty) ) {
+          //pacjent zaznaczyl wizyte
+          console.log("Zaznaczono date wizyty");       
+          zapiszPacjentaNaWizyte(wizyta);
+        }
 
-	});	
+    }); 
+  }
+
+  // uruchom obsluge przyciskow lekarza
+  this.przyciskiLekarza() ;
 }
 
 

@@ -14,6 +14,7 @@ function kalendarz() {
   this.pierwszyDzienTygodnia = ostatniPoniedzialek(dzisiajData);
   
 
+
   dataNiedzie = new Date(this.pierwszyDzienTygodnia.valueOf() );
   dataNiedzie.setDate(this.pierwszyDzienTygodnia.getDate() + 6);  
   this.niedzielaTygodnia = dataNiedzie ;
@@ -22,7 +23,7 @@ function kalendarz() {
   this.wypelnijKalendarz();
   this.ustawNaglowekDaty();
   this.ustawPrzyciskiNastepnyPoprzedniTydz();
-  this.przyciskiLekarza() ;
+
 
 }
 
