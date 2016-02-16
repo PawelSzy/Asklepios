@@ -207,7 +207,7 @@ kalendarz.prototype.ustawKalendarzLekarza = function() {
 kalendarz.prototype.ustawKalendarzPacjenta = function() {
 
   //dodaj obsluge przyciskow Lekarzy - pobierz wizyt danego lekarza
-  kalendarz.prototype.przyciskiLekarza = function() {
+  this.przyciskiLekarza = function() {
     tenKalendarz = this;
     $(".przycisk_lekarza").click(function(event) {
 
@@ -225,28 +225,28 @@ kalendarz.prototype.ustawKalendarzPacjenta = function() {
   }
 
 
-kalendarz.prototype.wypelnijAktualnyTydzien = function() {
-  console.log("Aktualny tydzien");
-  this.wypelnijKalendarzPustymi();
-  lekarz_id = this.lekarz_id
-  if (lekarz_id !== null)
-  {
-    this.wypelnijWizytyLekarza(lekarz_id);
+  this.wypelnijAktualnyTydzien = function() {
+    console.log("Aktualny tydzien");
+    this.wypelnijKalendarzPustymi();
+    lekarz_id = this.lekarz_id
+    if (lekarz_id !== null)
+    {
+      this.wypelnijWizytyLekarza(lekarz_id);
+    }
   }
-}
 
-kalendarz.prototype.wypelnijNastepnyTydzien = function() {
-  console.log("Nastepny tydzien");
-  this.wypelnijKalendarzPustymi();  
-  lekarz_id = this.lekarz_id;
-  if (lekarz_id !== null)
-  {
-    this.wypelnijWizytyLekarza(lekarz_id);
-  }         
-}
+  this.wypelnijNastepnyTydzien = function() {
+    console.log("Nastepny tydzien");
+    this.wypelnijKalendarzPustymi();  
+    lekarz_id = this.lekarz_id;
+    if (lekarz_id !== null)
+    {
+      this.wypelnijWizytyLekarza(lekarz_id);
+    }         
+  }
 
 
-  kalendarz.prototype.wypelnijWizytyLekarza = function(lekarz_id) {
+  this.wypelnijWizytyLekarza = function(lekarz_id) {
     console.log("wypelnijWizytyLekarza!!!!!!!!!!!!!111");
     if (lekarz_id === null) {
       return false;
@@ -275,7 +275,7 @@ kalendarz.prototype.wypelnijNastepnyTydzien = function() {
   }
 
   //funckcja wypelnia kalendarz danymi wizytami
-  kalendarz.prototype.wypelnijWizyty = function(wizyty) {
+  this.wypelnijWizyty = function(wizyty) {
     console.log("Funkcja wizyty");
     dataPon = this.pierwszyDzienTygodnia;
     dataNiedzie = this.niedzielaTygodnia;
@@ -334,7 +334,7 @@ kalendarz.prototype.wypelnijNastepnyTydzien = function() {
 
   //funkcja umozliwia zaznaczenie wizyty przez Pacjenta poprzez wybranie odpowiedniej komorki
   //do funkcji przekazujemy numer komorki 
-  kalendarz.prototype.clickPacjentWybieraWizyte = function(id_komorki_daty, wizyta) {
+  this.clickPacjentWybieraWizyte = function(id_komorki_daty, wizyta) {
    console.log(" clickPacjentWybieraWizyte:");
 
     pacjent = zalogowanyPacjent();
