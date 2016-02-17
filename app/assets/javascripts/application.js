@@ -249,37 +249,46 @@ kalendarz.prototype.ustawKalendarzLekarza = function() {
   //Wypelnia wyzyty dla aktualnego tygodnia 
   kalendarz.prototype.wypelnijAktualnyTydzien = function() {
     console.log(this);
-      dzienTyg = this.dzisiajData.getDay();
-      tenKalendarz = this;
-      lekarz = zalogowanyLekarz();      
-      for (index = this.iloscDniTygodnia; index > 0; --index) {
-        
-              this.godziny.forEach(function(godzina) {
-                // console.log(godzina);
-                id_dnia = "godz" + godzina + "dzien"+index;
-                // console.log(id_dnia);
-                if ( index <= dzienTyg) { 
-                  komorkaZnakBrakWyboru(id_dnia);
-                }
-                else {
-                  komorkaZnakDostepnosci(id_dnia);
+    dzienTyg = this.dzisiajData.getDay();
+    tenKalendarz = this;
+    lekarz = zalogowanyLekarz();      
+    for (index = this.iloscDniTygodnia; index > 0; --index) {
+      
+            this.godziny.forEach(function(godzina) {
+              // console.log(godzina);
+              id_dnia = "godz" + godzina + "dzien"+index;
+              // console.log(id_dnia);
+              if ( index <= dzienTyg) { 
+                komorkaZnakBrakWyboru(id_dnia);
+              }
+              else {
+                komorkaZnakDostepnosci(id_dnia);
 
-                  tenKalendarz.clickLekarzWybieraWizyte(id_dnia, lekarz);
-                }
-            });
-      }
+                tenKalendarz.clickLekarzWybieraWizyte(id_dnia, lekarz);
+              }
+          });
+    }
   }
 
 
   this.wypelnijNastepnyTydzien = function() {
     console.log("Nastepny tydzien");
-    this.wypelnijKalendarzZnakiemDostepnosci();  
+    // this.wypelnijKalendarzZnakiemDostepnosci();  
     lekarz_id = this.lekarz_id;
-    if (lekarz_id !== null)
-    {
-      ;
-      // this.wypelnijWizytyLekarza(lekarz_id);
-    }         
+    lekarz = zalogowanyLekarz();    
+    for (index = this.iloscDniTygodnia; index > 0; --index) {
+          this.godziny.forEach(function(godzina) {
+            // console.log(godzina);
+            id_dnia = "godz" + godzina + "dzien"+index;
+            komorkaZnakDostepnosci(id_dnia);
+            tenKalendarz.clickLekarzWybieraWizyte(id_dnia, lekarz);
+        });
+    }    
+    // if (lekarz_id !== null)
+    // {
+    //   ;
+    //   // this.wypelnijWizytyLekarza(lekarz_id);
+    // }         
   }
 
 
@@ -289,8 +298,6 @@ kalendarz.prototype.ustawKalendarzLekarza = function() {
 
     // // wizyta.pacjent_id = pacjent.id;
     tenKalendarz = this;
-
-
     $("#"+id_komorki_daty).click( function(){ 
         console.log(" clickLekarzWybieraWizyte:");
         komorkaZmienZaznaczOdznacz(id_komorki_daty);
