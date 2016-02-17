@@ -46,6 +46,7 @@ Rails.application.routes.draw do
   get    'zaloguj_lekarz'   => 'lekarz_sessions#new'
   post   'zaloguj_lekarz'   => 'lekarz_sessions#create'
   delete 'wyloguj_lekarz'  => 'lekarz_sessions#destroy'
+  get 'podajzalogowanegolekarza' => 'lekarz_sessions#podajZalogowanegoLekarza'
 
  root 'strony#home'
 
