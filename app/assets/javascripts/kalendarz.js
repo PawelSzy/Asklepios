@@ -66,15 +66,23 @@ kalendarz.prototype.wypelnijKalendarz = function() {
   }   
 }
 
-//wunkcja wypelnia caly kalendarz znakiem oznaczajacym brak wizyty
-// -- ze w tym momencie nie ma rejestracji
-kalendarz.prototype.wypelnijKalendarzPustymi = function() {
+//wypelnia komorke danym znakiem
+//@start do funkcji przekazujemy funkcje ktora po wywolaniu dokona zmiany na odpowiedni typ znaku
+kalendarz.prototype.wypelnijKalendarzZnakiem = function(funcjaZmienZnak) {
   for (index = this.iloscDniTygodnia; index > 0; --index) {
     this.godziny.forEach(function(godzina) {
         id_dnia = "godz" + godzina + "dzien"+index;
-        $( "#"+id_dnia ).html( "<small>-- </small>" );
+        funcjaZmienZnak(id_dnia);
     });
   } 
+}
+
+
+//wunkcja wypelnia caly kalendarz znakiem oznaczajacym brak wizyty
+// -- ze w tym momencie nie ma rejestracji
+kalendarz.prototype.wypelnijKalendarzPustymi = function() {
+  //wypelnia komore znamiem -- nie ma rejestracji
+  this.wypelnijKalendarzZnakiem(komorkaZnakBrakWyboru);
 }
 
 //wypelnia wszystkie miejsca zajetym znakiem --
@@ -170,11 +178,13 @@ function komorkaZnakNiedostepna(idKomorki) {
   $( "#"+idKomorki ).html('<div class="booked-btn"></div>');
 }
 
-//wyswietle znak wizyty - komorka jest niedostepna nie mozna jej wybrac 
-//@start - id danej komorki
-function komorkaZnakNiedostepna(idKomorki) {
-  $( "#"+idKomorki ).html('<div class="booked-btn"></div>');
+
+//wunkcja wypelnia komorke znakiem oznaczajacym brak wizyty
+// -- ze w tym momencie nie ma rejestracji
+function komorkaZnakBrakWyboru(idKomorki) {
+  $ ( "#"+idKomorki ).html( "<small>-- </small>" );  
 }
+
 
 //Sprawdz czy komorka jest odznaczona 
 //@start - id danej komorki

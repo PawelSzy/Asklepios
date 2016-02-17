@@ -194,8 +194,31 @@ function czyWizytaNiezarezerowowana(wizyta) {
 //Funkcje odpowiedzialne za obsluge Lekarza
 //////////////////////////////////////////////////////
 kalendarz.prototype.ustawKalendarzLekarza = function() {
-  ;
+  this.wypelnijAktualnyTydzien = function() {
+    console.log("Aktualny tydzien");
+    this.wypelnijKalendarzPustymi();
+    lekarz_id = this.lekarz_id
+    if (lekarz_id !== null)
+    {
+      this.wypelnijWizytyLekarza(lekarz_id);
+    }
+  }
+
+  this.wypelnijNastepnyTydzien = function() {
+    console.log("Nastepny tydzien");
+    this.wypelnijKalendarzPustymi();  
+    lekarz_id = this.lekarz_id;
+    if (lekarz_id !== null)
+    {
+      this.wypelnijWizytyLekarza(lekarz_id);
+    }         
+  }
+
+  
 }
+
+
+
 
 
 
