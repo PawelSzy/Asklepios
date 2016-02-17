@@ -27,7 +27,7 @@ class LekarzSessionsController < ApplicationController
     if zalogowany_lekarz? 
       respond_to do |format|
       # format.json { render :response => {:name => name, :message => message} }
-        format.json  { render json: @aktualny_pacjent }
+        format.json  { render json: @aktualny_lekarz }
       end 
     else
       respond_to do |format|

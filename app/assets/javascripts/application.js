@@ -85,7 +85,7 @@ zalogowanyPacjent = function() {
 
      $.ajax({
       url: "podajzalogowanegopacjenta",
-      async: true,
+      async: false,
       type: "get",
       dataType: "json",
       success: function(zalogowany_pacjent){
@@ -117,7 +117,7 @@ zalogowanyLekarz = function() {
 
      $.ajax({
       url: "podajzalogowanegolekarza",
-      async: true,
+      async: false,
       type: "get",
       dataType: "json",
       success: function(zalogowany_lekarz){
@@ -214,6 +214,15 @@ function czyWizytaNiezarezerowowana(wizyta) {
 }
 
 
+function wypiszLekarza(lekarz, data, godzina) {
+  console.log("Wypisz Lekarza funkcja");
+}
+
+function zapiszWizyteLekarza(lekarz, data, godzina) {
+  console.log("zapisz Wizyte Lekarza funkcja");
+}
+
+
 
 
 //Obsluga kalendarza
@@ -241,6 +250,7 @@ kalendarz.prototype.ustawKalendarzLekarza = function() {
   kalendarz.prototype.wypelnijAktualnyTydzien = function() {
     console.log(this);
       dzienTyg = this.dzisiajData.getDay();
+      tenKalendarz = this;
       for (index = this.iloscDniTygodnia; index > 0; --index) {
         
               this.godziny.forEach(function(godzina) {
@@ -252,6 +262,8 @@ kalendarz.prototype.ustawKalendarzLekarza = function() {
                 }
                 else {
                   komorkaZnakDostepnosci(id_dnia);
+                  lekarz = zalogowanyLekarz();
+                  tenKalendarz.clickLekarzWybieraWizyte(id_dnia, lekarz);
                 }
             });
       }
@@ -264,48 +276,42 @@ kalendarz.prototype.ustawKalendarzLekarza = function() {
     lekarz_id = this.lekarz_id;
     if (lekarz_id !== null)
     {
+      ;
       // this.wypelnijWizytyLekarza(lekarz_id);
     }         
   }
 
 
   //Funkcja - po kliknieciu danej komorka lekarz zaznacz wizyte
-  this.clickLekarzWybieraWizyte = function(id_komorki_daty) {
-   console.log(" clickPacjentWybieraWizyte:");
-
-    lekarz = zalogowanyLekarz();
-    console.log("pacjent clickPacjentWybieraWizyte:");  
-    console.log(pacjent);
-    
+  this.clickLekarzWybieraWizyte = function(id_komorki_daty, lekarz) {
 
 
-    wizyta.pacjent_id = pacjent.id;
+    // // wizyta.pacjent_id = pacjent.id;
     tenKalendarz = this;
 
 
+    $("#"+id_komorki_daty).click( function(){ 
+        console.log(" clickLekarzWybieraWizyte:");
+        komorkaZmienZaznaczOdznacz(id_komorki_daty);
 
+        data = $("#"+id_dnia).attr('data-date');
+        godzina = $("#"+id_dnia).attr('data-godzinaWizyty');
 
-    // $("#"+id_komorki_daty).click( function(){ 
-    //     komorkaZmienZaznaczOdznacz(id_komorki_daty);
+        if ( czyKomorkaOdznaczona(id_komorki_daty) ) {
+          //lekarz odznaczyl wizyte
+          console.log("Odznaczono date wizyte");  
+          wypiszLekarza(lekarz, data, godzina); 
 
-    //     data = $("#"+id_dnia).attr('data-date');
-    //     godzina = $("#"+id_dnia).attr('data-godzinaWizyty');
+          // console.log("czyToWizytaPacjenta:");
+          // console.log( czyToWizytaPacjenta(wizyta, pacjent) ); 
 
-    //     if ( czyKomorkaOdznaczona(id_komorki_daty) ) {
-    //       //pacjent odznaczyl wizyte
-    //       console.log("Odznaczono date wizyte");  
-    //       wypiszPacjenta(wizyta); 
+        } else if ( czyKomorkaZaznaczona(id_komorki_daty) ) {
+          //lekarz zaznaczyl wizyte
+          console.log("Zaznaczono date wizyty");       
+          zapiszWizyteLekarza(lekarz, data, godzina);
+        }
 
-    //       console.log("czyToWizytaPacjenta:");
-    //       console.log( czyToWizytaPacjenta(wizyta, pacjent) ); 
-
-    //     } else if ( czyKomorkaZaznaczona(id_komorki_daty) ) {
-    //       //pacjent zaznaczyl wizyte
-    //       console.log("Zaznaczono date wizyty");       
-    //       zapiszPacjentaNaWizyte(wizyta);
-    //     }
-
-    // }); 
+    }); 
   }
 }
 
