@@ -251,6 +251,7 @@ kalendarz.prototype.ustawKalendarzLekarza = function() {
     console.log(this);
       dzienTyg = this.dzisiajData.getDay();
       tenKalendarz = this;
+      lekarz = zalogowanyLekarz();      
       for (index = this.iloscDniTygodnia; index > 0; --index) {
         
               this.godziny.forEach(function(godzina) {
@@ -262,7 +263,7 @@ kalendarz.prototype.ustawKalendarzLekarza = function() {
                 }
                 else {
                   komorkaZnakDostepnosci(id_dnia);
-                  lekarz = zalogowanyLekarz();
+
                   tenKalendarz.clickLekarzWybieraWizyte(id_dnia, lekarz);
                 }
             });
