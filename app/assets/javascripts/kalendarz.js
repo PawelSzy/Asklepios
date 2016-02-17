@@ -10,8 +10,8 @@ function kalendarz() {
   this.iloscDniTygodnia = 7;
   this.lekarz_id = null;
 
-  dzisiajData = new Date();
-  this.pierwszyDzienTygodnia = ostatniPoniedzialek(dzisiajData);
+  this.dzisiajData = new Date();
+  this.pierwszyDzienTygodnia = ostatniPoniedzialek(this.dzisiajData);
   
 
 
@@ -83,6 +83,10 @@ kalendarz.prototype.wypelnijKalendarzZnakiem = function(funcjaZmienZnak) {
 kalendarz.prototype.wypelnijKalendarzPustymi = function() {
   //wypelnia komore znamiem -- nie ma rejestracji
   this.wypelnijKalendarzZnakiem(komorkaZnakBrakWyboru);
+}
+
+kalendarz.prototype.wypelnijKalendarzZnakiemDostepnosci = function() {
+   this.wypelnijKalendarzZnakiem(komorkaZnakDostepnosci);
 }
 
 //wypelnia wszystkie miejsca zajetym znakiem --

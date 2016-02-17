@@ -194,19 +194,41 @@ function czyWizytaNiezarezerowowana(wizyta) {
 //Funkcje odpowiedzialne za obsluge Lekarza
 //////////////////////////////////////////////////////
 kalendarz.prototype.ustawKalendarzLekarza = function() {
-  this.wypelnijAktualnyTydzien = function() {
-    console.log("Aktualny tydzien");
-    this.wypelnijKalendarzPustymi();
-    lekarz_id = this.lekarz_id
-    if (lekarz_id !== null)
-    {
-      this.wypelnijWizytyLekarza(lekarz_id);
-    }
+  // this.wypelnijAktualnyTydzien = function() {
+  //   console.log("Aktualny tydzien");
+  //   this.wypelnijKalendarzPustymi();
+  //   lekarz_id = this.lekarz_id
+  //   if (lekarz_id !== null)
+  //   {
+  //     this.wypelnijWizytyLekarza(lekarz_id);
+  //   }
+  // }
+
+
+  //Wypelnia wyzyty dla aktualnego tygodnia 
+  kalendarz.prototype.wypelnijAktualnyTydzien = function() {
+    console.log(this);
+      dzienTyg = this.dzisiajData.getDay();
+      for (index = this.iloscDniTygodnia; index > 0; --index) {
+        
+              this.godziny.forEach(function(godzina) {
+                // console.log(godzina);
+                id_dnia = "godz" + godzina + "dzien"+index;
+                // console.log(id_dnia);
+                if ( index <= dzienTyg) { 
+                  komorkaZnakBrakWyboru(id_dnia);
+                }
+                else {
+                  komorkaZnakDostepnosci(id_dnia);
+                }
+            });
+      }
   }
+
 
   this.wypelnijNastepnyTydzien = function() {
     console.log("Nastepny tydzien");
-    this.wypelnijKalendarzPustymi();  
+    this.wypelnijKalendarzZnakiemDostepnosci();  
     lekarz_id = this.lekarz_id;
     if (lekarz_id !== null)
     {
@@ -214,7 +236,7 @@ kalendarz.prototype.ustawKalendarzLekarza = function() {
     }         
   }
 
-  
+
 }
 
 
@@ -257,6 +279,10 @@ kalendarz.prototype.ustawKalendarzPacjenta = function() {
       this.wypelnijWizytyLekarza(lekarz_id);
     }
   }
+
+
+
+
 
   this.wypelnijNastepnyTydzien = function() {
     console.log("Nastepny tydzien");
