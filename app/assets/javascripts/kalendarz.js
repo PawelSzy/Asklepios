@@ -188,7 +188,7 @@ function komorkaZnakNiedostepna(idKomorki) {
 // -- ze w tym momencie nie ma rejestracji
 function komorkaZnakBrakWyboru(idKomorki) {
   $ ( "#"+idKomorki ).html( "<small>-- </small>" );  
-  // $ ( "#"+idKomorki ).removeClass("custom-checkbox pjTsWeeklyIconAvailable pjTsSelectorAddToCart pjTsWeeklyIconSelected pjTsSelectorRemoveFromCart tsSelectorRemoveTimeslot");
+  $ ( "#"+idKomorki ).removeClass("custom-checkbox pjTsWeeklyIconAvailable pjTsSelectorAddToCart pjTsWeeklyIconSelected pjTsSelectorRemoveFromCart tsSelectorRemoveTimeslot");
   $("#"+idKomorki).off("click");
 }
 
