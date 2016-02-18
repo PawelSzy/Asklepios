@@ -167,7 +167,8 @@ function komorkaZnakDostepnosci(idKomorki) {
 //@start - id danej komorki
 function komorkaZnakWybrano(idKomorki) {
     $( "#"+idKomorki ).html("<span  class='custom-checkbox'></span>");
-    komorkaZmienZaznaczOdznacz(idKomorki);   
+    // komorkaZmienZaznaczOdznacz(idKomorki);  
+    $("#"+idKomorki).addClass('pjTsWeeklyIconSelected pjTsSelectorRemoveFromCart tsSelectorRemoveTimeslot');     
 }
 
 //Zmienia znak wizyty - jesli komorka zaznaczona to odznacz, jesli nie zaznaczona to odznacz
@@ -187,6 +188,8 @@ function komorkaZnakNiedostepna(idKomorki) {
 // -- ze w tym momencie nie ma rejestracji
 function komorkaZnakBrakWyboru(idKomorki) {
   $ ( "#"+idKomorki ).html( "<small>-- </small>" );  
+  // $ ( "#"+idKomorki ).removeClass("custom-checkbox pjTsWeeklyIconAvailable pjTsSelectorAddToCart pjTsWeeklyIconSelected pjTsSelectorRemoveFromCart tsSelectorRemoveTimeslot");
+  $("#"+idKomorki).off("click");
 }
 
 

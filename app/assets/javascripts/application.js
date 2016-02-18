@@ -235,20 +235,13 @@ function zapiszWizyteLekarza(lekarz, data, godzina) {
 //Funkcje odpowiedzialne za obsluge Lekarza
 //////////////////////////////////////////////////////
 kalendarz.prototype.ustawKalendarzLekarza = function() {
-  // this.wypelnijAktualnyTydzien = function() {
-  //   console.log("Aktualny tydzien");
-  //   this.wypelnijKalendarzPustymi();
-  //   lekarz_id = this.lekarz_id
-  //   if (lekarz_id !== null)
-  //   {
-  //     this.wypelnijWizytyLekarza(lekarz_id);
-  //   }
-  // }
+
 
 
   //Wypelnia wyzyty dla aktualnego tygodnia 
   kalendarz.prototype.wypelnijAktualnyTydzien = function() {
     console.log(this);
+    this.wypelnijKalendarzPustymi();
     dzienTyg = this.dzisiajData.getDay();
     tenKalendarz = this;
     lekarz = zalogowanyLekarz();      
@@ -263,19 +256,19 @@ kalendarz.prototype.ustawKalendarzLekarza = function() {
               }
               else {
                 komorkaZnakDostepnosci(id_dnia);
-
                 tenKalendarz.clickLekarzWybieraWizyte(id_dnia, lekarz);
               }
-          });
+            });
     }
   }
 
 
   this.wypelnijNastepnyTydzien = function() {
     console.log("Nastepny tydzien");
-    // this.wypelnijKalendarzZnakiemDostepnosci();  
+    this.wypelnijKalendarzPustymi();  
     lekarz_id = this.lekarz_id;
-    lekarz = zalogowanyLekarz();    
+    lekarz = zalogowanyLekarz();   
+    tenKalendarz = this; 
     for (index = this.iloscDniTygodnia; index > 0; --index) {
           this.godziny.forEach(function(godzina) {
             // console.log(godzina);
@@ -298,6 +291,7 @@ kalendarz.prototype.ustawKalendarzLekarza = function() {
 
     // // wizyta.pacjent_id = pacjent.id;
     tenKalendarz = this;
+    // $("#"+id_komorki_daty).off("click");    
     $("#"+id_komorki_daty).click( function(){ 
         console.log(" clickLekarzWybieraWizyte:");
         komorkaZmienZaznaczOdznacz(id_komorki_daty);
@@ -318,7 +312,6 @@ kalendarz.prototype.ustawKalendarzLekarza = function() {
           console.log("Zaznaczono date wizyty");       
           zapiszWizyteLekarza(lekarz, data, godzina);
         }
-
     }); 
   }
 }
