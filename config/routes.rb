@@ -21,14 +21,14 @@ Rails.application.routes.draw do
   get '/nowa_wizyta' => 'badanie_lekarskies#new'  
   get '/badania_lekarskie' => 'badanie_lekarskies#kalendarz_lekarz'
 
-  post 'lekarz_tworzy_wizyte' => 'badanie_lekarskies#lekarz_tworzy_wizyte'
+  post '/lekarz_tworzy_wizyte' => 'badanie_lekarskies#lekarz_tworzy_wizyte'
   
   get '/zarejestruj_wizyte' => 'zarejestruj_wizyte#show'
   post '/zarejestruj_wizyte' => 'zarejestruj_wizyte#create'
   post '/zarejestruj_wizyte/create' => 'zarejestruj_wizyte#create'
   get'/zarejestruj_wizyte/lista_wizyt' => 'zarejestruj_wizyte#listaWizyt'
   post '/zarejestruj_wizyte/lista_wizyt' => 'zarejestruj_wizyte#listaWizyt'
-  get 'zapiszpacjentanawizyte' => 'zarejestruj_wizyte#zapiszPacjentaNaWizyte'
+  get '/zapiszpacjentanawizyte' => 'zarejestruj_wizyte#zapiszPacjentaNaWizyte'
 
 
 

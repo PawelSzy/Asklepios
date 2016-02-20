@@ -117,7 +117,7 @@ zalogowanyLekarz = function() {
 
      $.ajax({
       url: "podajzalogowanegolekarza",
-      async: false,
+      // async: false,
       type: "get",
       dataType: "json",
       success: function(zalogowany_lekarz){
@@ -221,12 +221,19 @@ function wypiszLekarza(lekarz, data, godzina) {
 function zapiszWizyteLekarza(lekarz, data, godzina) {
   console.log("zapisz Wizyte Lekarza funkcja");
       console.log(lekarz, data, godzina);
+      data = new Date(data);
+      data = jsDataIntoRuby(data);
+
+      console.log(lekarz);
+      console.log(data);
+      console.log(godzina);
+      lekarz_id = lekarz.id;
     $.ajax({
       url: "lekarz_tworzy_wizyte",
       type: "post",
       dataType: "json",
-      data: {lekarz_id: lekarz.id, data: data, godzina: godzina, pokoj_id: "1" },
-      // data: {lekarzid: lekarz_id, data: "2016-02-05", godzina: 7},
+      data: {lekarz_id: lekarz_id, data: data, godzina: godzina, pokoj_id: "1" },
+      // data: {lekarz_id: lekarz_id, data: "2016-02-21", godzina: 7, pokoj_id: "1"},
       success: function(zapisana_wizyta){
         console.log("utworzona_wizyta_przez Lekarza:");
         console.log(zapisana_wizyta)  ;     

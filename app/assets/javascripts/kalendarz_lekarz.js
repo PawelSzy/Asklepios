@@ -21,10 +21,9 @@ kalendarz.prototype.ustawKalendarzLekarza = function() {
               // console.log(godzina);
               id_dnia = "godz" + godzina + "dzien"+index;
 
+              //ustaw godzine i date w danej komorce
               dataKomorki = new Date();
               dataKomorki.setDate(ostatniPon.getDate() + index); 
-              
-              //ustaw godzine i date w danej komorce
               komorkaUstawDataGodzine(id_dnia, dataKomorki, godzina);              
 
     
@@ -34,7 +33,7 @@ kalendarz.prototype.ustawKalendarzLekarza = function() {
               }
               else {
                 komorkaZnakDostepnosci(id_dnia);
-                tenKalendarz.clickLekarzWybieraWizyte(id_dnia, lekarz);
+                tenKalendarz.clickLekarzWybieraWizyte(id_dnia);
               }
             });
     }
@@ -47,12 +46,21 @@ kalendarz.prototype.ustawKalendarzLekarza = function() {
     lekarz_id = this.lekarz_id;
     lekarz = zalogowanyLekarz();   
     tenKalendarz = this; 
+
+    ostatniPon = ostatniPoniedzialek(this.dzisiajData); 
+
     for (index = this.iloscDniTygodnia; index > 0; --index) {
           this.godziny.forEach(function(godzina) {
             // console.log(godzina);
             id_dnia = "godz" + godzina + "dzien"+index;
+
+              //ustaw godzine i date w danej komorce
+              dataKomorki = new Date();
+              dataKomorki.setDate(ostatniPon.getDate() + index); 
+              komorkaUstawDataGodzine(id_dnia, dataKomorki, godzina);
+                         
             komorkaZnakDostepnosci(id_dnia);
-            tenKalendarz.clickLekarzWybieraWizyte(id_dnia, lekarz);
+            tenKalendarz.clickLekarzWybieraWizyte(id_dnia);
         });
     }    
     // if (lekarz_id !== null)
@@ -64,11 +72,15 @@ kalendarz.prototype.ustawKalendarzLekarza = function() {
 
 
   //Funkcja - po kliknieciu danej komorka lekarz zaznacz wizyte
-  this.clickLekarzWybieraWizyte = function(id_komorki_daty, lekarz, data, godzina) {
-
+  this.clickLekarzWybieraWizyte = function(id_komorki_daty, lekarz_click ) {
 
     
     tenKalendarz = this;
+    lekarz = lekarz_click
+    // lekarz = zalogowanyLekarz()
+    data = $("#"+id_komorki_daty).attr('data-date');
+    godzina = $("#"+id_komorki_daty).attr('data-godzinaWizyty');
+
     
     // $("#"+id_komorki_daty).off("click");    
     $("#"+id_komorki_daty).click( function(){ 
@@ -86,7 +98,7 @@ kalendarz.prototype.ustawKalendarzLekarza = function() {
         } else if ( czyKomorkaZaznaczona(id_komorki_daty) ) {
           //lekarz zaznaczyl wizyte
           console.log("Zaznaczono date wizyty");       
-          // zapiszWizyteLekarza(lekarz, data, godzina);
+          zapiszWizyteLekarza(lekarz, data, godzina);
         }
     }); 
   }
