@@ -149,6 +149,8 @@ kalendarz.prototype.ustawPrzyciskiNastepnyPoprzedniTydz = function() {
 }
 
 
+
+
 /////////////////////////////////////////////////////////////////////////////////////////
 //
 //
@@ -227,4 +229,13 @@ function czyKomorkaZaznaczona(idKomorki) {
     return false;
    }
 }
+
+
+function komorkaUstawDataGodzine(id_komorki, data, godzina) {
+  //ustaw godzine i date w danej komorce
+  $("#"+id_komorki).attr('data-date', data);
+  $("#"+id_komorki).attr('data-godzinaWizyty', godzina);
+}       
+
+
 

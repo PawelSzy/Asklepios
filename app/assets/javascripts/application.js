@@ -220,6 +220,23 @@ function wypiszLekarza(lekarz, data, godzina) {
 
 function zapiszWizyteLekarza(lekarz, data, godzina) {
   console.log("zapisz Wizyte Lekarza funkcja");
+      console.log(lekarz, data, godzina);
+    $.ajax({
+      url: "lekarz_tworzy_wizyte",
+      type: "post",
+      dataType: "json",
+      data: {lekarz_id: lekarz.id, data: data, godzina: godzina, pokoj_id: "1" },
+      // data: {lekarzid: lekarz_id, data: "2016-02-05", godzina: 7},
+      success: function(zapisana_wizyta){
+        console.log("utworzona_wizyta_przez Lekarza:");
+        console.log(zapisana_wizyta)  ;     
+      },
+      error: function (xhr, ajaxOptions, thrownError) {
+        alert(xhr.status);
+        alert(thrownError);
+      }
+    }); 
+
 }
 
 
@@ -345,9 +362,10 @@ kalendarz.prototype.ustawKalendarzPacjenta = function() {
 
         id_komorki = "godz" + godzinaWizyty + "dzien"+ileDniOdPon;
 
+
+
         //ustaw godzine i date w danej komorce
-        $("#"+id_komorki).attr('data-date', wizytaData);
-        $("#"+id_komorki).attr('data-godzinaWizyty', godzinaWizyty);
+        komorkaUstawDataGodzine(id_komorki, wizytaData, godzinaWizyty)
 
         //// Ustaw typy komorki - date w ktorej lekarz jest dostepny (istnieje wizyta)
 

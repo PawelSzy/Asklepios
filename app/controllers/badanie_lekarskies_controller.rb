@@ -36,6 +36,23 @@ def badanie_params
   params.require(:badanie_lekarskie).permit(:pokoj_id, :lekarz_id, :specjalizacja_id, :year, :month, :day, :godzina, :date)
 end
 
+
+def lekarz_tworzy_wizyte
+  @badanie_lekarskie = BadanieLekarskie.new(badanie_params)
+    @badanie_lekarskie.godzina = params[:badanie_lekarskie][:godzina].to_i
+    year = params[:date][:year]
+    month = params[:date][:month]
+    day = params[:date][:day]  
+    @badanie_lekarskie.data =  Date.new(year.to_i, month.to_i, day.to_i)  
+    if @badanie_lekarskie.save
+      respond_to do |format|
+        forma.json { render json: @badanie_lekarskie}
+      end   
+    end
+
+end
+
+
 def kalendarz_lekarz
   # respond_to do |format|
   #   format.html
