@@ -21,10 +21,12 @@ kalendarz.prototype.ustawKalendarzLekarza = function() {
               // console.log(godzina);
               id_dnia = "godz" + godzina + "dzien"+index;
 
-              //ustaw godzine i date w danej komorce
-              dataKomorki = new Date();
-              dataKomorki.setDate(ostatniPon.getDate() + index); 
-              komorkaUstawDataGodzine(id_dnia, dataKomorki, godzina);              
+            //ustaw godzine i date w danej komorce
+            dataKomorki = new Date();
+            dataKomorki.setDate(pierwszyDzienTygodnia.getDate() + index-1); 
+            komorkaUstawDataGodzine(id_dnia, dataKomorki, godzina);
+
+            console.log(id_dnia, godzina, dataKomorki);            
 
     
               // console.log(id_dnia);
@@ -47,18 +49,21 @@ kalendarz.prototype.ustawKalendarzLekarza = function() {
     lekarz = zalogowanyLekarz();   
     tenKalendarz = this; 
 
-    ostatniPon = ostatniPoniedzialek(this.dzisiajData); 
+    pierwszyDzienTygodnia = this.pierwszyDzienTygodnia; 
 
     for (index = this.iloscDniTygodnia; index > 0; --index) {
           this.godziny.forEach(function(godzina) {
             // console.log(godzina);
             id_dnia = "godz" + godzina + "dzien"+index;
 
-              //ustaw godzine i date w danej komorce
-              dataKomorki = new Date();
-              dataKomorki.setDate(ostatniPon.getDate() + index); 
-              komorkaUstawDataGodzine(id_dnia, dataKomorki, godzina);
-                         
+
+            //ustaw godzine i date w danej komorce
+            dataKomorki = new Date();
+            dataKomorki.setDate(pierwszyDzienTygodnia.getDate() + index-1); 
+            komorkaUstawDataGodzine(id_dnia, dataKomorki, godzina);
+
+             console.log(id_dnia, godzina, dataKomorki);
+                       
             komorkaZnakDostepnosci(id_dnia);
             tenKalendarz.clickLekarzWybieraWizyte(id_dnia);
         });
@@ -72,18 +77,19 @@ kalendarz.prototype.ustawKalendarzLekarza = function() {
 
 
   //Funkcja - po kliknieciu danej komorka lekarz zaznacz wizyte
-  this.clickLekarzWybieraWizyte = function(id_komorki_daty, lekarz_click ) {
+  this.clickLekarzWybieraWizyte = function(id_komorki_daty) {
 
-    
-    tenKalendarz = this;
-    lekarz = lekarz_click
-    // lekarz = zalogowanyLekarz()
-    data = $("#"+id_komorki_daty).attr('data-date');
-    godzina = $("#"+id_komorki_daty).attr('data-godzinaWizyty');
+
 
     
     // $("#"+id_komorki_daty).off("click");    
     $("#"+id_komorki_daty).click( function(){ 
+
+
+        // lekarz = zalogowanyLekarz()
+        data = $("#"+id_komorki_daty).attr('data-date');
+        godzina = $("#"+id_komorki_daty).attr('data-godzinaWizyty');     
+         
         console.log(" clickLekarzWybieraWizyte:");
         komorkaZmienZaznaczOdznacz(id_komorki_daty);
 
