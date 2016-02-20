@@ -168,13 +168,22 @@ function komorkaZnakDostepnosci(idKomorki) {
 function komorkaZnakWybrano(idKomorki) {
     $( "#"+idKomorki ).html("<span  class='custom-checkbox'></span>");
     // komorkaZmienZaznaczOdznacz(idKomorki);  
-    $("#"+idKomorki).addClass('pjTsWeeklyIconSelected pjTsSelectorRemoveFromCart tsSelectorRemoveTimeslot');     
+    $("#"+idKomorki).addClass('pjTsWeeklyIconSelected pjTsSelectorRemoveFromCart tsSelectorRemoveTimeslot');  
+    console.log("komorkaZnakWybrano");
+    $("#"+idKomorki).attr('data-zaznaczona', true);   
 }
 
 //Zmienia znak wizyty - jesli komorka zaznaczona to odznacz, jesli nie zaznaczona to odznacz
 //@start - id danej komorki
 function komorkaZmienZaznaczOdznacz(idKomorki) {
   $("#"+idKomorki).toggleClass('pjTsWeeklyIconSelected pjTsSelectorRemoveFromCart tsSelectorRemoveTimeslot');
+  console.log("komorkaZmienZaznaczOdznacz"); 
+  if ( $("#"+idKomorki).attr('data-zaznaczona') !== "true") {
+    $("#"+idKomorki).attr('data-zaznaczona', "true");
+  }  else if ( $("#"+idKomorki).attr('data-zaznaczona') === "true") {
+    $("#"+idKomorki).attr('data-zaznaczona', "false");
+  }
+  
 }
 
 //wyswietle znak wizyty - komorka jest niedostepna nie mozna jej wybrac 
@@ -197,19 +206,25 @@ function komorkaZnakBrakWyboru(idKomorki) {
 //@start - id danej komorki
 //@return bolleand - jessli komorka jest odznaczona zwroc true, jesli nie zwroc false
 function czyKomorkaOdznaczona(idKomorki) {
-  if ( $("#"+idKomorki).attr('class') == 'pjTsWeeklyIconAvailable pjTsSelectorAddToCart') {
+  console.log("czyKomorkaOdznaczona");
+   if ( $("#"+idKomorki).attr('data-zaznaczona') !== "true" ){
+    console.log("komorka jest odznaczona");
     return true;
-  }
-  return false;
+   } else {
+    return false;
+   }
 }
 
 //Sprawdz czy komorka jest odznaczona 
 //@start - id danej komorki
 //@return bolleand - jessli komorka jest zaznaczona zwroc true, jesli nie jest zaznaczona zwroc false
 function czyKomorkaZaznaczona(idKomorki) {
-    if ( $("#"+idKomorki).attr('class') == 'pjTsWeeklyIconAvailable pjTsSelectorAddToCart pjTsWeeklyIconSelected pjTsSelectorRemoveFromCart tsSelectorRemoveTimeslot') {
+  console.log("czyKomorkaZaznaczona");
+   if ( $("#"+idKomorki).attr('data-zaznaczona') === "true") {
+    console.log("komorka jest zaznaczona");    
     return true;
-  }
-  return false;
+   } else {
+    return false;
+   }
 }
 
