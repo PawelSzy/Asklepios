@@ -338,33 +338,7 @@ kalendarz.prototype.ustawKalendarzPacjenta = function() {
   }
 
 
-  this.wypelnijWizytyLekarza = function(lekarz_id) {
-    console.log("wypelnijWizytyLekarza!!!!!!!!!!!!!111");
-    if (lekarz_id === null) {
-      return false;
-    };
-    tenKalendarz = this;  
-    // wyslij zapytanie ajax i odczytaj wizyty danego lekarza
-      $.ajax({
-        url: "zarejestruj_wizyte/lista_wizyt",
-        type: "post",
-        // dataType: 'script',
-        dataType: "json",
-        data: {lekarzid: lekarz_id },
-        // data: {lekarzid: lekarz_id, data: "2016-02-05", godzina: 7},
-        success: function(wizyty){
-      // tenKalendarz.ustawPierwszDzienTygodniaNaTeraz();
-          console.log(wizyty);  
-          console.log('Odczyt z JS lista_wizyt');
-          tenKalendarz.wypelnijWizyty(wizyty);
-          
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-          alert(xhr.status);
-          alert(thrownError);
-        }
-      }); 
-  }
+
 
   //funckcja wypelnia kalendarz danymi wizytami
   this.wypelnijWizyty = function(wizyty) {

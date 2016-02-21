@@ -68,11 +68,13 @@ kalendarz.prototype.ustawKalendarzLekarza = function() {
             tenKalendarz.clickLekarzWybieraWizyte(id_dnia);
         });
     }    
-    // if (lekarz_id !== null)
-    // {
-    //   ;
-    //   // this.wypelnijWizytyLekarza(lekarz_id);
-    // }         
+    tenKalendarz.wypelnijWizytyLekarza(lekarz_id);        
+  }
+
+
+  //funckcja wypelnia kalendarz danymi wizytami
+  this.wypelnijWizyty = function(wizyty) {
+    console.log("Wypelnij wizyty kalendarz lekarza");
   }
 
 
