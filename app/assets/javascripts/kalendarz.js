@@ -151,6 +151,7 @@ kalendarz.prototype.ustawPrzyciskiNastepnyPoprzedniTydz = function() {
 //Funkcja wypelnia kalendarz wizytami lekarza
 kalendarz.prototype.wypelnijWizytyLekarza = function(lekarz_id) {
   console.log("wypelnijWizytyLekarza!!!!!!!!!!!!!111");
+  console.log("lekarz_id: ", lekarz_id)
   if (lekarz_id === null) {
     return false;
   };
@@ -167,7 +168,13 @@ kalendarz.prototype.wypelnijWizytyLekarza = function(lekarz_id) {
     // tenKalendarz.ustawPierwszDzienTygodniaNaTeraz();
         console.log(wizyty);  
         console.log('Odczyt z JS lista_wizyt');
-        tenKalendarz.wypelnijWizyty(wizyty);
+        if (tenKalendarz.typKalendarza == "Pacjent_Kalendarz"){
+          tenKalendarz.wypelnijWizytyDlaClickPacjenta(wizyty);          
+        } else if (tenKalendarz.typKalendarza == "Lekarz_Kalendarz")
+        {
+          tenKalendarz.wypelnijWizytyDlaClickLekarza(wizyty);
+        }
+
         
       },
       error: function (xhr, ajaxOptions, thrownError) {

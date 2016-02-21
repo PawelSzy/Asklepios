@@ -75,8 +75,14 @@ def lekarz_wypisuje_sie_wizyta
   day = @date.mday
   @date =  Date.new(year.to_i, month.to_i, day.to_i)
 
+  print "params"
+  puts params
+
 
   @badanie_lekarskie = BadanieLekarskie.where(lekarz_id: lekarz_id, data: @date, godzina: godzina).take
+
+  puts "badanie_lekarskie"
+  puts @badanie_lekarskie
 
   if @badanie_lekarskie.destroy
      respond_to do |format|

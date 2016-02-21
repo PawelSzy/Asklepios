@@ -2,7 +2,7 @@
 //////////////////////////////////////////////////////
 kalendarz.prototype.ustawKalendarzLekarza = function() {
 
-
+  this.typKalendarza = "Lekarz_Kalendarz";
 
   //Wypelnia wyzyty dla aktualnego tygodnia 
   kalendarz.prototype.wypelnijAktualnyTydzien = function() {
@@ -11,6 +11,8 @@ kalendarz.prototype.ustawKalendarzLekarza = function() {
     dzienTyg = this.dzisiajData.getDay();
     tenKalendarz = this;
     lekarz = zalogowanyLekarz();  
+
+    
 
     ostatniPon = ostatniPoniedzialek(this.dzisiajData);   
 
@@ -45,7 +47,7 @@ kalendarz.prototype.ustawKalendarzLekarza = function() {
   this.wypelnijNastepnyTydzien = function() {
     console.log("Nastepny tydzien");
     this.wypelnijKalendarzPustymi();  
-    lekarz_id = this.lekarz_id;
+    // lekarz_id = this.lekarz_id;
     lekarz = zalogowanyLekarz();   
     tenKalendarz = this; 
 
@@ -68,13 +70,36 @@ kalendarz.prototype.ustawKalendarzLekarza = function() {
             tenKalendarz.clickLekarzWybieraWizyte(id_dnia);
         });
     }    
-    tenKalendarz.wypelnijWizytyLekarza(lekarz_id);        
+    tenKalendarz.wypelnijWizytyLekarza(lekarz.id);        
   }
 
 
   //funckcja wypelnia kalendarz danymi wizytami
-  this.wypelnijWizyty = function(wizyty) {
+  this.wypelnijWizytyDlaClickLekarza = function(wizyty) {
     console.log("Wypelnij wizyty kalendarz lekarza");
+
+    console.log("Funkcja wizyty");
+    dataPon = this.pierwszyDzienTygodnia;
+    dataNiedzie = this.niedzielaTygodnia;
+    tenKalendarz = this;
+
+    wizyty.forEach(function(wizyta) {
+      wizytaData = new Date(wizyta.data);
+      //wyswietl tylko jesli wizyta ma date znajdujacy sie w wyswietlanym tygodniu na kalendarzu
+      if  (dataPon  < wizytaData  && wizytaData < dataNiedzie) {
+
+        console.log(ileDniOdPoniedzialku(wizytaData));
+        ileDniOdPon = ileDniOdPoniedzialku(wizytaData);
+        godzinaWizyty = wizyta.godzina;
+
+
+        id_komorki = "godz" + godzinaWizyty + "dzien"+ileDniOdPon;
+
+        //// Ustaw typy komorki - date w ktorej lekarz jest dostepny (istnieje wizyta)
+        komorkaZnakWybrano(id_komorki);
+
+      };
+    });
   }
 
 

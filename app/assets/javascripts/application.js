@@ -117,7 +117,7 @@ zalogowanyLekarz = function() {
 
      $.ajax({
       url: "podajzalogowanegolekarza",
-      // async: false,
+      async: false,
       type: "get",
       dataType: "json",
       success: function(zalogowany_lekarz){
@@ -294,6 +294,8 @@ function zapiszWizyteLekarza(lekarz, data, godzina) {
 
 kalendarz.prototype.ustawKalendarzPacjenta = function() {
 
+  this.typKalendarza = "Pacjent_Kalendarz";
+
   //dodaj obsluge przyciskow Lekarzy - pobierz wizyt danego lekarza
   this.przyciskiLekarza = function() {
     tenKalendarz = this;
@@ -341,7 +343,7 @@ kalendarz.prototype.ustawKalendarzPacjenta = function() {
 
 
   //funckcja wypelnia kalendarz danymi wizytami
-  this.wypelnijWizyty = function(wizyty) {
+  this.wypelnijWizytyDlaClickPacjenta = function(wizyty) {
     console.log("Funkcja wizyty");
     dataPon = this.pierwszyDzienTygodnia;
     dataNiedzie = this.niedzielaTygodnia;
