@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   get '/badania_lekarskie' => 'badanie_lekarskies#kalendarz_lekarz'
 
   post '/lekarz_tworzy_wizyte' => 'badanie_lekarskies#lekarz_tworzy_wizyte'
+  post "/lekarz_wypisz_sie_wizyta" => 'badanie_lekarskies#lekarz_wypisuje_sie_wizyta'
   
   get '/zarejestruj_wizyte' => 'zarejestruj_wizyte#show'
   post '/zarejestruj_wizyte' => 'zarejestruj_wizyte#create'

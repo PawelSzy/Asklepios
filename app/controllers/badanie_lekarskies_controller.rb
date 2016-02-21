@@ -33,25 +33,60 @@ class BadanieLekarskiesController < ApplicationController
  end
 
 def badanie_params
-  params.require(:badanie_lekarskie).permit(:pokoj_id, :lekarz_id, :specjalizacja_id, :year, :month, :day, :godzina, :date)
+  params.permit(:pokoj_id, :lekarz_id, :specjalizacja_id, :year, :month, :day, :godzina, :date)
 end
 
 
 def lekarz_tworzy_wizyte
-  puts params
-  render json: {cos: "1"}  
-  # @badanie_lekarskie = BadanieLekarskie.new(badanie_params)
-  #   @badanie_lekarskie.godzina = params[:badanie_lekarskie][:godzina].to_i
-  #   year = params[:date][:year]
-  #   month = params[:date][:month]
-  #   day = params[:date][:day]  
-  #   @badanie_lekarskie.data =  Date.new(year.to_i, month.to_i, day.to_i)  
-  #   if @badanie_lekarskie.save
-  #     respond_to do |format|
-  #       format.json { render json: @badanie_lekarskie}
-  #     end   
-  #   end
+  @badanie_lekarskie = BadanieLekarskie.new()
+  if zalogowany_lekarz?
+    @badanie_lekarskie.lekarz_id = aktualny_lekarz.id
+  end
+    # @badanie_lekarskie.godzina = params[:godzina].to_i
+  @badanie_lekarskie.specjalizacja_id = aktualny_lekarz.specjalizacja_id
+  @badanie_lekarskie.godzina = params[:godzina].to_i
+  @badanie_lekarskie.lekarz_id = params[:lekarz_id].to_i
+  @badanie_lekarskie.pokoj_id = params[:pokoj_id]
+  @date = Date.parse(params[:date])
+
+  year = @date.year
+  month = @date.month
+  day = @date.mday
+
+  @badanie_lekarskie.data =  Date.new(year.to_i, month.to_i, day.to_i)  
+
+  if @badanie_lekarskie.save
+    respond_to do |format|
+      format.json { render json: @badanie_lekarskie}
+    end   
+  else
+    render json: {}
+  end
 end
+
+
+def lekarz_wypisuje_sie_wizyta
+  lekarz_id = params[:lekarz_id].to_i
+  godzina = params[:godzina].to_i
+  @date = Date.parse(params[:date])
+
+  year = @date.year
+  month = @date.month
+  day = @date.mday
+  @date =  Date.new(year.to_i, month.to_i, day.to_i)
+
+
+  @badanie_lekarskie = BadanieLekarskie.where(lekarz_id: lekarz_id, data: @date, godzina: godzina).take
+
+  if @badanie_lekarskie.destroy
+     respond_to do |format|
+      format.json { render json: @badanie_lekarskie}
+    end   
+  else
+    render json: {}
+  end   
+end
+
 
 
 def kalendarz_lekarz

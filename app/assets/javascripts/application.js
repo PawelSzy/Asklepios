@@ -216,6 +216,28 @@ function czyWizytaNiezarezerowowana(wizyta) {
 
 function wypiszLekarza(lekarz, data, godzina) {
   console.log("Wypisz Lekarza funkcja");
+
+  console.log(lekarz, data, godzina);
+  data = new Date(data);
+  data = jsDataIntoRuby(data);
+
+  lekarz_id = lekarz.id;
+$.ajax({
+  url: "lekarz_wypisz_sie_wizyta",
+  type: "post",
+  dataType: "json",
+  data: {lekarz_id: lekarz_id, date: data, godzina: godzina, pokoj_id: "1" },
+  // data: {lekarz_id: lekarz_id, data: "2016-02-21", godzina: 7, pokoj_id: "1"},
+  success: function(zapisana_wizyta){
+    console.log("utworzona_wizyta_przez Lekarza:");
+    console.log(zapisana_wizyta)  ;     
+  },
+  error: function (xhr, ajaxOptions, thrownError) {
+    alert(xhr.status);
+    alert(thrownError);
+  }
+}); 
+
 }
 
 function zapiszWizyteLekarza(lekarz, data, godzina) {
@@ -224,15 +246,12 @@ function zapiszWizyteLekarza(lekarz, data, godzina) {
       data = new Date(data);
       data = jsDataIntoRuby(data);
 
-      console.log(lekarz);
-      console.log(data);
-      console.log(godzina);
       lekarz_id = lekarz.id;
     $.ajax({
       url: "lekarz_tworzy_wizyte",
       type: "post",
       dataType: "json",
-      data: {lekarz_id: lekarz_id, data: data, godzina: godzina, pokoj_id: "1" },
+      data: {lekarz_id: lekarz_id, date: data, godzina: godzina, pokoj_id: "1" },
       // data: {lekarz_id: lekarz_id, data: "2016-02-21", godzina: 7, pokoj_id: "1"},
       success: function(zapisana_wizyta){
         console.log("utworzona_wizyta_przez Lekarza:");
