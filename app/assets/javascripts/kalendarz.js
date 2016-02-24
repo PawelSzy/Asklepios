@@ -136,6 +136,9 @@ kalendarz.prototype.ustawPrzyciskiNastepnyPoprzedniTydz = function() {
   console.log("ustawPrzyciskiNastepnyPoprzedniTydz");
   tenKalendarz = this;
 
+  $("#NastepnyTydzien").off();
+  $("#PoprzedniTydzien").off();
+
   //przesun date tydzien do przodu gdy klikam przycisk od id="NastepnyTydzien"
   $("#NastepnyTydzien").click( function(){  
       tenKalendarz.nastepnyTydzien();
