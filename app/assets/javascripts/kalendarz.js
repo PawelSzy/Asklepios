@@ -106,6 +106,10 @@ kalendarz.prototype.wypelnijAktualnyTydzien = function() {
   this.wypelnijKalendarzPustymi();
 }
 
+kalendarz.prototype.odczytajDatePoczatekTygodnia = function() {
+  return this.pierwszyDzienTygodnia;
+}
+
 
 //Przesuwa date kalendarza o ustalona liczbe dni
 kalendarz.prototype.przesunDate = function(przesunDni) {
@@ -159,21 +163,31 @@ kalendarz.prototype.wypelnijWizytyLekarza = function(lekarz_id) {
     return false;
   };
   tenKalendarz = this;  
+
+  poczatekTygodnia = this.odczytajDatePoczatekTygodnia();
+  console.log("poczatek_tygodnia: ");
+  console.log(poczatekTygodnia);
+  poczatekTygodniaRuby = poczatekTygodnia.toISOString().slice(0,10).replace(/-/g,"");;
+  console.log(poczatekTygodniaRuby);
   // wyslij zapytanie ajax i odczytaj wizyty danego lekarza
     $.ajax({
       url: "zarejestruj_wizyte/lista_wizyt",
       type: "post",
       // dataType: 'script',
       dataType: "json",
-      data: {lekarzid: lekarz_id },
+      data: {lekarzid: lekarz_id, poczatek_tygodnia: poczatekTygodniaRuby },
       // data: {lekarzid: lekarz_id, data: "2016-02-05", godzina: 7},
       success: function(wizyty){
     // tenKalendarz.ustawPierwszDzienTygodniaNaTeraz();
         console.log(wizyty);  
         console.log('Odczyt z JS lista_wizyt');
+
+        //Jesli to jest kalendarz wyswietlany dla Pacjenta wybierz odpowiednią funkcje
         if (tenKalendarz.typKalendarza == "Pacjent_Kalendarz"){
           tenKalendarz.wypelnijWizytyDlaClickPacjenta(wizyty);          
-        } else if (tenKalendarz.typKalendarza == "Lekarz_Kalendarz")
+        } 
+        //Jesli to jest kalendarz wyswietlany dla Lekarza wybierz odpowiednią funkcje
+        else if (tenKalendarz.typKalendarza == "Lekarz_Kalendarz")
         {
           tenKalendarz.wypelnijWizytyDlaClickLekarza(wizyty);
         }

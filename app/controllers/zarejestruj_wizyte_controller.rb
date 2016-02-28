@@ -14,12 +14,21 @@ class ZarejestrujWizyteController < ApplicationController
 
 	def listaWizyt
 			lekarzID = params[:lekarzid]
+			poczatek_tygodnia = params[:poczatek_tygodnia]
+			poczatek_tygodnia = Date.parse(poczatek_tygodnia)
+			koniec_tygodnia = poczatek_tygodnia + 6.days 
+
+			puts poczatek_tygodnia
+			puts koniec_tygodnia
 			# data = params[:data]
 			# godzina = params[:godzina]
 			# @zmienna = [lekarzID, data, godzina]
+			# @results = Result.where(date: Date.parse(startdate).beginning_of_day..Date.parse(enddate).end_of_day)			
 
 			@lekarz = Lekarz.find(lekarzID)
-			@wizyty = BadanieLekarskie.where("lekarz_id IN (?)", @lekarz.id )
+			@wizyty = BadanieLekarskie.where("lekarz_id IN (?)", @lekarz.id).where(data: poczatek_tygodnia.beginning_of_day..koniec_tygodnia.end_of_day )
+
+			puts @wizyty
 
 	   		respond_to do |format|
       			format.html
