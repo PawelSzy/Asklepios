@@ -43,6 +43,12 @@ kalendarz.prototype.ustawKalendarzLekarza = function() {
     }
   }
 
+  //@return - funkcja zwraca id pokoju wybranego przez lekarza
+  this.odczytajPokoj = function() {
+    e = document.getElementById("badanie_lekarskie_pokoj_id");
+    nr_pokoju = e.options[e.selectedIndex].value;
+    return nr_pokoju;
+  }
 
   this.wypelnijNastepnyTydzien = function() {
     console.log("Nastepny tydzien");
@@ -106,7 +112,7 @@ kalendarz.prototype.ustawKalendarzLekarza = function() {
   //Funkcja - po kliknieciu danej komorka lekarz zaznacz wizyte
   this.clickLekarzWybieraWizyte = function(id_komorki_daty) {
 
-
+    tenKalendarz = this;
 
     
     // $("#"+id_komorki_daty).off("click");    
@@ -131,7 +137,8 @@ kalendarz.prototype.ustawKalendarzLekarza = function() {
         } else if ( czyKomorkaZaznaczona(id_komorki_daty) ) {
           //lekarz zaznaczyl wizyte
           console.log("Zaznaczono date wizyty");       
-          zapiszWizyteLekarza(lekarz, data, godzina);
+          pokoj_id = tenKalendarz.odczytajPokoj();
+          zapiszWizyteLekarza(lekarz, data, godzina, pokoj_id);
         }
     }); 
   }

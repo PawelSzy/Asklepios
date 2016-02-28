@@ -240,7 +240,7 @@ $.ajax({
 
 }
 
-function zapiszWizyteLekarza(lekarz, data, godzina) {
+function zapiszWizyteLekarza(lekarz, data, godzina, pokoj_id) {
   console.log("zapisz Wizyte Lekarza funkcja");
       console.log(lekarz, data, godzina);
       data = new Date(data);
@@ -251,7 +251,7 @@ function zapiszWizyteLekarza(lekarz, data, godzina) {
       url: "lekarz_tworzy_wizyte",
       type: "post",
       dataType: "json",
-      data: {lekarz_id: lekarz_id, date: data, godzina: godzina, pokoj_id: "1" },
+      data: {lekarz_id: lekarz_id, date: data, godzina: godzina, pokoj_id: pokoj_id },
       // data: {lekarz_id: lekarz_id, data: "2016-02-21", godzina: 7, pokoj_id: "1"},
       success: function(zapisana_wizyta){
         console.log("utworzona_wizyta_przez Lekarza:");
