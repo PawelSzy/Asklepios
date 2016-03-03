@@ -1,6 +1,6 @@
 	<ul class="list-inline">
 		<% if zalogowany_pacjent? %>
-			Witaj: <%= aktualny_pacjent.imie %> <%= link_to "Wyloguj się", wyloguj_path, method: "delete" %>
+			Witaj: <%= aktualny_pacjent.imie %> <%= link_to "Wyloguj się", wyloguj_path, method: "delete" %> <%= link_to "Zarejestruj się na wizytę", '/zarejestruj_wizyte' %>
 		<% elsif zalogowany_lekarz? %>
 			Witamy Pana Lekarza: <%= aktualny_lekarz.imie %> <%= link_to "Wyloguj się", wyloguj_lekarz_path, method: "delete" %> <%= link_to "Zarejestruj nową wizytę", '/badania_lekarskie' %>
 		<% else %>

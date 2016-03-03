@@ -3,6 +3,9 @@
 <div class="container">
 <h1>
 	Zarejestruj wizyte u lekarza
+</h1>
+
+	<%= render 'info_pacjent_wizyta' %>
 
 	
 <% @specjalizacje.each do |s| %>
@@ -22,5 +25,5 @@
 <%= content_tag :div, class: "temp_information", data: {temp: @temp} do %>
 <% end %>
 
-</h1>
+
 </div>
