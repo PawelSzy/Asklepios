@@ -2,7 +2,7 @@
 		<% if zalogowany_pacjent? %>
 			Witaj: <%= aktualny_pacjent.imie %> <%= link_to "Wyloguj się", wyloguj_path, method: "delete" %>
 		<% elsif zalogowany_lekarz? %>
-			Witamy Pana Lekarza: <%= aktualny_lekarz.imie %> <%= link_to "Wyloguj się", wyloguj_lekarz_path, method: "delete" %> <%= link_to "Zarejestruj nową wizytę", '/nowa_wizyta' %>
+			Witamy Pana Lekarza: <%= aktualny_lekarz.imie %> <%= link_to "Wyloguj się", wyloguj_lekarz_path, method: "delete" %> <%= link_to "Zarejestruj nową wizytę", '/badania_lekarskie' %>
 		<% else %>
 			<%= link_to 'Zarejestruj sie', '/zarejestruj_sie' %>
 			<%= link_to 'Zarejestruj sie jako lekarz', '/nowy_lekarz' %>
