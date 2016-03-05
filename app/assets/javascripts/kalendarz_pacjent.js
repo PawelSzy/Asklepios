@@ -142,6 +142,8 @@ kalendarz.prototype.ustawKalendarzPacjenta = function() {
           console.log("Odznaczono date wizyte");  
           wypiszPacjenta(wizyta); 
 
+          alert("Wypisales sie z umowionej wizyty lekarskiej")  ;
+
           console.log("czyToWizytaPacjenta:");
           console.log( czyToWizytaPacjenta(wizyta, pacjent) ); 
 
@@ -149,6 +151,8 @@ kalendarz.prototype.ustawKalendarzPacjenta = function() {
           //pacjent zaznaczyl wizyte
           console.log("Zaznaczono date wizyty");       
           zapiszPacjentaNaWizyte(wizyta);
+          console.log(wizyta);
+          alert("Zapisales się na wizytę u lekarza: "+"\n data wizyty "+ wizyta.data + "\ngodzina wizyty "+wizyta.godzina);//+Lekarz.imie.+" "+Lekarz.nazwisko +"\n data wizyty: "+data+" godzina: "+godzina );          
         }
 
     }); 

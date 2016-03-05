@@ -229,8 +229,8 @@ $.ajax({
   data: {lekarz_id: lekarz_id, date: data, godzina: godzina, pokoj_id: "1" },
   // data: {lekarz_id: lekarz_id, data: "2016-02-21", godzina: 7, pokoj_id: "1"},
   success: function(zapisana_wizyta){
-    console.log("utworzona_wizyta_przez Lekarza:");
-    console.log(zapisana_wizyta)  ;     
+    console.log("Lekarz wyisal sie z wizyty:");
+    console.log(zapisana_wizyta)  ;   
   },
   error: function (xhr, ajaxOptions, thrownError) {
     alert(xhr.status);
