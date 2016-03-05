@@ -4,9 +4,11 @@ kalendarz.prototype.ustawKalendarzLekarza = function() {
 
   this.typKalendarza = "Lekarz_Kalendarz";
 
+  console.log("Typ kalendarza Lekarz");
+
   //Wypelnia wyzyty dla aktualnego tygodnia 
   kalendarz.prototype.wypelnijAktualnyTydzien = function() {
-    console.log(this);
+    console.log("wypelnijAktualnyTydzien Lekarz");
     this.wypelnijKalendarzPustymi();
     dzienTyg = this.dzisiajData.getDay();
     tenKalendarz = this;
@@ -142,5 +144,8 @@ kalendarz.prototype.ustawKalendarzLekarza = function() {
         }
     }); 
   }
+
+
+
 }
 
