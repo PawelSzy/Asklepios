@@ -5,7 +5,7 @@
 //funkcja odpowiada za pobranie danych ktore ustawiaja pierwszy dzien kalendarza
 //@start do funkcji przekazujemy zmienna typKalendarza o typie albo "lekarz" albo "pacjent"
 function kalendarz() {
-  this.miesiaceOdmiana = [ "stycznia", "lutego", "marca","kwietnia", "maja", "czerwica", "lipca", "sierpnia", "wrzesnia", "października", "listopada", "grudnia" ];
+  this.miesiaceOdmiana = [ "stycznia", "lutego", "marca","kwietnia", "maja", "czerwca", "lipca", "sierpnia", "wrzesnia", "października", "listopada", "grudnia" ];
   this.godziny =(function(a,b){while(a--)b[a]=a+7;return b})(11,[]);
   this.iloscDniTygodnia = 7;
   this.lekarz_id = null;
