@@ -31,12 +31,15 @@ function kalendarz() {
 //ustawia duzy napis u gory kalendarza pomiedzy strzalkami przechodzenia na nowy tydzien
 //napis informuje o wyswietlanym tygoniu np: 1 maja - 7 maja
 kalendarz.prototype.ustawNaglowekDaty = function(text) {
-  data1 = this.pierwszyDzienTygodnia.getDate();
-  miesiac1 = this.miesiaceOdmiana[ this.pierwszyDzienTygodnia.getMonth() ];
-  data2 = this.niedzielaTygodnia.getDate();
-  miesiac2 = this.miesiaceOdmiana[ this.niedzielaTygodnia.getMonth() ];
+  if(text == null)
+  {  
+    data1 = this.pierwszyDzienTygodnia.getDate();
+    miesiac1 = this.miesiaceOdmiana[ this.pierwszyDzienTygodnia.getMonth() ];
+    data2 = this.niedzielaTygodnia.getDate();
+    miesiac2 = this.miesiaceOdmiana[ this.niedzielaTygodnia.getMonth() ];
 
-  text = data1 + " " + miesiac1 + " - " + data2 + " " +miesiac2;
+    text = data1 + " " + miesiac1 + " - " + data2 + " " +miesiac2;
+  }
 
   $("#naglowek_kal_daty").text(text);
 }

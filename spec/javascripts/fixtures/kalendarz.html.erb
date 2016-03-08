@@ -1,0 +1,70 @@
+<!-- Podstawowe Zmienne -->
+<% tydzien = Array["Pon.", "Wt.", "Środ.", "Czwart.", "Piąt", "Sob", "Niedz"] %>
+<% tydzienAngielski = Array["Niedz", "Pon.", "Wt.", "Środ.", "Czwart.", "Piąt", "Sob"] %>
+<% godziny = Array(7..17) %>
+<% miesiace = Array[ "styczeń", "luty", "marzec","kwiecień", "maj", "czerwiec", "lipiec", "sierpień", "wrzesien", "październik", "listopad", "grudzień" ] %>
+<% miesiaceOdmiana = Array[ "stycznia", "lutego", "marca","kwietnia", "maja", "czerwica", "lipca", "sierpnia", "wrzesnia", "października", "listopada", "grudnia" ] %>
+
+<!-- Aktualny Czas -->
+	<!-- Wyswietl aktualny dzien tygodnia -->
+	<% timeNow = DateTime.now %>
+
+<!-- Oblicz pierwszy dzien tygodnie ktory bedzie wyswietlany -->
+<!-- Jesli dzisiaj Niedziela pierwszy dzien tygodnia to nastepny poniedzialek -->
+<% if  timeNow.wday==0 %>
+	<% pierwszyDzienKalendarza = (timeNow+1).to_date  %>
+<!-- Jesli inny dzien tygodnie to pierwszy dzien tygodnia w kalendarzu to poprzedni poniedzialek-->
+<% else %>
+	<% pierwszyDzienKalendarza = (timeNow-timeNow.wday+1).to_date %>
+<% end %>	
+
+<!-- Ustaw napi wyswietlany na kalendarzy-->
+<!-- Napis poniedzialek dzien i miesiac-->
+<% ponText = pierwszyDzienKalendarza.strftime("%d")+" "+miesiaceOdmiana[pierwszyDzienKalendarza.strftime("%m").to_i-1]  %>
+<!-- Napis niedziela dzien i miesiac-->
+<% niedzText = ( pierwszyDzienKalendarza+6 ).strftime("%d")+" "+miesiaceOdmiana[ ( pierwszyDzienKalendarza+6 ).strftime("%m").to_i-1 ]  %>
+
+<!-- Ta zmienna zluzy do pobierania danych przez javascript, Jquery -->
+<div id="pierwszyDzienKalendarza" style="display: none;"><%= pierwszyDzienKalendarza %></div>
+
+<!-- Czesc odpowiadajaca za wyswietlanie -->
+<div class = "pj-calendar">
+	<div class="pj-calendar-views">
+					<div class="btn-group pull-right" role="group" aria-label="...">
+			</div>
+	</div>
+	<div class="pj-calendar-actions">
+		<a href="#" class="btn btn-primary btn-sm pull-left pjTsSelectorWeeklyNav" data-date=<%= pierwszyDzienKalendarza %> id="PoprzedniTydzien"><span class="glyphicon glyphicon-chevron-left"></span></a>
+
+		<div class="pj-calendar-ym" id="naglowek_kal_daty"><%= ponText %> - <%= niedzText %> </div><!-- /.pj-calendar-ym -->
+
+		<a href="#" class="btn btn-primary btn-sm pull-right pjTsSelectorWeeklyNav" data-date=<%= pierwszyDzienKalendarza+6 %> id="NastepnyTydzien"><span class="glyphicon glyphicon-chevron-right"></span></a>
+	</div>
+	<!-- Wyswietl dni tygodnia -->
+	<div class="pj-calendar-head pj-calendar-head2">
+		<div class="pj-calendar-day-header"><p>&nbsp;</p></div><!-- /.pj-calendar-day-header -->
+		<% tydzien.each do |dzien| %>
+			<div class="pj-calendar-day-header"><p><%= dzien %></p></div>
+		<% end %>
+
+	<!-- Wyswietl godziny przyjec -->
+
+	<% godziny.each do |godzina| %>
+		<!-- Wyswietl poczatek wiersza - godzina  -->
+		<div class="pj-calendar-cell"><p> <%= godzina %></p></div>
+		<!-- Wyswietl komorki  dni tygodnia w wierszu-->
+		<% numer_dnia = 0 %>
+		<% tydzien.each do |dzien| %>
+			<div class="pj-calendar-cell">
+				<% numer_dnia +=1 %>
+				<% id_dnia = "godz" + godzina.to_s + "dzien"+numer_dnia.to_s %>
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id = <%= id_dnia %> >
+					<p>-- </p>
+				</label>					
+			</div>	
+		<% end %>		
+
+	<% end %>
+
+
+</div>
