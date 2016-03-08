@@ -46,12 +46,37 @@ describe("Kalendarz", function() {
     expect(kal.dzisiajData.getFullYear()).toEqual(new Date().getFullYear());    
   });
 
+  it("test kalendarz przesun data ", function() {
+
+  	poniedzialek = kal.pierwszyDzienTygodnia;
+    expect( ileDniOdPoniedzialku(poniedzialek) ).toEqual(0);
+
+    kal.pierwszyDzienTygodnia = new Date(2016,2,29);
+    expect( ileDniOdPoniedzialku(poniedzialek) ).toEqual(0);
+
+    data = new Date(2016,2,29); 
+
+    kal.przesunDate(-7);
+    expect(kal.pierwszyDzienTygodnia.getDate() ).toEqual( data.getDate() -7);
+  	
+  	kal.przesunDate(7);
+  	expect(kal.pierwszyDzienTygodnia.getDate() ).toEqual( data.getDate());
+
+  	kal.poprzedniTydzien();
+	expect(kal.pierwszyDzienTygodnia.getDate() ).toEqual( data.getDate() -7);
+
+	kal.nastepnyTydzien();	
+	expect(kal.pierwszyDzienTygodnia.getDate() ).toEqual( data.getDate());
+  });
+
+ 
   it("test naglowek kalendarza ", function() {
   	loadFixtures("kalendarz.html.erb");
   	naglowek = "test naglowek";
   	kal.ustawNaglowekDaty( naglowek );
 	expect( $('#naglowek_kal_daty').text() ).toMatch( naglowek );  
   });
-  
+
+
 });  
    
