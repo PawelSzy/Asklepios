@@ -106,9 +106,14 @@ describe("Kalendarz", function() {
     expect(kal.pierwszyDzienTygodnia.getDate() ).toEqual( data.getDate());
   });
 
-  it("test ustaw kalendarz lekarz"), function() {
+  it("test ustaw kalendarz lekarz", function() {
     kal.ustawKalendarzLekarza();
-    
+    expect(kal.typKalendarza).toMatch("Lekarz_Kalendarz");
+  });
+
+  it("test ustaw kalendarz pacjenta", function() {
+    kal.ustawKalendarzPacjenta();
+    expect(kal.typKalendarza).toMatch("Pacjent_Kalendarz");
   });
 
 });  
