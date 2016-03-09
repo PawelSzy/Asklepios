@@ -69,6 +69,19 @@ describe("Kalendarz", function() {
 	expect(kal.pierwszyDzienTygodnia.getDate() ).toEqual( data.getDate());
   });
 
+
+
+ it("test kalendarz wypelnijKalendarzPustymi i znakiem dostepnosci", function() {
+    loadFixtures("kalendarz.html.erb");  
+
+    kal.wypelnijKalendarzZnakiemDostepnosci();
+    expect( $("#godz7dzien4") ).toContainHtml( "<span  class='custom-checkbox'></span>" );
+
+    kal.wypelnijKalendarzPustymi();
+    expect( $("#godz7dzien4") ).toContainHtml( "<small>-- </small>" );
+ });
+
+
  
   it("test naglowek kalendarza ", function() {
   	loadFixtures("kalendarz.html.erb");
@@ -77,6 +90,26 @@ describe("Kalendarz", function() {
 	expect( $('#naglowek_kal_daty').text() ).toMatch( naglowek );  
   });
 
+
+  it("test kalendarz przyciski nastepny, poprzedni tydzien ", function() {
+    loadFixtures("kalendarz.html.erb"); 
+
+    kal.ustawPrzyciskiNastepnyPoprzedniTydz();
+    kal.pierwszyDzienTygodnia = new Date(2016,2,29);
+
+    data = new Date(2016,2,29); 
+
+    $("#PoprzedniTydzien").trigger('click');
+    expect(kal.pierwszyDzienTygodnia.getDate() ).toEqual( data.getDate() -7);
+    
+    $("#NastepnyTydzien").trigger('click');
+    expect(kal.pierwszyDzienTygodnia.getDate() ).toEqual( data.getDate());
+  });
+
+  it("test ustaw kalendarz lekarz"), function() {
+    kal.ustawKalendarzLekarza();
+    
+  });
 
 });  
    

@@ -5,6 +5,9 @@
 <% miesiace = Array[ "styczeń", "luty", "marzec","kwiecień", "maj", "czerwiec", "lipiec", "sierpień", "wrzesien", "październik", "listopad", "grudzień" ] %>
 <% miesiaceOdmiana = Array[ "stycznia", "lutego", "marca","kwietnia", "maja", "czerwica", "lipca", "sierpnia", "wrzesnia", "października", "listopada", "grudnia" ] %>
 
+
+<div id="test"></div>
+
 <!-- Aktualny Czas -->
 	<!-- Wyswietl aktualny dzien tygodnia -->
 	<% timeNow = DateTime.now %>
@@ -65,6 +68,513 @@
 		<% end %>		
 
 	<% end %>
+<div class="container">
+		<h1>Asklepios</h1>
 
+<h2>Witaj w portalu Asklepios - zapisz sie na wizytę u lekarza</h2>
+
+<br><br>
+
+<div class="alert alert-warning">
+  Aby rozpoczac testową wizytę <br>Wybierz na górnym pasku link: <br> 
+   <strong> Zaloguj się jako Lekarz
+  </strong> 
+</div>
+
+<div class="alert alert-info">
+  Portal stworzony z użyciem Ruby on Rails, z silnym udziałem javascript (obsługa kalendarza do zapisywania się na wizytę)
+</div>
+
+<!-- Podstawowe Zmienne -->
+
+<!-- Aktualny Czas -->
+	<!-- Wyswietl aktualny dzien tygodnia -->
+
+<!-- Oblicz pierwszy dzien tygodnie ktory bedzie wyswietlany -->
+<!-- Jesli dzisiaj Niedziela pierwszy dzien tygodnia to nastepny poniedzialek -->
+
+<!-- Ustaw napi wyswietlany na kalendarzy-->
+<!-- Napis poniedzialek dzien i miesiac-->
+<!-- Napis niedziela dzien i miesiac-->
+
+<!-- Ta zmienna zluzy do pobierania danych przez javascript, Jquery -->
+<div id="pierwszyDzienKalendarza" style="display: none;">2016-03-07</div>
+
+<!-- Czesc odpowiadajaca za wyswietlanie -->
+<div class="pj-calendar">
+	<div class="pj-calendar-views">
+					<div class="btn-group pull-right" role="group" aria-label="...">
+			</div>
+	</div>
+	<div class="pj-calendar-actions">
+		<a href="#" class="btn btn-primary btn-sm pull-left pjTsSelectorWeeklyNav" data-date="2016-03-07" id="PoprzedniTydzien"><span class="glyphicon glyphicon-chevron-left"></span></a>
+
+		<div class="pj-calendar-ym" id="naglowek_kal_daty">07 marca - 13 marca </div><!-- /.pj-calendar-ym -->
+
+		<a href="#" class="btn btn-primary btn-sm pull-right pjTsSelectorWeeklyNav" data-date="2016-03-13" id="NastepnyTydzien"><span class="glyphicon glyphicon-chevron-right"></span></a>
+	</div>
+	<!-- Wyswietl dni tygodnia -->
+	<div class="pj-calendar-head pj-calendar-head2">
+		<div class="pj-calendar-day-header"><p>&nbsp;</p></div><!-- /.pj-calendar-day-header -->
+			<div class="pj-calendar-day-header"><p>Pon.</p></div>
+			<div class="pj-calendar-day-header"><p>Wt.</p></div>
+			<div class="pj-calendar-day-header"><p>Środ.</p></div>
+			<div class="pj-calendar-day-header"><p>Czwart.</p></div>
+			<div class="pj-calendar-day-header"><p>Piąt</p></div>
+			<div class="pj-calendar-day-header"><p>Sob</p></div>
+			<div class="pj-calendar-day-header"><p>Niedz</p></div>
+
+	<!-- Wyswietl godziny przyjec -->
+
+		<!-- Wyswietl poczatek wiersza - godzina  -->
+		<div class="pj-calendar-cell"><p> 7</p></div>
+		<!-- Wyswietl komorki  dni tygodnia w wierszu-->
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz7dzien1">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz7dzien2">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz7dzien3">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz7dzien4">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz7dzien5">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz7dzien6">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz7dzien7">
+					<p>-- </p>
+				</label>					
+			</div>	
+
+		<!-- Wyswietl poczatek wiersza - godzina  -->
+		<div class="pj-calendar-cell"><p> 8</p></div>
+		<!-- Wyswietl komorki  dni tygodnia w wierszu-->
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz8dzien1">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz8dzien2">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz8dzien3">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz8dzien4">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz8dzien5">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz8dzien6">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz8dzien7">
+					<p>-- </p>
+				</label>					
+			</div>	
+
+		<!-- Wyswietl poczatek wiersza - godzina  -->
+		<div class="pj-calendar-cell"><p> 9</p></div>
+		<!-- Wyswietl komorki  dni tygodnia w wierszu-->
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz9dzien1">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz9dzien2">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz9dzien3">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz9dzien4">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz9dzien5">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz9dzien6">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz9dzien7">
+					<p>-- </p>
+				</label>					
+			</div>	
+
+		<!-- Wyswietl poczatek wiersza - godzina  -->
+		<div class="pj-calendar-cell"><p> 10</p></div>
+		<!-- Wyswietl komorki  dni tygodnia w wierszu-->
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz10dzien1">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz10dzien2">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz10dzien3">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz10dzien4">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz10dzien5">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz10dzien6">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz10dzien7">
+					<p>-- </p>
+				</label>					
+			</div>	
+
+		<!-- Wyswietl poczatek wiersza - godzina  -->
+		<div class="pj-calendar-cell"><p> 11</p></div>
+		<!-- Wyswietl komorki  dni tygodnia w wierszu-->
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz11dzien1">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz11dzien2">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz11dzien3">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz11dzien4">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz11dzien5">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz11dzien6">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz11dzien7">
+					<p>-- </p>
+				</label>					
+			</div>	
+
+		<!-- Wyswietl poczatek wiersza - godzina  -->
+		<div class="pj-calendar-cell"><p> 12</p></div>
+		<!-- Wyswietl komorki  dni tygodnia w wierszu-->
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz12dzien1">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz12dzien2">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz12dzien3">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz12dzien4">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz12dzien5">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz12dzien6">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz12dzien7">
+					<p>-- </p>
+				</label>					
+			</div>	
+
+		<!-- Wyswietl poczatek wiersza - godzina  -->
+		<div class="pj-calendar-cell"><p> 13</p></div>
+		<!-- Wyswietl komorki  dni tygodnia w wierszu-->
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz13dzien1">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz13dzien2">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz13dzien3">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz13dzien4">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz13dzien5">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz13dzien6">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz13dzien7">
+					<p>-- </p>
+				</label>					
+			</div>	
+
+		<!-- Wyswietl poczatek wiersza - godzina  -->
+		<div class="pj-calendar-cell"><p> 14</p></div>
+		<!-- Wyswietl komorki  dni tygodnia w wierszu-->
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz14dzien1">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz14dzien2">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz14dzien3">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz14dzien4">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz14dzien5">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz14dzien6">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz14dzien7">
+					<p>-- </p>
+				</label>					
+			</div>	
+
+		<!-- Wyswietl poczatek wiersza - godzina  -->
+		<div class="pj-calendar-cell"><p> 15</p></div>
+		<!-- Wyswietl komorki  dni tygodnia w wierszu-->
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz15dzien1">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz15dzien2">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz15dzien3">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz15dzien4">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz15dzien5">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz15dzien6">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz15dzien7">
+					<p>-- </p>
+				</label>					
+			</div>	
+
+		<!-- Wyswietl poczatek wiersza - godzina  -->
+		<div class="pj-calendar-cell"><p> 16</p></div>
+		<!-- Wyswietl komorki  dni tygodnia w wierszu-->
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz16dzien1">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz16dzien2">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz16dzien3">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz16dzien4">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz16dzien5">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz16dzien6">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz16dzien7">
+					<p>-- </p>
+				</label>					
+			</div>	
+
+		<!-- Wyswietl poczatek wiersza - godzina  -->
+		<div class="pj-calendar-cell"><p> 17</p></div>
+		<!-- Wyswietl komorki  dni tygodnia w wierszu-->
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz17dzien1">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz17dzien2">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz17dzien3">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz17dzien4">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz17dzien5">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz17dzien6">
+					<p>-- </p>
+				</label>					
+			</div>	
+			<div class="pj-calendar-cell">
+				<label class="pjTsWeeklyIconAvailable pjTsSelectorAddToCart" data-date="2016-01-19" data-start_ts="1453190400" data-end_ts="1453194000" id="godz17dzien7">
+					<p>-- </p>
+				</label>					
+			</div>	
+
+
+
+</div>
+
+	</div>	
+<footer class="stopka">
+<div>
+	<hr><br>
+	Testowa portalu lekarskiego stworzona przez Pawla Szymańskiego <br>
+	 w celu testowania Ruby on Rails
+	 <li><a href="/o_nas">O Nas</a></li>
+</div>
+</footer>
+
+<pre class="debug_dump">--- !ruby/hash:ActionController::Parameters
+controller: strony
+action: home
+</pre>
+
+
+</div>
 
 </div>
